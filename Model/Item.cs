@@ -9,5 +9,6 @@ namespace TowerOfTerror.Model
 {
     public class Item
     {
+        // stuff goes here
     }
 }
