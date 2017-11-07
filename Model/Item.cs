@@ -12,6 +12,7 @@ namespace TowerOfTerror.Model
     {
         public static int index = 1;
         public int Index { get; set; }
+        public int Factor { get; set; }
         public PowerUp Type { get; set; }
 
         // Drop an item of the specified type
