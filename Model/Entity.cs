@@ -10,7 +10,7 @@ namespace TowerOfTerror.Model
     // Enumerated type that determines whether an entity is alive, dead, or falling
     public enum Life { Alive, Dead, Falling };
 
-    //asdf
+    // Enumerated type that determines the kind of entity
     public enum Type { Character, Enemy };
 
     // Contains general information for all living things
