@@ -7,13 +7,15 @@ using System.Windows;
 
 namespace TowerOfTerror.Model
 {
-    // Enumerated type that determines whether an entity is alive, dead, or falling.
+    // Enumerated type that determines whether an entity is alive, dead, or falling
     public enum Life { Alive, Dead, Falling };
+
+    //asdf
+    public enum Type { Character, Enemy };
 
     // Contains general information for all living things
     abstract class Entity
     {
-        public int Id { get; }
         public string Image { get; set; }
         public Point Position { get; set; }
         public int Power { get; set; }
@@ -26,5 +28,11 @@ namespace TowerOfTerror.Model
 
         // Is the entity dead? Handle each differently
         public abstract bool IsDead();
+
+        // Is the entity falling?
+        public abstract bool IsFalling();
+
+        // Returns a string matching the kind of entity it is
+        public abstract Type GetKind();
     }
 }

@@ -68,8 +68,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Character.cs" />
+    <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\HighScores.cs" />
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
