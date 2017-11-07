@@ -26,5 +26,18 @@ namespace TowerOfTerror.Model
 
         // Is the entity dead? Handle each differently
         public abstract bool IsDead();
+
+        public virtual List<string> Serialize()
+        {
+            //convert each Property value to a string and stick them all in a List
+            List<string> fakeList = new List<string>();
+            return fakeList;
+        }
+
+        public virtual void Deserialize()
+        {
+            //get Entity List of save data
+            //Loop through and assign each property its saved value
+        }
     }
 }
