@@ -105,5 +105,8 @@
     <Resource Include="Hub\ToT.gamescreen.jpg" />
     <Resource Include="Hub\ToT.titlescreen.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hub\Cool Text - Tower of Terror 265017376899504.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
