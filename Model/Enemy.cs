@@ -24,6 +24,7 @@ namespace TowerOfTerror.Model
             this.Health = 100;
             this.Status = Life.Alive;
         }
+
         public override void Attack()
         {
             throw new NotImplementedException();
