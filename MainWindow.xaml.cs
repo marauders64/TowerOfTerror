@@ -18,7 +18,8 @@ namespace TowerOfTerror
     /// <summary>
     /// Interaction logic for MainWindow.xaml Mehoymeny
     /// Interaction logic for MainWindow.xaml
-    /// destroy the univereises
+    /// destroy the universe 
+    /// NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
     /// </summary>
     public partial class MainWindow : Window
     {
