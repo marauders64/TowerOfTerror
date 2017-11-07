@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 namespace TowerOfTerror
 {
     /// <summary>
+    /// Interaction logic for MainWindow.xaml Mehoymeny
     /// Interaction logic for MainWindow.xaml
     /// destroy the univereises
     /// </summary>
