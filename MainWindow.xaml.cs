@@ -17,6 +17,7 @@ namespace TowerOfTerror
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
+    /// destroy the univereises
     /// </summary>
     public partial class MainWindow : Window
     {
