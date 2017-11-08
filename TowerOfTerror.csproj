@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\GameController.cs" />
+    <Compile Include="Model\ModelTest.cs" />
     <Compile Include="Model\Serializable.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
