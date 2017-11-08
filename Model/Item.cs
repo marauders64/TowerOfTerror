@@ -8,7 +8,7 @@ using System.Windows;
 namespace TowerOfTerror.Model
 {
     public enum PowerUp { AtkBuff, DefBuff, Heal };
-    public class Item
+    public class Item 
     {
         public static int index = 1;
         public int Index { get; set; }
