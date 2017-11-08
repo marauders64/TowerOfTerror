@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TowerOfTerror.Model
+{
+    // Indicates whether the entity was hit, missed, killed, or dropped
+    public enum AttackResult { Hit, Miss, Kill, Drop }
+
+    // Sets the difficulty of the level
+    public enum Difficulty { Easy, Medium, Hard }
+
+    // Manages game logic
+    class GameController
+    {
+        public List<Level> Floors { get; set; }
+        public Difficulty Setting { get; set; }
+        
+        public GameController(Difficulty setting)
+        {
+            this.Setting = setting;
+            this.Floors = new List<Level>();
+        }
+
+        // Populate the Level list with three levels
+        public void Setup()
+        {
+            throw new NotImplementedException();
+        }
+
+        // Returns whether or not the game has ended (player completes final level or dies)
+        public bool IsGameOver()
+        {
+            return false;
+        }
+
+        // Records the result of an attack and does the corresponding logic
+        public AttackResult AttackResult()
+        {
+            return Model.AttackResult.Hit;
+        }
+    }
+}
