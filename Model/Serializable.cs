@@ -8,8 +8,8 @@ namespace TowerOfTerror.Model
 {
     interface ISerializable
     {
-        void Serialize();
-        void Deserialize();
+        List<string> Serialize();
+        void Deserialize(List<Object> data);
     }
 
 }
