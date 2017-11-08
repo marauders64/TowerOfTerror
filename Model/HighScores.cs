@@ -9,8 +9,8 @@ namespace TowerOfTerror.Model
 {
     class HighScores
     {
-        public Dictionary<string, int> HighScoreDict { get; }
-        public List<int> ScoreList { get; set; }
+        //public Dictionary<string, int> HighScoreDict { get; }
+        //public List<int> ScoreList { get; set; }
         public List<string[]> Scores { get; set; }
 
         private StreamReader reader;
