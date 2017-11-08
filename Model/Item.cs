@@ -8,7 +8,7 @@ using System.Windows;
 namespace TowerOfTerror.Model
 {
     public enum PowerUp { AtkBuff, DefBuff, Heal };
-    public class Item 
+    public class Item : ISerializable
     {
         public static int index = 1;
         public int Index { get; set; }
@@ -29,6 +29,19 @@ namespace TowerOfTerror.Model
             this.Index = index;
             index++;
             this.Type = PowerUp.Heal;
+        }
+
+        public List<string> Serialize()
+        {
+            //convert each Property value to a string and stick them all in a List
+            List<string> fakeList = new List<string>();
+            return fakeList;
+        }
+
+        public void Deserialize(List<Object> savedData)
+        {
+            //get Entity List of save data
+            //Loop through and assign each property its corresponding saved value
         }
     }
 }

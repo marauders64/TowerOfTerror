@@ -14,7 +14,7 @@ namespace TowerOfTerror.Model
     public enum Type { Character, Enemy };
 
     // Contains general information for all living things
-    abstract class Entity
+    abstract class Entity : ISerializable
     {
         public string Image { get; set; }
         public Point Position { get; set; }
@@ -35,17 +35,8 @@ namespace TowerOfTerror.Model
         // Returns a string matching the kind of entity it is
         public abstract Type GetKind();
 
-        public virtual List<string> Serialize()
-        {
-            //convert each Property value to a string and stick them all in a List
-            List<string> fakeList = new List<string>();
-            return fakeList;
-        }
+        public abstract List<string> Serialize();
 
-        public virtual void Deserialize()
-        {
-            //get Entity List of save data
-            //Loop through and assign each property its saved value
-        }
+        public abstract void Deserialize(List<Object> savedData);
     }
 }

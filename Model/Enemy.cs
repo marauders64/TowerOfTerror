@@ -44,5 +44,19 @@ namespace TowerOfTerror.Model
         {
             throw new NotImplementedException();
         }
+
+        public override List<string> Serialize()
+        {
+            //convert each Property value to a string and stick them all in a List
+            List<string> fakeList = new List<string>();
+            return fakeList;
+        }
+
+        public override void Deserialize(List<object> savedData)
+        {
+            //get Entity List of save data
+            //Loop through and assign each property its corresponding saved value
+            throw new NotImplementedException();
+        }
     }
 }
