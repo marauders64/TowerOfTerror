@@ -13,7 +13,7 @@ namespace TowerOfTerror.Model
     public enum Difficulty { Easy, Medium, Hard }
 
     // Manages game logic
-    class GameController
+    class GameController : ISerializable
     {
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
@@ -40,6 +40,20 @@ namespace TowerOfTerror.Model
         public AttackResult AttackResult()
         {
             return Model.AttackResult.Hit;
+        }
+
+        public List<string> Serialize()
+        {
+            //convert each Property value to a string and stick them all in a List
+            List<string> fakeList = new List<string>();
+            return fakeList;
+        }
+
+        public void Deserialize(List<object> savedData)
+        {
+            //get Entity List of save data
+            //Loop through and assign each property its corresponding saved value
+            throw new NotImplementedException();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace TowerOfTerror.Model
     enum LevelType { Basic, Final }
 
     // Contains data for the levels
-    class Level
+    class Level : ISerializable
     {
         public static int num = 0;
         public int Num { get; set; }
@@ -42,6 +42,21 @@ namespace TowerOfTerror.Model
         public bool LevelComplete()
         {
             return false;
+        }
+
+        // only needed if Player saves game mid-level
+        public List<string> Serialize()
+        {
+            //convert each Property value to a string and stick them all in a List
+            List<string> fakeList = new List<string>();
+            return fakeList;
+        }
+
+        public void Deserialize(List<object> savedData)
+        {
+            //get Entity List of save data
+            //Loop through and assign each property its corresponding saved value
+            throw new NotImplementedException();
         }
     }
 }
