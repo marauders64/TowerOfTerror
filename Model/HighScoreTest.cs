@@ -13,7 +13,7 @@ namespace TowerOfTerror.Model
         [TestMethod]
         public void AddHighScores_Works()
         {
-            HighScores scores = new HighScores();
+            HighScores scores = HighScores.Leaderboard;
             scores.AddHighScore("Jon", 1330);
             scores.AddHighScore("Sue", 42);
             Assert.IsTrue(scores.Scores[0][0] == "Jon");
@@ -25,13 +25,12 @@ namespace TowerOfTerror.Model
         [TestMethod]
         public void AddHighScoresList_Works()
         {
-            HighScores highscore = new HighScores();
-            highscore.AddHighScore("Answer", 42);
-            highscore.AddHighScore("Mel", 166);
-            highscore.AddHighScore("Kirk", 133000);
-            Assert.IsTrue(highscore.Scores[0][1] == "133000");
-            Assert.IsTrue(highscore.Scores[1][1] == "166");
-            Assert.IsTrue(highscore.Scores[2][1] == "42");
+            HighScores.Leaderboard.AddHighScore("Answer", 42);
+            HighScores.Leaderboard.AddHighScore("Mel", 166);
+            HighScores.Leaderboard.AddHighScore("Kirk", 133000);
+            Assert.IsTrue(HighScores.Leaderboard.Scores[0][1] == "133000");
+            Assert.IsTrue(HighScores.Leaderboard.Scores[1][1] == "166");
+            Assert.IsTrue(HighScores.Leaderboard.Scores[2][1] == "42");
         }
 
 
