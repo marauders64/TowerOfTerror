@@ -55,5 +55,15 @@ namespace TowerOfTerror.Model
             //Loop through and assign each property its corresponding saved value
             throw new NotImplementedException();
         }
+
+        public void Save()
+        {
+
+        }
+
+        public void Load(string txtFile)
+        {
+
+        }
     }
 }
