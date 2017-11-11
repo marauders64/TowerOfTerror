@@ -31,9 +31,15 @@ namespace TowerOfTerror.Model
             this.Type = PowerUp.Heal;
         }
 
+        /// <summary>
+        /// Creates and returns a list of stringified state data for this GameController.
+        /// List begins with a header ("GameController") in index 0, and then serializes each property in turn
+        /// </summary>
+        /// <returns>list of game state information to be saved</returns>
         public List<string> Serialize()
         {
-            //convert each Property value to a string and stick them all in a List
+            //don't implement until we get to the Save btn stage
+            //right now all the items will be accounted for in Character's Item list
             List<string> fakeList = new List<string>();
             return fakeList;
         }

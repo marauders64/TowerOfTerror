@@ -66,11 +66,31 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creates and returns a list of stringified state data for this Character.
+        /// List begins with a "character" header in index 0, and then serializes each property in turn
+        /// </summary>
+        /// <returns>list of Character state information to be saved</returns>
         public override List<string> Serialize()
         {
-            //convert each Property value to a string and stick them all in a List
-            List<string> fakeList = new List<string>();
-            return fakeList;
+            List<string> data = new List<string>();
+            data.Add("Character"); // "header" info
+            data.Add(Name);
+            data.Add(Image); // should already be a string: image name or a reference to its location
+            data.Add(Position.X.ToString());
+            data.Add(Position.Y.ToString());
+            data.Add(Power.ToString());
+            data.Add(Defense.ToString());
+            data.Add(Health.ToString());
+            data.Add(Status.ToString());
+            data.Add("items"); // "sub-header" that may go away; for now will eventually let Deserialize know that a list needs to be reconstructed
+            
+            foreach (Item item in inventory)
+            {
+                data.Add(item.ToString());
+            }
+            
+            return data;
         }
 
         public override void Deserialize(List<object> savedData)

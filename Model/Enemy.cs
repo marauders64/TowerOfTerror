@@ -45,11 +45,25 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creates and returns a list of stringified state data for this Enemy.
+        /// List begins with a header ("Enemy") in index 0, and then serializes each property in turn
+        /// </summary>
+        /// <returns>list of Enemy state information to be saved</returns>
         public override List<string> Serialize()
         {
-            //convert each Property value to a string and stick them all in a List
-            List<string> fakeList = new List<string>();
-            return fakeList;
+            List<string> data = new List<string>();
+            data.Add("Enemy"); // "header" info
+            data.Add(Id.ToString());
+            data.Add(Image);
+            data.Add(Position.X.ToString());
+            data.Add(Position.Y.ToString());
+            data.Add(Power.ToString());
+            data.Add(Defense.ToString());
+            data.Add(Health.ToString());
+            data.Add(Status.ToString());
+
+            return data;
         }
 
         public override void Deserialize(List<object> savedData)

@@ -42,11 +42,20 @@ namespace TowerOfTerror.Model
             return Model.AttackResult.Hit;
         }
 
+        /// <summary>
+        /// Creates and returns a list of stringified state data for this GameController.
+        /// List begins with a header ("GameController") in index 0, and then serializes each property in turn
+        /// </summary>
+        /// <returns>list of game state information to be saved</returns>
         public List<string> Serialize()
         {
-            //convert each Property value to a string and stick them all in a List
-            List<string> fakeList = new List<string>();
-            return fakeList;
+            List<string> data= new List<string>();
+            data.Add("GameController");
+            //add reference to which Floor we're on right now
+            //add reference to Character... I think...
+            data.Add(Setting.ToString());
+
+            return data;
         }
 
         public void Deserialize(List<object> savedData)
