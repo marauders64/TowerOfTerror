@@ -12,6 +12,9 @@ namespace TowerOfTerror.Model
     // Sets the difficulty of the level
     public enum Difficulty { Easy, Medium, Hard }
 
+    // Gives the direction an entity is facing or moving
+    public enum Direction { Up, Down, Left, Right }
+
     // Manages game logic
     class GameController : ISerializable
     {

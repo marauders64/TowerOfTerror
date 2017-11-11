@@ -37,9 +37,9 @@ namespace TowerOfTerror.Model
         }
 
         // Attack the enemy and reduce enemy health
-        public override void Attack()
+        public override void Attack(Entity hitenemy)
         {
-            throw new NotImplementedException();
+            hitenemy.Health -= (this.Power / hitenemy.Defense) * 10;
         }
 
         // Returns true if Life is dead
@@ -64,6 +64,27 @@ namespace TowerOfTerror.Model
         public void UseItem(int ind)
         {
             throw new NotImplementedException();
+        }
+
+        public override void Move(Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Up:
+                    this.Position = new Point(Position.X, Position.Y + 10);
+                    break;
+                case Direction.Down:
+                    this.Position = new Point(Position.X, Position.Y - 10);
+                    break;
+                case Direction.Right:
+                    this.Position = new Point(Position.X + 10, Position.Y);
+                    break;
+                case Direction.Left:
+                    this.Position = new Point(Position.X - 10, Position.Y);
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>

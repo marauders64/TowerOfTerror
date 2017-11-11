@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TowerOfTerror.Model;
 
 namespace TowerOfTerror.Model
 {
+
     // Information control for enemies in the game
     class Enemy : Entity
     {
@@ -25,9 +27,9 @@ namespace TowerOfTerror.Model
             this.Status = Life.Alive;
         }
 
-        public override void Attack()
+        public override void Attack(Entity hitenemy)
         {
-            throw new NotImplementedException();
+            hitenemy.Health -= (this.Power / hitenemy.Defense) * 10;
         }
 
         public override Type GetKind()
@@ -43,6 +45,27 @@ namespace TowerOfTerror.Model
         public override bool IsFalling()
         {
             throw new NotImplementedException();
+        }
+
+        public override void Move(Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Up:
+                    this.Position = new Point(Position.X, Position.Y + 10);
+                    break;
+                case Direction.Down:
+                    this.Position = new Point(Position.X, Position.Y - 10);
+                    break;
+                case Direction.Right:
+                    this.Position = new Point(Position.X + 10, Position.Y);
+                    break;
+                case Direction.Left:
+                    this.Position = new Point(Position.X - 10, Position.Y);
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>

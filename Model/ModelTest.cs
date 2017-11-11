@@ -17,7 +17,7 @@ namespace TowerOfTerror.Model
         {
             Character hero = new Character();
             Enemy villain = new Enemy();
-            hero.Attack();
+            hero.Attack(villain);
             AttackResult result = AttackResult.Hit;
             Assert.IsTrue(villain.Health == 95);
         }

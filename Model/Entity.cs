@@ -24,7 +24,7 @@ namespace TowerOfTerror.Model
         public Life Status { get; set; }
 
         // Whoever you are, do an attack
-        public abstract void Attack();
+        public abstract void Attack(Entity hitenemy);
 
         // Is the entity dead? Handle each differently
         public abstract bool IsDead();
@@ -34,6 +34,8 @@ namespace TowerOfTerror.Model
 
         // Returns a string matching the kind of entity it is
         public abstract Type GetKind();
+
+        public abstract void Move(Direction direction);
 
         public abstract List<string> Serialize();
 
