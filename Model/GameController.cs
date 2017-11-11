@@ -20,6 +20,9 @@ namespace TowerOfTerror.Model
     {
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
+        public List<Entity> Enemies { get; set; }
+
+        public static Random rand = new Random();
         
         public GameController(Difficulty setting)
         {
@@ -31,6 +34,43 @@ namespace TowerOfTerror.Model
         public void Setup()
         {
             throw new NotImplementedException();
+        }
+
+        // Does the logic for when the player attacks
+        public void PlayerAttack(Entity character, Entity enemy)
+        {
+            character.Attack(enemy);
+        }
+
+        // Does the logic for when the player moves
+        public void UpdatePositions(Character character, Direction direction)
+        {
+            character.Move(direction);
+            foreach (Entity enemy in Enemies)
+            {
+                //Need to Fix
+                int i = rand.Next(1, 5);
+                Direction dir;
+                switch(i)
+                {
+                    case 1:
+                        dir = Direction.Up;
+                        break;
+                    case 2:
+                        dir = Direction.Down;
+                        break;
+                    case 3:
+                        dir = Direction.Left;
+                        break;
+                    case 4:
+                        dir = Direction.Right;
+                        break;
+                    default:
+                        dir = Direction.Up;
+                        break;
+                }
+                enemy.Move(dir);
+            }
         }
 
         // Returns whether or not the game has ended (player completes final level or dies)

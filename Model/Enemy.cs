@@ -39,7 +39,14 @@ namespace TowerOfTerror.Model
 
         public override bool IsDead()
         {
-            throw new NotImplementedException();
+            if(Health <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public override bool IsFalling()

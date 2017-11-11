@@ -13,13 +13,14 @@ namespace TowerOfTerror.Model
     {
         GameController gc = new GameController(Difficulty.Easy);
         
+        [TestMethod]
         public void Attack_EnemyTakesDamage()
         {
             Character hero = new Character();
             Enemy villain = new Enemy();
             hero.Attack(villain);
             AttackResult result = AttackResult.Hit;
-            Assert.IsTrue(villain.Health == 95);
+            Assert.IsTrue(villain.Health == 90);
         }
 
 

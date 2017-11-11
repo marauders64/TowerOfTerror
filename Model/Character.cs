@@ -45,7 +45,14 @@ namespace TowerOfTerror.Model
         // Returns true if Life is dead
         public override bool IsDead()
         {
-            throw new NotImplementedException();
+            if (Health <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Returns true if Life is falling

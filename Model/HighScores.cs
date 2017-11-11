@@ -11,11 +11,7 @@ namespace TowerOfTerror.Model
     {
         //public Dictionary<string, int> HighScoreDict { get; }
         //public List<int> ScoreList { get; set; }
-        public List<string[]> Scores { get; set; }
-
-        private StreamReader reader;
-
-        private StreamWriter writer;
+        public List<HighScore> Scores { get; set; }
 
         public static HighScores Leaderboard { get; }
 
@@ -27,16 +23,30 @@ namespace TowerOfTerror.Model
 
         //Adds a score to the Scores list and sorts the list.
         //Adds the score to the score file.
-        public void AddHighScore(string name, int score)
+        public void AddHighScore(HighScore score)
         {
-
+            StreamWriter writer;
         }
 
         //Gets the high scores from a file and sorts them based on score.
         public void GetHighScores()
         {
-
+            StreamReader reader;
         }
 
     }
+
+    class HighScore
+    {
+        public string Name { get; set; }
+        public int Score { get; set; }
+
+        public HighScore(string name, int score )
+        {
+            Name = name;
+            Score = score;
+        }
+
+    }
+
 }
