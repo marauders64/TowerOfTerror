@@ -79,6 +79,7 @@
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\HighScoreTest.cs" />
     <Compile Include="Model\Level.cs" />
+    <Compile Include="Model\SerializeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

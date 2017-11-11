@@ -44,12 +44,20 @@ namespace TowerOfTerror.Model
             return false;
         }
 
-        // only needed if Player saves game mid-level
+        /// <summary>
+        /// Creates and returns a list of stringified state data for this Level (which provides access to Enemies, etc.).
+        /// List begins with a header ("Level") in index 0, and then serializes each property in turn
+        /// Note: enemy information is omitted--saving Enemy information is GameController's job
+        /// </summary>
+        /// <returns>list of level information to be saved</returns>
         public List<string> Serialize()
         {
-            //convert each Property value to a string and stick them all in a List
-            List<string> fakeList = new List<string>();
-            return fakeList;
+            List<string> data = new List<string>();
+            data.Add("Level"); // "header" info
+            data.Add(Num.ToString());
+            data.Add(Type.ToString());
+
+            return data;
         }
 
         public void Deserialize(List<object> savedData)

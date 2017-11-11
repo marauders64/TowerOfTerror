@@ -67,12 +67,17 @@ namespace TowerOfTerror.Model
 
         public void Save()
         {
+            // create a new file and open it
+            //call Serialize and write the result to file
+            // call Level's Serialize and write to file
+            //using the reference to the Floor as a reference point, loop through all Enemies and call Serialize
+            //Character Seralize
 
         }
 
         public void Load(string txtFile)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
