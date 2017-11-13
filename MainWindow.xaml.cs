@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -17,14 +18,11 @@ using TowerOfTerror.Model;
 namespace TowerOfTerror
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml Mehoymeny
-    /// Interaction logic for MainWindow.xaml
-    /// destroy the universe
-    /// NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-    /// Ok I won't
+    /// Contains front end logic for the Tower of Terror game
     /// </summary>
     public partial class MainWindow : Window
     {
+        GameController ctrl = new GameController(Difficulty.Easy);
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +30,7 @@ namespace TowerOfTerror
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            // Start the Game
+            Popup prepGame = new Popup();
         }
 
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
@@ -83,6 +81,18 @@ Use Item: Click on it in the sidebar (100 level)";
             MessageBoxButton exit = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBox.Show(scores, "How to Play", exit, icon);
+        }
+
+        // Invisible button that activates cheat mode
+        // Also changes the Start Game button to Cheating (Yellow) or Not (Alice Blue)
+        private void btnCheatMode_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (btnStartGame.Background == Brushes.Yellow)
+                btnStartGame.Background = Brushes.AliceBlue;
+            else
+                btnStartGame.Background = Brushes.Yellow;
+            // Enable Cheat Mode
         }
     }
 }
