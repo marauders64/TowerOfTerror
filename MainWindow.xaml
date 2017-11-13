@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:TowerOfTerror"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+
+    <Canvas>
+        <Image Height="88">
+            <Image.Source>
+                <BitmapImage UriSource="/Graphics/title.png"/>
+            </Image.Source>
+        </Image>
+        <Button x:Name="btnStartGame" Content="Start Game" Click="btnStartGame_Click" Canvas.Left="157" Canvas.Top="155"/>
+        <Button x:Name="btnLoadGame" Content="Load Game" Click="btnLoadGame_Click" Canvas.Left="277" Canvas.Top="155"/>
+        <Button x:Name="btnAbout" Content="About" Click="btnAbout_Click" Canvas.Left="225" Canvas.Top="212"/>
+        <Button x:Name="btnHelp" Content="Help" Click="btnHelp_Click" Canvas.Left="101" Canvas.Top="212"/>
+        <Button x:Name="btnHighScores" Content="High Scores" Click="btnHighScores_Click" Canvas.Left="348" Canvas.Top="212"/>
+    </Canvas>
 </Window>

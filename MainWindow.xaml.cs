@@ -28,5 +28,30 @@ namespace TowerOfTerror
         {
             InitializeComponent();
         }
+
+        private void btnStartGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnLoadGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnHighScores_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

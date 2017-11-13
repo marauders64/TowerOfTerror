@@ -114,5 +114,14 @@
   <ItemGroup>
     <Resource Include="Hub\Cool Text - Tower of Terror 265017376899504.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\chitiniac-attack.png" />
+    <Resource Include="Graphics\chitiniac-death.png" />
+    <Resource Include="Graphics\chitiniac-idle.png" />
+    <Resource Include="Graphics\chitiniac-move.png" />
+    <Resource Include="Graphics\title.png" />
+    <Resource Include="Graphics\gargant-attack.png" />
+    <Resource Include="Graphics\ToTModel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
