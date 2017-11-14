@@ -35,7 +35,8 @@ namespace TowerOfTerror
             cmbDifficultyPicker.ItemsSource = difficulties;
         }
 
-        // Show a window with game setup info (ask for name and difficulty setting)
+        // Take info from Name and Difficulty fields and send them to GameController
+        // Create new game from there
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             btnCheatMode.IsEnabled = false;
@@ -66,9 +67,10 @@ namespace TowerOfTerror
             }
             ctrl = new GameController(sett);
             ctrl.adventurer.Name = txtPlayerName.Text;
+            // Create images
             ctrl.BuildTower();
             ctrl.Setup();
-        } 
+        }
 
         // Show a window to load a file
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)

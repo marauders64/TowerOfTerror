@@ -44,15 +44,33 @@ namespace TowerOfTerror.Model
         // Populate the Level list with three levels
         public void Setup()
         {
+            // Adjust character health according to difficulty
+            if (!this.Cheating) {
+                switch (this.Setting)
+                {
+                    case Difficulty.Easy:
+                        this.adventurer.Health = 100;
+                        break;
+                    case Difficulty.Medium:
+                        this.adventurer.Health = 80;
+                        break;
+                    case Difficulty.Hard:
+                        this.adventurer.Health = 60;
+                        break;
+                    default:
+                        this.adventurer.Health = 100;
+                        break;
+                }
+            }
             this.currentFloor = this.Floors[0]; // for now just load the main level
             foreach (Level lev in this.Floors)
             {
                 lev.FillEnemies(lev);
                 lev.PlaceEntities();
             }
-            currentFloor.PlaceEntities();
-            currentFloor.FillEnemies(currentFloor);
-            Enemies = currentFloor.Enemies;
+            //currentFloor.PlaceEntities();
+            //currentFloor.FillEnemies(currentFloor);
+            //Enemies = currentFloor.Enemies;
         }
 
         // Does the logic for when the player attacks
