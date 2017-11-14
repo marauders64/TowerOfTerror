@@ -101,13 +101,16 @@ namespace TowerOfTerror.Model
             data.Add(Defense.ToString());
             data.Add(Health.ToString());
             data.Add(Status.ToString());
-            data.Add("items"); // "sub-header" that may go away; for now will eventually let Deserialize know that a list needs to be reconstructed
-            
-            foreach (Item item in inventory)
+            if (inventory != null)
             {
-                data.Add(item.ToString());
+                data.Add("items"); // "sub-header" that may go away; for now will eventually let Deserialize know that a list needs to be reconstructed
+
+                foreach (Item item in inventory)
+                {
+                    data.Add(item.ToString());
+                }
             }
-            
+
             return data;
         }
 
@@ -118,4 +121,3 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
     }
-}

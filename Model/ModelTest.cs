@@ -22,7 +22,28 @@ namespace TowerOfTerror.Model
             AttackResult result = AttackResult.Hit;
             Assert.IsTrue(villain.Health == 90);
         }
+        [TestMethod]
+        public void GameController_Constructor_DifficultyEasySet()
+        {
+            GameController gc1 = new GameController(Difficulty.Easy);
+            Assert.IsTrue(gc1.adventurer.Health == 100);
+        }
 
+        [TestMethod]
+        public void GameController_Constructor_DifficultyMediumSet()
+        {
+            GameController gc1 = new GameController(Difficulty.Medium);
+            Assert.IsTrue(gc1.adventurer.Health == 80);
+        }
+
+        [TestMethod]
+        public void GameController_Constructor_DifficultyHardSet()
+        {
+            GameController gc1 = new GameController(Difficulty.Hard);
+            Assert.IsTrue(gc1.adventurer.Health == 60);
+        }
+
+        
 
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TowerOfTerror.Model
 {
     [TestClass]
-    class SerializeTest
+    public class SerializeTest
     {
         [TestMethod]
         public void Character_Serialize_Converted()
@@ -27,5 +27,46 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(test[8] == "Alive");
             //Assert.IsTrue(test.Length == however long it ends up) <-- do this later unless you want to keep changing it
         }
+
+        [TestMethod]
+        public void Enemy_Serialize_Converted()
+        {
+            Enemy e = new Enemy();
+            List<string> test = new List<string>();
+            test = e.Serialize();
+            Assert.IsTrue(test[0] == "Enemy");
+            Assert.IsTrue(test[1] == "1");
+            //test[2] is a null image at present
+            Assert.IsTrue(test[3] == "0");
+            Assert.IsTrue(test[4] == "0");
+            Assert.IsTrue(test[5] == "5");
+            Assert.IsTrue(test[6] == "5");
+            Assert.IsTrue(test[7] == "100");
+            Assert.IsTrue(test[8] == "Alive");
+        }
+
+        [TestMethod]
+        public void Level_Serialize_Converted()
+        {
+            Level l = new Level(LevelType.Basic);
+            List<string> test = new List<string>();
+            test = l.Serialize();
+            Assert.IsTrue(test[0] == "Level");
+            Assert.IsTrue(test[1] == "0");
+            Assert.IsTrue(test[2] == "Basic");
+        }
+
+        [TestMethod]
+        public void GameController_Serialize_Converted()
+        {
+            GameController gc = new GameController(Difficulty.Easy);
+            List<string> test = new List<string>();
+            test = gc.Serialize();
+            Assert.IsTrue(test[0] == "GameController");
+            Assert.IsTrue(test[1] == "0");
+            Assert.IsTrue(test[2] == "Easy");
+        }
+
     }
 }
+
