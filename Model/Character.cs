@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TowerOfTerror.Model
 {
-    class Character: Entity
+    class Character : Entity
     {
         // Stores all items the character can have
         // Add auto-collection for item drops
@@ -121,3 +121,4 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
     }
+}
