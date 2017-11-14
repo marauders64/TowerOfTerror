@@ -28,6 +28,7 @@ namespace TowerOfTerror.Model
         
         public GameController(Difficulty setting)
         {
+            this.currentFloor = Floors[0];
             this.Setting = setting;
             this.Floors = new List<Level>();
         }
@@ -35,7 +36,8 @@ namespace TowerOfTerror.Model
         // Populate the Level list with three levels
         public void Setup()
         {
-            throw new NotImplementedException();
+            currentFloor.PlaceEntities();
+            currentFloor.FillEnemies(currentFloor);
         }
 
         // Does the logic for when the player attacks

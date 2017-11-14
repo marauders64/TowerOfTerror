@@ -30,7 +30,7 @@ namespace TowerOfTerror.Model
         }
 
         // Determines the amount of enemies to fill each level
-        public int FillEnemies(Level lv)
+        public void FillEnemies(Level lv)
         {
             int population;
             if (lv.Type == LevelType.Final)
@@ -55,13 +55,25 @@ namespace TowerOfTerror.Model
                         break;
                 }
             }
-            return population;
+            for(int i = 0; i < population; i++)
+            {
+                Enemies.Add(new Enemy());
+            }
         }
 
         // Fills in the level with all the enemies and a single character
-        public void PlaceEntities(Level lv)
+        public void PlaceEntities()
         {
-            
+            int dudeX = rand.Next();
+            int dudeY = rand.Next();
+            dude.Position = new Point(dudeX, dudeY);
+
+            foreach (Enemy foe in Enemies)
+            {
+                int foeX = rand.Next();
+                int foeY = rand.Next();
+                foe.Position = new Point(foeX, foeY);
+            }
         }
 
         // Is the level completed (all enemies dead/removed from list)?

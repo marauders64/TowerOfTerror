@@ -22,7 +22,7 @@ namespace TowerOfTerror
     /// </summary>
     public partial class MainWindow : Window
     {
-        GameController ctrl = new GameController(Difficulty.Easy);
+        GameController ctrl;
 
         public MainWindow()
         {
@@ -32,8 +32,10 @@ namespace TowerOfTerror
         // Show a window with game setup info (ask for name and difficulty setting)
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            Difficulty sett;
             Window prepGame = new Window();
             prepGame.Activate();
+            //ctrl = new GameController(sett);
         }
 
         // Show a window to load a file
