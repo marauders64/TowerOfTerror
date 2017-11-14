@@ -108,5 +108,44 @@ Save Game: Click on the button in the top right (100 level)
                 btnStartGame.Background = Brushes.AliceBlue;
             }
         }
+
+        /// <summary>
+        /// Moving/Attacking stuff putting it here for now
+        /// </summary>
+        private void SomeGameArea_cvs_KeyUp(object sender, KeyEventArgs e)
+        {
+            Character player = ctrl.currentFloor.dude;
+            
+            //Need to get images connected to Entities.
+
+            if (e.Key == Key.W)
+            {
+                ctrl.UpdatePositions(player, Direction.Up);
+            }
+            else if (e.Key == Key.S)
+            {
+                ctrl.UpdatePositions(player, Direction.Down);
+            }
+            else if (e.Key == Key.A)
+            {
+                ctrl.UpdatePositions(player, Direction.Left);
+            }
+            else if (e.Key == Key.D)
+            {
+                ctrl.UpdatePositions(player, Direction.Right);
+            }
+            else if(e.Key == Key.Space)
+            {
+                foreach(Enemy enemy in ctrl.Enemies)
+                {
+                    if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
+                    {
+                        ctrl.PlayerAttack(player, enemy);
+                    }
+                }
+            }
+            //Update canvas positions
+        }
+
     }
 }

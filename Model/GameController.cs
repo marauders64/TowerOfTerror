@@ -20,7 +20,7 @@ namespace TowerOfTerror.Model
     {
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
-        public List<Entity> Enemies { get; set; }
+        public List<Enemy> Enemies { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
 
@@ -38,6 +38,7 @@ namespace TowerOfTerror.Model
         {
             currentFloor.PlaceEntities();
             currentFloor.FillEnemies(currentFloor);
+            Enemies = currentFloor.Enemies;
         }
 
         // Does the logic for when the player attacks
