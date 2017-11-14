@@ -14,7 +14,7 @@
             </Image.Source>
         </Image>
         <Button x:Name="btnStartGame" Content="Start Game" Background="AliceBlue" Click="btnStartGame_Click" Canvas.Left="157" Canvas.Top="155"/>
-        <Button x:Name="btnLoadGame" Content="Load Game" Click="btnLoadGame_Click" Canvas.Left="277" Canvas.Top="155"/>
+        <Button x:Name="btnLoadGame" Content="Load Game" IsEnabled="False" Click="btnLoadGame_Click" Canvas.Left="277" Canvas.Top="155"/>
         <Button x:Name="btnAbout" Content="About" Click="btnAbout_Click" Canvas.Left="225" Canvas.Top="212"/>
         <Button x:Name="btnHelp" Content="Help" Click="btnHelp_Click" Canvas.Left="101" Canvas.Top="212"/>
         <Button x:Name="btnHighScores" Content="High Scores" IsEnabled="False" Click="btnHighScores_Click" Canvas.Left="348" Canvas.Top="212"/>

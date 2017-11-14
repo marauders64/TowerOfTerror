@@ -23,21 +23,26 @@ namespace TowerOfTerror
     public partial class MainWindow : Window
     {
         GameController ctrl = new GameController(Difficulty.Easy);
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        // Show a window with game setup info (ask for name and difficulty setting)
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            Popup prepGame = new Popup();
+            Window prepGame = new Window();
+            prepGame.Activate();
         }
 
+        // Show a window to load a file
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            // Load a file
+            throw new NotImplementedException();
         }
 
+        // Show credits
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
             string aboutText = @"Tower Of Terror
@@ -52,12 +57,15 @@ Inspired by: The Legend of Zelda: A Link Between Worlds";
             MessageBox.Show(aboutText, "About", exit, icon);
         }
 
+        // Display game controls
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
             string helpText = @"Controls:
 Move: WASD or Arrow Keys
 Attack: Space Bar
-Use Item: Click on it in the sidebar (100 level)";
+Use Item: Click on it in the sidebar (100 level)
+Save Game: Click on the button in the top right (100 level)
+* Game will autosave at end of each level.";
             MessageBoxButton exit = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBox.Show(helpText, "How to Play", exit, icon);
@@ -87,12 +95,16 @@ Use Item: Click on it in the sidebar (100 level)";
         // Also changes the Start Game button to Cheating (Yellow) or Not (Alice Blue)
         private void btnCheatMode_Click(object sender, RoutedEventArgs e)
         {
-            
-            if (btnStartGame.Background == Brushes.Yellow)
-                btnStartGame.Background = Brushes.AliceBlue;
-            else
+            if (!ctrl.Cheating)
+            {
+                ctrl.Cheating = true;
                 btnStartGame.Background = Brushes.Yellow;
-            // Enable Cheat Mode
+            }
+            else
+            {
+                ctrl.Cheating = false;
+                btnStartGame.Background = Brushes.AliceBlue;
+            }
         }
     }
 }

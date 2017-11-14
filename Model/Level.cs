@@ -13,6 +13,8 @@ namespace TowerOfTerror.Model
     // Contains data for the levels
     class Level : ISerializable
     {
+        public Character dude;
+        public Random rand;
         public static int num = 0;
         public int Num { get; set; }
         public LevelType Type { get; set; }
@@ -23,25 +25,49 @@ namespace TowerOfTerror.Model
             this.Num = num;
             num++;
             this.Type = type;
+            this.dude = new Character();
             this.Enemies = new List<Enemy>();
         }
 
         // Determines the amount of enemies to fill each level
-        public int FillEnemies()
+        public int FillEnemies(Level lv)
         {
-            return this.Num;
+            int population;
+            if (lv.Type == LevelType.Final)
+            {
+                population = 1;
+            }
+            else
+            {
+                switch (lv.Num)
+                {
+                    case 1:
+                        population = 2;
+                        break;
+                    case 2:
+                        population = 3;
+                        break;
+                    case 3:
+                        population = 5;
+                        break;
+                    default:
+                        population = 2;
+                        break;
+                }
+            }
+            return population;
         }
 
         // Fills in the level with all the enemies and a single character
-        public void PlaceEntities()
+        public void PlaceEntities(Level lv)
         {
-            throw new NotImplementedException();
+            
         }
 
-        // Is the level completed (all enemies dead)?
+        // Is the level completed (all enemies dead/removed from list)?
         public bool LevelComplete()
         {
-            return false;
+            return Enemies.Count == 0;
         }
 
         /// <summary>

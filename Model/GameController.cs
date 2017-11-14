@@ -21,6 +21,8 @@ namespace TowerOfTerror.Model
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
         public List<Entity> Enemies { get; set; }
+        public bool Cheating { get; set; }
+        public Level currentFloor;
 
         public static Random rand = new Random();
         
@@ -43,6 +45,7 @@ namespace TowerOfTerror.Model
         }
 
         // Does the logic for when the player moves
+        // Moves the enemies in a random direction
         public void UpdatePositions(Character character, Direction direction)
         {
             character.Move(direction);
