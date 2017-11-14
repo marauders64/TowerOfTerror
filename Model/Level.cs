@@ -64,6 +64,7 @@ namespace TowerOfTerror.Model
         // Fills in the level with all the enemies and a single character
         public void PlaceEntities()
         {
+            rand = new Random();
             int dudeX = rand.Next();
             int dudeY = rand.Next();
             dude.Position = new Point(dudeX, dudeY);

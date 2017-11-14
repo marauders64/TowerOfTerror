@@ -21,6 +21,10 @@
                 <Button x:Name="btnHelp" Content="Help" Click="btnHelp_Click"/>
                 <Button x:Name="btnHighScores" Content="High Scores" IsEnabled="False" Click="btnHighScores_Click"/>
                 <Button x:Name="btnCheatMode" Content="     " Background="White" BorderBrush="White" Click="btnCheatMode_Click"/>
+                <TextBlock x:Name="lblName" Text="Enter Name:"/>
+                <TextBox x:Name="txtPlayerName" Text="McCoy"/>
+                <TextBlock x:Name="lblDifficulty" Text="Difficulty:"/>
+                <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True"/>
             </StackPanel>
             <Canvas x:Name="Arena" Width="384">
                     <!-- This is where the game is played -->

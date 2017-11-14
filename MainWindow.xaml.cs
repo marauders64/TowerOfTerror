@@ -23,19 +23,50 @@ namespace TowerOfTerror
     public partial class MainWindow : Window
     {
         GameController ctrl;
+        List<string> difficulties = new List<string>(3);
 
         public MainWindow()
         {
             InitializeComponent();
+            difficulties.Add("Easy");
+            difficulties.Add("Medium");
+            difficulties.Add("Hard");
+            cmbDifficultyPicker.ItemsSource = difficulties;
         }
 
         // Show a window with game setup info (ask for name and difficulty setting)
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            btnCheatMode.IsEnabled = false;
+            string diff;
             Difficulty sett;
-            Window prepGame = new Window();
-            prepGame.Activate();
-            //ctrl = new GameController(sett);
+            if (cmbDifficultyPicker.SelectedValue != null)
+            {
+                diff = cmbDifficultyPicker.SelectedValue.ToString();
+            }
+            else
+            {
+                diff = null;
+            }
+            switch (diff)
+            {
+                case "Easy":
+                    sett = Difficulty.Easy;
+                    break;
+                case "Medium":
+                    sett = Difficulty.Medium;
+                    break;
+                case "Hard":
+                    sett = Difficulty.Hard;
+                    break;
+                default:
+                    sett = Difficulty.Easy;
+                    break;
+            }
+            ctrl = new GameController(sett);
+            ctrl.adventurer.Name = txtPlayerName.Text;
+            ctrl.BuildTower();
+            ctrl.Setup();
         } 
 
         // Show a window to load a file
@@ -100,12 +131,10 @@ Save Game: Click on the button in the top right (100 level)
             if (!ctrl.Cheating)
             {
                 ctrl.Cheating = true;
-                btnStartGame.Background = Brushes.Yellow;
             }
             else
             {
                 ctrl.Cheating = false;
-                btnStartGame.Background = Brushes.AliceBlue;
             }
         }
     }

@@ -23,21 +23,33 @@ namespace TowerOfTerror.Model
         public List<Entity> Enemies { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
+        public Character adventurer;
 
         public static Random rand = new Random();
         
         public GameController(Difficulty setting)
         {
-            this.currentFloor = Floors[0];
-            this.Setting = setting;
             this.Floors = new List<Level>();
+            this.Setting = setting;
+            this.adventurer = new Character();
+        }
+
+        public void BuildTower()
+        {
+            this.Floors.Add(new Level(LevelType.Basic));
+            this.Floors.Add(new Level(LevelType.Basic));
+            this.Floors.Add(new Level(LevelType.Basic));
         }
 
         // Populate the Level list with three levels
         public void Setup()
         {
-            currentFloor.PlaceEntities();
-            currentFloor.FillEnemies(currentFloor);
+            this.currentFloor = this.Floors[0]; // for now just load the main level
+            foreach (Level lev in this.Floors)
+            {
+                lev.FillEnemies(lev);
+                lev.PlaceEntities();
+            }
         }
 
         // Does the logic for when the player attacks

@@ -14,26 +14,16 @@ namespace TowerOfTerror.Model
         public List<Item> inventory;
         public string Name { get; set; }
 
-        // Name a character with the provided name, or default it to McCoy
-        public Character(string name)
-        {
-            this.Name = name;
-            this.Image = null; // will eventually be our character avatar
-            this.Position = new Point(0, 0);
-            this.Power = 5;
-            this.Defense = 5;
-            this.Health = 100;
-            this.Status = Life.Alive;
-        }
+        // Create a character
         public Character()
         {
-            this.Name = "McCoy";
             this.Image = null; // will eventually be our character avatar
             this.Position = new Point(0, 0);
             this.Power = 5;
             this.Defense = 5;
             this.Health = 100;
             this.Status = Life.Alive;
+            this.inventory = new List<Item>();
         }
 
         // Attack the enemy and reduce enemy health
