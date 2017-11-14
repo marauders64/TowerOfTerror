@@ -36,7 +36,7 @@ namespace TowerOfTerror
         }
 
         // Take info from Name and Difficulty fields and send them to GameController
-        // Create new game from there
+        // Create new game
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             // Determine difficulty setting based on Combo Box
