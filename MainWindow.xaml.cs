@@ -167,7 +167,7 @@ Difficulty: Set difficulty using the dropdown box provided.
        
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
-            Character player = ctrl.currentFloor.dude;
+            Character player = ctrl.adventurer;
             
             //Need to get images connected to Entities.
 
