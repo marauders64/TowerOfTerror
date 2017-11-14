@@ -23,6 +23,7 @@ namespace TowerOfTerror
     public partial class MainWindow : Window
     {
         GameController ctrl;
+        Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
 
         public MainWindow()
         {
@@ -108,11 +109,11 @@ Save Game: Click on the button in the top right (100 level)
                 btnStartGame.Background = Brushes.AliceBlue;
             }
         }
+        
+        /// Moving/Attacking stuff
 
-        /// <summary>
-        /// Moving/Attacking stuff putting it here for now
-        /// </summary>
-        private void SomeGameArea_cvs_KeyUp(object sender, KeyEventArgs e)
+       
+        private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
             Character player = ctrl.currentFloor.dude;
             
@@ -137,7 +138,8 @@ Save Game: Click on the button in the top right (100 level)
             else if(e.Key == Key.Space)
             {
                 foreach(Enemy enemy in ctrl.Enemies)
-                {
+                {   
+                    //needs work
                     if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
                     {
                         ctrl.PlayerAttack(player, enemy);
@@ -145,6 +147,16 @@ Save Game: Click on the button in the top right (100 level)
                 }
             }
             //Update canvas positions
+             foreach (Image img in Arena.Children)
+             {
+                //get entity ascociated with image and move it
+                Entity entity = entities[img];
+                Canvas.SetLeft(img, entity.Position.X);
+                Canvas.SetTop(img, entity.Position.Y);
+                                
+             }
+
+             
         }
 
     }

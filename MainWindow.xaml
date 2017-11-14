@@ -22,7 +22,7 @@
                 <Button x:Name="btnHighScores" Content="High Scores" IsEnabled="False" Click="btnHighScores_Click"/>
                 <Button x:Name="btnCheatMode" Content="     " Background="White" BorderBrush="White" Click="btnCheatMode_Click"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Width="384">
+            <Canvas x:Name="Arena" Width="384" KeyUp="Arena_cvs_KeyUp">
                     <!-- This is where the game is played -->
             </Canvas>
             <StackPanel Width="68">
