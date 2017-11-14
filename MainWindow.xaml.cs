@@ -36,7 +36,7 @@ namespace TowerOfTerror
             Window prepGame = new Window();
             prepGame.Activate();
             //ctrl = new GameController(sett);
-        }
+        } 
 
         // Show a window to load a file
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
