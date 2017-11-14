@@ -146,7 +146,7 @@ Save Game: Click on the button in the top right (100 level)
        
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
-            Character player = ctrl.currentFloor.dude;
+            Character player = ctrl.adventurer;
             
             //Need to get images connected to Entities.
 
