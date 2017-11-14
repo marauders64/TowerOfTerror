@@ -22,7 +22,7 @@ namespace TowerOfTerror
     /// </summary>
     public partial class MainWindow : Window
     {
-        GameController ctrl;
+        GameController ctrl = new GameController();
         List<string> difficulties = new List<string>(3);
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
 
@@ -39,37 +39,54 @@ namespace TowerOfTerror
         // Create new game from there
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            btnCheatMode.IsEnabled = false;
+            // Determine difficulty setting based on Combo Box
+            // Enabling Cheat mode defaults the difficulty to easy
             string diff;
             Difficulty sett;
-            if (cmbDifficultyPicker.SelectedValue != null)
+            btnCheatMode.IsEnabled = false;
+            if (ctrl.Cheating)
             {
-                diff = cmbDifficultyPicker.SelectedValue.ToString();
+                sett = Difficulty.Easy;
             }
             else
             {
-                diff = null;
+                if (cmbDifficultyPicker.SelectedValue != null)
+                {
+                    diff = cmbDifficultyPicker.SelectedValue.ToString();
+                }
+                else
+                {
+                    diff = null;
+                }
+                switch (diff)
+                {
+                    case "Easy":
+                        sett = Difficulty.Easy;
+                        break;
+                    case "Medium":
+                        sett = Difficulty.Medium;
+                        break;
+                    case "Hard":
+                        sett = Difficulty.Hard;
+                        break;
+                    default:
+                        sett = Difficulty.Easy;
+                        break;
+                }
             }
-            switch (diff)
-            {
-                case "Easy":
-                    sett = Difficulty.Easy;
-                    break;
-                case "Medium":
-                    sett = Difficulty.Medium;
-                    break;
-                case "Hard":
-                    sett = Difficulty.Hard;
-                    break;
-                default:
-                    sett = Difficulty.Easy;
-                    break;
-            }
-            ctrl = new GameController(sett);
+            ctrl.Setting = sett;
             ctrl.adventurer.Name = txtPlayerName.Text;
-            // Create images
             ctrl.BuildTower();
             ctrl.Setup();
+
+            // Setup images
+            Image protagonist = new Image
+            {
+                Source = new BitmapImage(new Uri("images/chitiniac-idle.png", UriKind.Relative)),
+            };
+            Canvas.SetLeft(protagonist, ctrl.adventurer.Position.X);
+            Canvas.SetTop(protagonist, ctrl.adventurer.Position.Y);
+            Arena.Children.Add(protagonist);
         }
 
         // Show a window to load a file
@@ -101,7 +118,9 @@ Move: WASD or Arrow Keys
 Attack: Space Bar
 Use Item: Click on it in the sidebar (100 level)
 Save Game: Click on the button in the top right (100 level)
-* Game will autosave at end of each level.";
+* Game will autosave at end of each level.
+Difficulty: Set difficulty using the dropdown box provided.
+* Easy difficulty gives you full health. Subsequent levels reduce health by 20% each.";
             MessageBoxButton exit = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBox.Show(helpText, "How to Play", exit, icon);
@@ -134,10 +153,12 @@ Save Game: Click on the button in the top right (100 level)
             if (!ctrl.Cheating)
             {
                 ctrl.Cheating = true;
+                btnStartGame.Background = Brushes.Yellow;
             }
             else
             {
                 ctrl.Cheating = false;
+                btnStartGame.Background = Brushes.AliceBlue;
             }
         }
         
