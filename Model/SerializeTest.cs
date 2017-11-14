@@ -59,7 +59,8 @@ namespace TowerOfTerror.Model
         [TestMethod]
         public void GameController_Serialize_Converted()
         {
-            GameController gc = new GameController(Difficulty.Easy);
+            GameController gc = new GameController();
+            gc.Setting = Difficulty.Easy;
             List<string> test = new List<string>();
             test = gc.Serialize();
             Assert.IsTrue(test[0] == "GameController");
