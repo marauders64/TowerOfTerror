@@ -16,11 +16,12 @@ namespace TowerOfTerror.Model
     // Gives the direction an entity is facing or moving
     public enum Direction { Up, Down, Left, Right }
 
-    public int CurrentFloor { get; set; }
+    
 
     // Manages game logic
     class GameController : ISerializable
     {
+        public int CurrentFloor { get; set; }
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
         public List<Enemy> Enemies { get; set; }

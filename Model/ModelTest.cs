@@ -25,21 +25,24 @@ namespace TowerOfTerror.Model
         [TestMethod]
         public void GameController_Constructor_DifficultyEasySet()
         {
-            GameController gc1 = new GameController(Difficulty.Easy);
+            GameController gc1 = new GameController();
+            gc1.Setting = Difficulty.Easy;
             Assert.IsTrue(gc1.adventurer.Health == 100);
         }
 
         [TestMethod]
         public void GameController_Constructor_DifficultyMediumSet()
         {
-            GameController gc1 = new GameController(Difficulty.Medium);
+            GameController gc1 = new GameController();
+            gc1.Setting = Difficulty.Medium;
             Assert.IsTrue(gc1.adventurer.Health == 80);
         }
 
         [TestMethod]
         public void GameController_Constructor_DifficultyHardSet()
         {
-            GameController gc1 = new GameController(Difficulty.Hard);
+            GameController gc1 = new GameController();
+            gc1.Setting = Difficulty.Hard;
             Assert.IsTrue(gc1.adventurer.Health == 60);
         }
 
