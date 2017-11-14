@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace TowerOfTerror.Model
 
     // Gives the direction an entity is facing or moving
     public enum Direction { Up, Down, Left, Right }
+
+    public int CurrentFloor { get; set; }
 
     // Manages game logic
     class GameController : ISerializable
@@ -130,10 +133,10 @@ namespace TowerOfTerror.Model
         /// <returns>list of game state information to be saved</returns>
         public List<string> Serialize()
         {
-            List<string> data= new List<string>();
+            List<string> data = new List<string>();
             data.Add("GameController");
-            //add reference to which Floor we're on right now
-            //add reference to Character... I think...
+            data.Add(currentFloor.ToString());
+            //I don't think I need a reference to Character, like Level didn't reference Enemies
             data.Add(Setting.ToString());
 
             return data;
@@ -146,15 +149,40 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
 
-        public void Save()
+        /// <summary>
+        /// At present this method either creates a new save file or overwrites the old one
+        /// defaults to storing the file with the .exe
+        /// </summary>
+        /// NOTE TO SELF: need to call this method at the end of every Level
+        public async void Save()
         {
-            // create a new file and open it
-            //call Serialize and write the result to file
-            // call Level's Serialize and write to file
-            //using the reference to the Floor as a reference point, loop through all Enemies and call Serialize
-            //Character Seralize
+            string filename = "ToT"; //will eventually let user supply filename
+            List<List<string>> allSavedData = new List<List<string>>();
 
-        }
+            using (StreamWriter writer = File.CreateText(filename + ".dat"))
+            {
+                // start the file off with a "header" that will tell Load that this is a valid file
+                await writer.WriteAsync("ToTSave");
+
+                // collect all data to be saved
+                allSavedData.Add(Serialize()); // list of GameController data
+                allSavedData.Add(Floors[CurrentFloor].Serialize());
+                foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
+                {
+                    allSavedData.Add(enemy.Serialize());
+                }
+                allSavedData.Add(adventurer.Serialize());
+
+                // write to file (comma delimited) asynchronously
+                foreach (List<string> classData in allSavedData)
+                {
+                    foreach (string property in classData)
+                    {
+                        await writer.WriteAsync("," + property);
+                    }
+                }
+            } // using
+        } // Save
 
         public void Load(string txtFile)
         {
