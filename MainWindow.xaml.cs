@@ -24,6 +24,7 @@ namespace TowerOfTerror
     {
         GameController ctrl;
         List<string> difficulties = new List<string>(3);
+        Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
 
         public MainWindow()
         {
@@ -137,5 +138,55 @@ Save Game: Click on the button in the top right (100 level)
                 ctrl.Cheating = false;
             }
         }
+        
+        /// Moving/Attacking stuff
+
+       
+        private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
+        {
+            Character player = ctrl.currentFloor.dude;
+            
+            //Need to get images connected to Entities.
+
+            if (e.Key == Key.W)
+            {
+                ctrl.UpdatePositions(player, Direction.Up);
+            }
+            else if (e.Key == Key.S)
+            {
+                ctrl.UpdatePositions(player, Direction.Down);
+            }
+            else if (e.Key == Key.A)
+            {
+                ctrl.UpdatePositions(player, Direction.Left);
+            }
+            else if (e.Key == Key.D)
+            {
+                ctrl.UpdatePositions(player, Direction.Right);
+            }
+            else if(e.Key == Key.Space)
+            {
+                foreach(Enemy enemy in ctrl.Enemies)
+                {   
+                    //needs work
+                    if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
+                    {
+                        ctrl.PlayerAttack(player, enemy);
+                    }
+                }
+            }
+            //Update canvas positions
+             foreach (Image img in Arena.Children)
+             {
+                //get entity ascociated with image and move it
+                Entity entity = entities[img];
+                Canvas.SetLeft(img, entity.Position.X);
+                Canvas.SetTop(img, entity.Position.Y);
+                                
+             }
+
+             
+        }
+
     }
 }

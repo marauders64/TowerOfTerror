@@ -26,7 +26,7 @@
                 <TextBlock x:Name="lblDifficulty" Text="Difficulty:"/>
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Width="384">
+            <Canvas x:Name="Arena" Width="384" KeyUp="Arena_cvs_KeyUp">
                     <!-- This is where the game is played -->
             </Canvas>
             <StackPanel Width="68">
