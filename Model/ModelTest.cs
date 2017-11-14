@@ -11,7 +11,7 @@ namespace TowerOfTerror.Model
     [TestClass]
     class ModelTest
     {
-        GameController gc = new GameController(Difficulty.Easy);
+        GameController gc = new GameController();
         
         [TestMethod]
         public void Attack_EnemyTakesDamage()

@@ -30,10 +30,10 @@ namespace TowerOfTerror.Model
 
         public static Random rand = new Random();
         
-        public GameController(Difficulty setting)
+        public GameController()
         {
             this.Floors = new List<Level>();
-            this.Setting = setting;
+            this.Setting = Difficulty.Easy;
             this.adventurer = new Character();
         }
 
