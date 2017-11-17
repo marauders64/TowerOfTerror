@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,23 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(test[2] == "Easy");
         }
 
+        [TestMethod]
+        public async void GameController_Save_Success()
+        {
+            GameController gc = new GameController();
+            string loadedGame; 
+            gc.Save();
+            using (StreamReader reader = new StreamReader("ToT.dat"))
+            {
+                loadedGame = await reader.ReadToEndAsync();
+            }
+            string[] gameData = loadedGame.Split(',');
+            Assert.IsTrue(gameData[0] == "ToTSave");
+            Assert.IsTrue(gameData[1] == "GameController");
+            Assert.IsTrue(gameData[4] == "Level");
+            Assert.IsTrue(gameData[7] == "Enemy");
+
+        }
     }
 }
 
