@@ -74,6 +74,9 @@ namespace TowerOfTerror.Model
             //currentFloor.PlaceEntities();
             //currentFloor.FillEnemies(currentFloor);
             //Enemies = currentFloor.Enemies;
+
+            //Save() call for testing purposes
+            Save();
         }
 
         // Does the logic for when the player attacks
@@ -157,9 +160,11 @@ namespace TowerOfTerror.Model
         public async void Save()
         {
             string filename = "ToT"; //will eventually let user supply filename
+            string path = @"C:\Users\Heather\Desktop\Fall2017\CpS209\programs\TowerOfTerror\SavedGames\ToT.dat";
+
             List<List<string>> allSavedData = new List<List<string>>();
 
-            using (StreamWriter writer = File.CreateText(filename + ".dat"))
+            using (StreamWriter writer = new StreamWriter(path))   //File.Create(new Uri(filename + ".dat", path)))  //File.CreateText(new Uri(filename + ".dat", UriKind.Relative));    //(filename + ".dat"))
             {
                 // start the file off with a "header" that will tell Load that this is a valid file
                 await writer.WriteAsync("ToTSave");

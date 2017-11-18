@@ -11,6 +11,7 @@ namespace TowerOfTerror.Model
     [TestClass]
     class ModelTest
     {
+        // Oh hi Mark
         GameController gc = new GameController();
         
         [TestMethod]
