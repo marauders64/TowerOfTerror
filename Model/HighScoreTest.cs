@@ -8,18 +8,39 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace TowerOfTerror.Model
 {
     [TestClass]
-    class HighScoreTest
+    public class HighScoreTest
     {
+        [TestMethod]
+        public void Leaderboard_Exists()
+        {
+            Assert.IsTrue(HighScores.Leaderboard != null);
+        }
+
         [TestMethod]
         public void AddHighScores_Works()
         {
-            HighScores scores = HighScores.Leaderboard;
-            scores.AddHighScore(new HighScore("Jon", 1330));
-            scores.AddHighScore(new HighScore("Sue", 42));
-            Assert.IsTrue(scores.Scores[0].Name == "Jon");
-            Assert.IsTrue(scores.Scores[0].Score == 1330);
-            Assert.IsTrue(scores.Scores[1].Name == "Sue");
-            Assert.IsTrue(scores.Scores[1].Score == 42);
+            HighScore entry1 = new HighScore("Jon", 1337);
+            HighScore entry2 = new HighScore("Ash", 180);
+            HighScores.Leaderboard.AddHighScore(entry1);
+            HighScores.Leaderboard.AddHighScore(entry2);
+            Assert.IsTrue(HighScores.Leaderboard.Scores[0].Name == "Jon");
+            Assert.IsTrue(HighScores.Leaderboard.Scores[0].Score == 1337);
+            Assert.IsTrue(HighScores.Leaderboard.Scores[1].Name == "Ash");
+            Assert.IsTrue(HighScores.Leaderboard.Scores[1].Score == 180);
         }
     }
+
+    [TestClass]
+    public class ScoreTest
+    {
+        [TestMethod]
+        public void HighScoresTest()
+        {
+            HighScore entry = new HighScore("Jon", 1337);
+            Assert.IsTrue(entry.Name == "Jon");
+            Assert.IsTrue(entry.Score == 1337);
+            Assert.IsTrue(entry.ToString() == "Jon: 1337");
+        }
+    }
+
 }

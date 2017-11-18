@@ -13,30 +13,73 @@ namespace TowerOfTerror.Model
         //public List<int> ScoreList { get; set; }
         public List<HighScore> Scores { get; set; }
 
-        public static HighScores Leaderboard { get; }
+        private static HighScores leaderboard = new HighScores();
+        public static HighScores Leaderboard
+        {
+            get
+            {
+                return leaderboard;
+            }
+        }
 
         //Constructs the HighScore class.
         private HighScores()
         {
-
+            Scores = new List<HighScore>();
         }
 
         //Adds a score to the Scores list and sorts the list.
         //Adds the score to the score file.
         public void AddHighScore(HighScore score)
         {
-            StreamWriter writer;
+            Scores.Add(score);
+            Scores.Sort();
+            Scores.Reverse();
+            SaveHighScores();
+            
         }
+
+        public void SaveHighScores()
+        {
+            using (StreamWriter writer = new StreamWriter("HighScores.txt"))
+            {
+                foreach (HighScore entry in Scores)
+                {
+                    writer.WriteLine(entry.ToString());
+                }
+            }
+        }
+
 
         //Gets the high scores from a file and sorts them based on score.
         public void GetHighScores()
         {
             StreamReader reader;
+            string filename = "HighScores.txt";
+            if(File.Exists(filename))
+            {
+                using(reader = new StreamReader(filename))
+                {
+                    string entry = reader.ReadLine();
+                    while (entry != null)
+                    {
+                        string[] score = entry.Split(':');
+                        score[1].Trim(' ');
+                        HighScore highscore = new HighScore(score[0], Convert.ToInt32(score[1]));
+                        Scores.Add(highscore);
+                        entry = reader.ReadLine();
+                    }
+                }
+            }
+            else
+            {
+                File.Create(filename);
+            }
         }
 
     }
 
-    class HighScore
+    class HighScore : IComparable<HighScore>
     {
         public string Name { get; set; }
         public int Score { get; set; }
@@ -47,6 +90,25 @@ namespace TowerOfTerror.Model
             Score = score;
         }
 
+        public override string ToString()
+        {
+            string entry = Name + ": " + Score;
+            return entry;
+        }
+
+        public override int GetHashCode()
+        {
+            return Score;
+        }
+
+        public int CompareTo(HighScore score)
+        {
+            if (score == null)
+                return 1;
+
+            else
+                return this.Score.CompareTo(score.Score);
+        }
     }
 
 }

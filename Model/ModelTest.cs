@@ -9,7 +9,7 @@ using System.Windows;
 namespace TowerOfTerror.Model
 {
     [TestClass]
-    class ModelTest
+    public class ModelTest
     {
         // Oh hi Mark
         GameController gc = new GameController();

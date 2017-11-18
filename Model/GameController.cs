@@ -160,7 +160,7 @@ namespace TowerOfTerror.Model
         public async void Save()
         {
             string filename = "ToT"; //will eventually let user supply filename
-            string path = @"C:\Users\Heather\Desktop\Fall2017\CpS209\programs\TowerOfTerror\SavedGames\ToT.dat";
+            string path = @"SavedGames\ToT.dat";
 
             List<List<string>> allSavedData = new List<List<string>>();
 

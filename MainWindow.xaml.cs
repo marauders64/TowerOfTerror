@@ -33,6 +33,7 @@ namespace TowerOfTerror
             difficulties.Add("Medium");
             difficulties.Add("Hard");
             cmbDifficultyPicker.ItemsSource = difficulties;
+            HighScores.Leaderboard.GetHighScores();
         }
 
         // Take info from Name and Difficulty fields and send them to GameController
@@ -82,11 +83,11 @@ namespace TowerOfTerror
             // Setup images
             Image protagonist = new Image
             {
-                Source = new BitmapImage(new Uri("images/chitiniac-idle.png", UriKind.Relative)),
+                Source = new BitmapImage(new Uri("Graphics/chitiniac-idle.png", UriKind.Relative)),
             };
+            Arena.Children.Add(protagonist);
             Canvas.SetLeft(protagonist, ctrl.adventurer.Position.X);
             Canvas.SetTop(protagonist, ctrl.adventurer.Position.Y);
-            Arena.Children.Add(protagonist);
         }
 
         // Show a window to load a file
