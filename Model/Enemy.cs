@@ -96,11 +96,28 @@ namespace TowerOfTerror.Model
             return data;
         }
 
-        public override void Deserialize(List<object> savedData)
+        /// <summary>
+        /// Finds and extracts its own information from the list prepared by Load()
+        /// Figures out which set of Enemy data it needs out of the complete array
+        /// Converts each string to the correct data and updates its state
+        /// </summary>
+        public override void Deserialize(string[] savedData)
         {
-            //get Entity List of save data
-            //Loop through and assign each property its corresponding saved value
-            throw new NotImplementedException();
+            /*int enemies = Array.IndexOf(savedData, "Enemy");
+            int character = Array.IndexOf(savedData, "Character");
+            List<string> enemyData = new List<string>();
+
+            // extract all enemies out of larger list
+            for (int i = enemies; i < character; ++i)
+            {
+                enemyData.Add(savedData[i]);
+            }
+
+            // for the sake of flexibility and robustness: 
+            int count = enemyData.Count();
+            int next = enemyData.IndexOf("Enemy");*/
+
+
         }
     }
 }

@@ -92,18 +92,23 @@ namespace TowerOfTerror.Model
         public List<string> Serialize()
         {
             List<string> data = new List<string>();
-            data.Add("Level"); // "header" info
+            data.Add("Level");
             data.Add(Num.ToString());
             data.Add(Type.ToString());
 
             return data;
         }
 
-        public void Deserialize(List<object> savedData)
+        /// <summary>
+        /// Finds and extracts its own information from the list prepared by Load()
+        /// Converts each string to the correct data and updates its state
+        /// </summary>
+        /// <param name="savedData">Array of string data extracted by Load() from file</param>
+        public void Deserialize(string[] savedData)
         {
-            //get Entity List of save data
-            //Loop through and assign each property its corresponding saved value
-            throw new NotImplementedException();
+            int i = Array.IndexOf(savedData, "Level");
+            Num = Convert.ToInt32(savedData[i + 1]);
+            Type = (savedData[i + 2] == "Basic" ? LevelType.Basic : LevelType.Final);
         }
     }
 }

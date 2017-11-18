@@ -9,7 +9,7 @@ namespace TowerOfTerror.Model
     interface ISerializable
     {
         List<string> Serialize();
-        void Deserialize(List<Object> data);
+        void Deserialize(string[] data);
     }
 
 }

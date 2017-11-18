@@ -138,25 +138,43 @@ namespace TowerOfTerror.Model
         {
             List<string> data = new List<string>();
             data.Add("GameController");
-            data.Add(currentFloor.ToString());
-            //I don't think I need a reference to Character, like Level didn't reference Enemies
+            data.Add(CurrentFloor.ToString());
             data.Add(Setting.ToString());
+            //data.Add(Convert.ToInt32(Setting).ToString()); 
 
             return data;
         }
 
-        public void Deserialize(List<object> savedData)
+        /// <summary>
+        /// Finds and extracts its own information from the list prepared by Load()
+        /// Converts each string to the correct data and updates its state
+        /// </summary>
+        /// <param name="savedData">Array of string data extracted by Load() from file</param>
+        public void Deserialize(string[] savedData)
         {
-            //get Entity List of save data
-            //Loop through and assign each property its corresponding saved value
-            throw new NotImplementedException();
+            int i = Array.IndexOf(savedData, "GameController");
+            CurrentFloor = Convert.ToInt32(savedData[i + 1]);  // <-- VERY FRAGILE, need to confirm exactly how leveling is going to be handled
+            //int difficulty = Convert.ToInt32(savedData[i + 2]);
+            string difficulty = savedData[i + 2];
+            switch (difficulty)
+            {
+                case "Easy":
+                    Setting = Difficulty.Easy;
+                    break;
+                case "Medium":
+                    Setting = Difficulty.Medium;
+                    break;
+                case "Hard":
+                    Setting = Difficulty.Hard;
+                    break;
+            }
         }
 
         /// <summary>
         /// At present this method either creates a new save file or overwrites the old one
         /// defaults to storing the file with the .exe
         /// </summary>
-        /// NOTE TO SELF: need to call this method at the end of every Level
+        /// NOTE TO SELF: need to add save button when gameplay is functional
         public async void Save()
         {
             string filename = "ToT"; //will eventually let user supply filename
@@ -164,13 +182,13 @@ namespace TowerOfTerror.Model
 
             List<List<string>> allSavedData = new List<List<string>>();
 
-            using (StreamWriter writer = new StreamWriter(path))   //File.Create(new Uri(filename + ".dat", path)))  //File.CreateText(new Uri(filename + ".dat", UriKind.Relative));    //(filename + ".dat"))
+            using (StreamWriter writer = new StreamWriter(path))  
             {
                 // start the file off with a "header" that will tell Load that this is a valid file
                 await writer.WriteAsync("ToTSave");
 
                 // collect all data to be saved
-                allSavedData.Add(Serialize()); // list of GameController data
+                allSavedData.Add(Serialize()); 
                 allSavedData.Add(Floors[CurrentFloor].Serialize());
                 foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 {
@@ -178,7 +196,7 @@ namespace TowerOfTerror.Model
                 }
                 allSavedData.Add(adventurer.Serialize());
 
-                // write to file (comma delimited) asynchronously
+                // write to file 
                 foreach (List<string> classData in allSavedData)
                 {
                     foreach (string property in classData)
@@ -189,9 +207,46 @@ namespace TowerOfTerror.Model
             } // using
         } // Save
 
-        public void Load(string txtFile)
+        // will need to start a new game, but update the game state before actually launching it
+        // TODO: exception handling
+        // TODO: get user input going, get rid of test input
+        public async void Load(string dotDat)
         {
-            throw new NotImplementedException();
+            string file;
+            
+            // are the path and file names correct?
+            try
+            {
+                using (StreamReader reader = new StreamReader(dotDat))
+                {
+                    file = await reader.ReadToEndAsync();
+                }
+                // is this file a valid saved ToT game?
+                string[] gameData = file.Split(',');
+
+                if (gameData[0] == "ToTSave")
+                {
+                    // start the game here, i think
+                    Deserialize(gameData);
+                    currentFloor.Deserialize(gameData);
+                    foreach (Enemy enemy in currentFloor.Enemies)
+                    {
+                        enemy.Deserialize(gameData);
+                    }
+                    adventurer.Deserialize(gameData);
+                }
+                else
+                {
+                    //is being read line by line after the try block... but is not throwing
+                    throw new FileFormatException();
+                }
+            }
+            catch
+            {
+                throw new FileNotFoundException(); // is not being caught...
+            }
+
+
         }
     }
 }

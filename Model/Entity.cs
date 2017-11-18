@@ -39,6 +39,6 @@ namespace TowerOfTerror.Model
 
         public abstract List<string> Serialize();
 
-        public abstract void Deserialize(List<Object> savedData);
+        public abstract void Deserialize(string[] savedData);
     }
 }

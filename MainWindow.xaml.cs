@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,9 +92,26 @@ namespace TowerOfTerror
         }
 
         // Show a window to load a file
+        /// <summary>
+        /// by heast
+        /// Allows user to choose a file to load and attempts to load it. Informs users of failed Load() attempts.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ctrl.Load(@"C:\Users\Heather\Desktop\Fall2017\CpS209\programs\TowerOfTerror\SavedGames\ToT.dat");
+            }
+            // needs tested!!
+            catch (FileNotFoundException)
+            {
+                string errorMsg = "The system cannot find the file you have requested. Please try again.";
+                MessageBoxButton ok = MessageBoxButton.OK;
+                MessageBoxImage img = MessageBoxImage.Error;
+                MessageBox.Show(errorMsg, "Error", ok, img);
+            }
         }
 
         // Show credits

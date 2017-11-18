@@ -16,7 +16,7 @@
         <StackPanel Orientation="Horizontal" Height="233">
             <StackPanel>
                 <Button x:Name="btnStartGame" Content="Start Game" BorderBrush="Black" Background="AliceBlue" Click="btnStartGame_Click"/>
-                <Button x:Name="btnLoadGame" Content="Load Game" BorderBrush="Black" IsEnabled="False" Click="btnLoadGame_Click"/>
+                <Button x:Name="btnLoadGame" Content="Load Game" BorderBrush="Black" IsEnabled="True" Click="btnLoadGame_Click"/>
                 <Button x:Name="btnAbout" Content="About" BorderBrush="Black" Click="btnAbout_Click"/>
                 <Button x:Name="btnHelp" Content="Help" BorderBrush="Black" Click="btnHelp_Click"/>
                 <Button x:Name="btnHighScores" Content="High Scores" BorderBrush="Black" Click="btnHighScores_Click"/>
