@@ -21,9 +21,5 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(scores.Scores[1].Name == "Sue");
             Assert.IsTrue(scores.Scores[1].Score == 42);
         }
-        
-
-
-
     }
 }
