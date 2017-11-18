@@ -44,7 +44,7 @@ namespace TowerOfTerror.Model
             return fakeList;
         }
 
-        public void Deserialize(List<Object> savedData)
+        public void Deserialize(string[] savedData)
         {
             //get Entity List of save data
             //Loop through and assign each property its corresponding saved value

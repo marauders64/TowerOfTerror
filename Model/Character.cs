@@ -114,7 +114,7 @@ namespace TowerOfTerror.Model
             return data;
         }
 
-        public override void Deserialize(List<object> savedData)
+        public override void Deserialize(string[] savedData)
         {
             //get Entity List of save data
             //Loop through and assign each property its corresponding saved value

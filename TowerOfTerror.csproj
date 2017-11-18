@@ -102,6 +102,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="SavedGames\ToTold.dat" />
+    <None Include="SavedGames\ToTsample.dat" />
     <None Include="ToTModel.cd" />
   </ItemGroup>
   <ItemGroup>
