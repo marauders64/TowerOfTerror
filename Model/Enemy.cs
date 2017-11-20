@@ -97,27 +97,31 @@ namespace TowerOfTerror.Model
         }
 
         /// <summary>
-        /// Finds and extracts its own information from the list prepared by Load()
-        /// Figures out which set of Enemy data it needs out of the complete array
+        /// Finds and extracts the correct information from the array prepared by Load()
         /// Converts each string to the correct data and updates its state
         /// </summary>
+        /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public override void Deserialize(string[] savedData)
         {
-            /*int enemies = Array.IndexOf(savedData, "Enemy");
-            int character = Array.IndexOf(savedData, "Character");
-            List<string> enemyData = new List<string>();
-
-            // extract all enemies out of larger list
-            for (int i = enemies; i < character; ++i)
+            Id = Convert.ToInt32(savedData[0]);
+            Image = savedData[1];
+            Position = new Point(Convert.ToInt32(savedData[2]), Convert.ToInt32(savedData[3]));
+            Power = Convert.ToInt32(savedData[4]);
+            Defense = Convert.ToInt32(savedData[5]);
+            Health = Convert.ToInt32(savedData[6]);
+            string enemyStatus = savedData[7];
+            switch (enemyStatus)
             {
-                enemyData.Add(savedData[i]);
+                case "Alive":
+                    Status = Life.Alive;
+                    break;
+                case "Dead":
+                    Status = Life.Dead;
+                    break;
+                case "Falling":
+                    Status = Life.Falling;
+                    break;
             }
-
-            // for the sake of flexibility and robustness: 
-            int count = enemyData.Count();
-            int next = enemyData.IndexOf("Enemy");*/
-
-
         }
     }
 }
