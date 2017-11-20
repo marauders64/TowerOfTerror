@@ -23,7 +23,7 @@ namespace TowerOfTerror.Model
         public int CurrentFloor { get; set; }
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
-        public List<Enemy> Enemies { get; set; }
+        // public List<Enemy> Enemies { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
         public Character adventurer;
@@ -69,7 +69,7 @@ namespace TowerOfTerror.Model
             foreach (Level lev in this.Floors)
             {
                 lev.FillEnemies(lev);
-                lev.PlaceEntities();
+                lev.PlaceEnemies();
             }
             //currentFloor.PlaceEntities();
             //currentFloor.FillEnemies(currentFloor);
@@ -181,8 +181,8 @@ namespace TowerOfTerror.Model
 
                 // collect all data to be saved
                 allSavedData.Add(Serialize());
-                //allSavedData.Add(Floors[CurrentFloor].Serialize());
-                allSavedData.Add(currentFloor.Serialize());
+                allSavedData.Add(Floors[CurrentFloor].Serialize());
+                //allSavedData.Add(currentFloor.Serialize());
                 //foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 foreach (Enemy enemy in currentFloor.Enemies)
                 {

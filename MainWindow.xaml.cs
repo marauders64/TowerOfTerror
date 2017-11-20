@@ -49,13 +49,11 @@ namespace TowerOfTerror
             Difficulty sett;
             btnSaveGame.IsEnabled = true;
             btnCheatMode.IsEnabled = false;
-            cmbDifficultyPicker.IsEnabled = false;
-            
-            // Nuclear option
-            //panel_Leftie.IsEnabled = false;
 
             if (ctrl.Cheating)
             {
+                btnSaveGame.IsEnabled = false;
+                btnLoadGame.IsEnabled = false;
                 sett = Difficulty.Easy;
             }
             else
