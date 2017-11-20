@@ -69,6 +69,7 @@ namespace TowerOfTerror.Model
         public void GameController_Save_Success()
         {
             GameController gc = new GameController();
+            gc.BuildTower();
             string loadedGame; 
             gc.Save(@"ToT.dat");
             using (StreamReader reader = new StreamReader(@"ToT.dat"))
