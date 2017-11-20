@@ -88,7 +88,7 @@ namespace TowerOfTerror.Model
         public void UpdatePositions(Character character, Direction direction)
         {
             character.Move(direction);
-            foreach (Entity enemy in Enemies)
+            foreach (Entity enemy in currentFloor.Enemies)
             {
                 //Need to Fix
                 int i = rand.Next(1, 5);

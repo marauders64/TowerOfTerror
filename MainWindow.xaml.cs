@@ -228,7 +228,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
             else if(e.Key == Key.Space)
             {
-                foreach(Enemy enemy in ctrl.Enemies)
+                foreach(Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
                     if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
@@ -238,16 +238,18 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             //Update canvas positions
-             foreach (Image img in Arena.Children)
-             {
-                //get entity ascociated with image and move it
-                Entity entity = entities[img];
-                Canvas.SetLeft(img, entity.Position.X);
-                Canvas.SetTop(img, entity.Position.Y);
-                                
-             }
+            Canvas.SetLeft(img_Protagonist, player.Position.X);
+            Canvas.SetTop(img_Protagonist, player.Position.Y);
+            /*foreach (Image img in Arena.Children)
+            {
+               //get entity ascociated with image and move it
+               Entity entity = entities[img];
+               Canvas.SetLeft(img, entity.Position.X);
+               Canvas.SetTop(img, entity.Position.Y);
 
-             
+            }*/
+
+
         }
 
         // NOTE TO HEATHER EAST:
