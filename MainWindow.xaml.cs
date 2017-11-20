@@ -98,6 +98,7 @@ namespace TowerOfTerror
                     Visibility = Visibility.Visible
                 };
             }
+            Arena.Focus();
         }
 
         /// <summary>
