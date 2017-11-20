@@ -27,7 +27,7 @@
                 <TextBlock x:Name="lblDifficulty" Text="Difficulty:" Background="White"/>
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True" Background="White"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Height="233" Width="384" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp">
+            <Canvas x:Name="Arena" Height="233" Width="384" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp" Focusable="True">
                     <!-- This is where the game is played -->
                 <Image x:Name="img_Protagonist" Height="30" Canvas.Left="169" Canvas.Top="96" Visibility="Hidden">
                     <Image.Source>
