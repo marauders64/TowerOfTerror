@@ -68,10 +68,10 @@ namespace TowerOfTerror.Model
             switch (dir)
             {
                 case Direction.Up:
-                    this.Position = new Point(Position.X, Position.Y + 10);
+                    this.Position = new Point(Position.X, Position.Y - 10);
                     break;
                 case Direction.Down:
-                    this.Position = new Point(Position.X, Position.Y - 10);
+                    this.Position = new Point(Position.X, Position.Y + 10);
                     break;
                 case Direction.Right:
                     this.Position = new Point(Position.X + 10, Position.Y);
