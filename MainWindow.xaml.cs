@@ -193,8 +193,6 @@ Difficulty: Set difficulty using the dropdown box provided.
         }
         
         /// Moving/Attacking stuff
-
-       
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
             Console.WriteLine("Firing?");
