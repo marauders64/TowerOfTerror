@@ -14,7 +14,7 @@
             </Image.Source>
         </Image>
         <StackPanel Orientation="Horizontal" Height="233">
-            <StackPanel>
+            <StackPanel x:Name="panel_Leftie">
                 <Button x:Name="btnStartGame" Content="Start Game" BorderBrush="Black" Background="AliceBlue" Click="btnStartGame_Click"/>
                 <Button x:Name="btnSaveGame" Content="Save Game" BorderBrush="Black" IsEnabled="False" Click="btnSaveGame_Click"/>
                 <Button x:Name="btnLoadGame" Content="Load Game" BorderBrush="Black" IsEnabled="True" Click="btnLoadGame_Click"/>
