@@ -184,7 +184,7 @@ namespace TowerOfTerror.Model
                 allSavedData.Add(Floors[CurrentFloor].Serialize());
                 //allSavedData.Add(currentFloor.Serialize());
                 //foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
-                foreach (Enemy enemy in currentFloor.Enemies)
+                foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 {
                     allSavedData.Add(enemy.Serialize());
                 }
