@@ -97,6 +97,7 @@ namespace TowerOfTerror
                     Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
                     Visibility = Visibility.Visible
                 };
+                Arena.Children.Add(img_enemy);
             }
             Arena.Focus();
             entities.Add(img_Protagonist, ctrl.adventurer);

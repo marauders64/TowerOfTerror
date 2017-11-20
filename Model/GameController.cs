@@ -23,9 +23,9 @@ namespace TowerOfTerror.Model
         public int CurrentFloor { get; set; }
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
-        // public List<Enemy> Enemies { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
+        public Level nextFloor;
         public Character adventurer;
 
         public static Random rand = new Random();
@@ -42,6 +42,8 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
+            this.currentFloor = Floors[0];
+            this.nextFloor = Floors[1];
         }
 
         // Populate the Level list with three levels
@@ -71,10 +73,6 @@ namespace TowerOfTerror.Model
                 lev.FillEnemies(lev);
                 lev.PlaceEnemies();
             }
-            //currentFloor.PlaceEntities();
-            //currentFloor.FillEnemies(currentFloor);
-            //Enemies = currentFloor.Enemies;
-
         }
 
         // Does the logic for when the player attacks
@@ -118,7 +116,8 @@ namespace TowerOfTerror.Model
         // Returns whether or not the game has ended (player completes final level or dies)
         public bool IsGameOver()
         {
-            return false;
+            int lastFloor = this.Floors.Count - 1;
+            return this.Floors[lastFloor].LevelComplete();
         }
 
         // Records the result of an attack and does the corresponding logic
