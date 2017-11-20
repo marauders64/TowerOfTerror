@@ -16,6 +16,7 @@
         <StackPanel Orientation="Horizontal" Height="233">
             <StackPanel>
                 <Button x:Name="btnStartGame" Content="Start Game" BorderBrush="Black" Background="AliceBlue" Click="btnStartGame_Click"/>
+                <Button x:Name="btnSaveGame" Content="Save Game" BorderBrush="Black" IsEnabled="False" Click="btnSaveGame_Click"/>
                 <Button x:Name="btnLoadGame" Content="Load Game" BorderBrush="Black" IsEnabled="True" Click="btnLoadGame_Click"/>
                 <Button x:Name="btnAbout" Content="About" BorderBrush="Black" Click="btnAbout_Click"/>
                 <Button x:Name="btnHelp" Content="Help" BorderBrush="Black" Click="btnHelp_Click"/>
@@ -26,8 +27,13 @@
                 <TextBlock x:Name="lblDifficulty" Text="Difficulty:" Background="White"/>
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True" Background="White"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Width="384" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp">
+            <Canvas x:Name="Arena" Height="233" Width="384" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp">
                     <!-- This is where the game is played -->
+                <Image x:Name="img_Protagonist" Height="30" Canvas.Left="169" Canvas.Top="96" Visibility="Hidden">
+                    <Image.Source>
+                        <BitmapImage UriSource="/Graphics/chitiniac_idle-1.png"/>
+                    </Image.Source>
+                </Image>
             </Canvas>
             <StackPanel Width="68">
                 <!-- This is where the inventory will go once added -->

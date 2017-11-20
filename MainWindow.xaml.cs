@@ -45,6 +45,7 @@ namespace TowerOfTerror
             // Enabling Cheat mode defaults the difficulty to easy
             string diff;
             Difficulty sett;
+            btnSaveGame.IsEnabled = true;
             btnCheatMode.IsEnabled = false;
             if (ctrl.Cheating)
             {
@@ -81,14 +82,17 @@ namespace TowerOfTerror
             ctrl.BuildTower();
             ctrl.Setup();
 
+            img_Protagonist.Visibility = Visibility.Visible;
+
             // Setup images
-            Image protagonist = new Image
+            foreach (Entity en in ctrl.currentFloor.Enemies)
             {
-                Source = new BitmapImage(new Uri("Graphics/chitiniac-idle.png", UriKind.Relative)),
-            };
-            Arena.Children.Add(protagonist);
-            Canvas.SetLeft(protagonist, ctrl.adventurer.Position.X);
-            Canvas.SetTop(protagonist, ctrl.adventurer.Position.Y);
+                Image img_enemy = new Image
+                {
+                    Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
+                    Visibility = Visibility.Visible
+                };
+            }
         }
 
         // Show a window to load a file
@@ -230,5 +234,12 @@ Difficulty: Set difficulty using the dropdown box provided.
              
         }
 
+        // NOTE TO HEATHER EAST:
+        // This button will be disabled when the window starts up, but it will re-enable when "Start"
+        // You can dump your save logic here
+        private void btnSaveGame_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
