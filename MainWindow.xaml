@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TowerOfTerror"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Background="LightGray">
+        Title="MainWindow" Height="448.592" Width="646.268" Background="LightGray">
 
     <StackPanel>
         <Image Height="88">
@@ -13,7 +13,7 @@
                 <BitmapImage UriSource="/Graphics/title.png"/>
             </Image.Source>
         </Image>
-        <StackPanel Orientation="Horizontal" Height="233">
+        <StackPanel Orientation="Horizontal" Height="333" Margin="0,0,0.333,0">
             <StackPanel x:Name="panel_Leftie">
                 <Button x:Name="btnStartGame" Content="Start Game" BorderBrush="Black" Background="AliceBlue" Click="btnStartGame_Click"/>
                 <Button x:Name="btnSaveGame" Content="Save Game" BorderBrush="Black" IsEnabled="False" Click="btnSaveGame_Click"/>
@@ -23,12 +23,12 @@
                 <Button x:Name="btnHighScores" Content="High Scores" BorderBrush="Black" Click="btnHighScores_Click"/>
                 <Button x:Name="btnCheatMode" Content="     " Background="LightGray" BorderBrush="Black" Click="btnCheatMode_Click"/>
                 <TextBlock x:Name="lblName" Text="Enter Name:" Background="White"/>
-                <TextBox x:Name="txtPlayerName" Text="McCoy"/>
+                <TextBox x:Name="txtPlayerName" Width="67" Text="McCoy"/>
                 <TextBlock x:Name="lblDifficulty" Text="Difficulty:" Background="White"/>
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True" Background="White"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Height="233" Width="384" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp" Focusable="True">
-                    <!-- This is where the game is played -->
+            <Canvas x:Name="Arena" Width="506" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp">
+                <!-- This is where the game is played -->
                 <Image x:Name="img_Protagonist" Height="30" Canvas.Left="169" Canvas.Top="96" Visibility="Hidden">
                     <Image.Source>
                         <BitmapImage UriSource="/Graphics/chitiniac_idle-1.png"/>
