@@ -106,9 +106,8 @@ namespace TowerOfTerror.Model
         /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public void Deserialize(string[] savedData)
         {
-            int i = Array.IndexOf(savedData, "Level");
-            Num = Convert.ToInt32(savedData[i + 1]);
-            Type = (savedData[i + 2] == "Basic" ? LevelType.Basic : LevelType.Final);
+            Num = Convert.ToInt32(savedData[0]);
+            Type = (savedData[1] == "Basic" ? LevelType.Basic : LevelType.Final);
         }
     }
 }

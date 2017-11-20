@@ -114,11 +114,33 @@ namespace TowerOfTerror.Model
             return data;
         }
 
+        /// <summary>
+        /// Finds and extracts the correct information from the array prepared by Load()
+        /// Converts each string to the correct data and updates its state
+        /// </summary>
+        /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public override void Deserialize(string[] savedData)
         {
-            //get Entity List of save data
-            //Loop through and assign each property its corresponding saved value
-            throw new NotImplementedException();
+            Name = savedData[0];
+            Image = savedData[1];
+            Position = new Point(Convert.ToInt32(savedData[2]), Convert.ToInt32(savedData[3]));
+            Power = Convert.ToInt32(savedData[4]);
+            Defense = Convert.ToInt32(savedData[5]);
+            Health = Convert.ToInt32(savedData[6]);
+            string heroStatus = savedData[7];
+            switch (heroStatus)
+            {
+                case "Alive":
+                    Status = Life.Alive;
+                    break;
+                case "Dead": // i don't know why anyone would save after dying, though...
+                    Status = Life.Dead;
+                    break;
+                case "Falling":
+                    Status = Life.Falling;
+                    break;
+            //items not implemented
+            }
         }
     }
 }

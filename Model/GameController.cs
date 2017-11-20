@@ -75,8 +75,6 @@ namespace TowerOfTerror.Model
             //currentFloor.FillEnemies(currentFloor);
             //Enemies = currentFloor.Enemies;
 
-            //Save() call for testing purposes
-            Save();
         }
 
         // Does the logic for when the player attacks
@@ -140,22 +138,19 @@ namespace TowerOfTerror.Model
             data.Add("GameController");
             data.Add(CurrentFloor.ToString());
             data.Add(Setting.ToString());
-            //data.Add(Convert.ToInt32(Setting).ToString()); 
 
             return data;
         }
 
         /// <summary>
-        /// Finds and extracts its own information from the list prepared by Load()
+        /// Finds and extracts the correct information from the array prepared by Load()
         /// Converts each string to the correct data and updates its state
         /// </summary>
         /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public void Deserialize(string[] savedData)
         {
-            int i = Array.IndexOf(savedData, "GameController");
-            CurrentFloor = Convert.ToInt32(savedData[i + 1]);  // <-- VERY FRAGILE, need to confirm exactly how leveling is going to be handled
-            //int difficulty = Convert.ToInt32(savedData[i + 2]);
-            string difficulty = savedData[i + 2];
+            CurrentFloor = Convert.ToInt32(savedData[0]);  // <-- VERY FRAGILE, need to confirm exactly how leveling is going to be handled
+            string difficulty = savedData[1];
             switch (difficulty)
             {
                 case "Easy":
@@ -171,26 +166,25 @@ namespace TowerOfTerror.Model
         }
 
         /// <summary>
-        /// At present this method either creates a new save file or overwrites the old one
-        /// defaults to storing the file with the .exe
+        /// Creates a new file containing state data
+        /// name and filepath are selected by user
         /// </summary>
-        /// NOTE TO SELF: need to add save button when gameplay is functional
-        public async void Save()
+        /// <param name="filename">path provided by Windows dialog box</param>
+        public async void Save(string filename) // need to take path as param
         {
-            string filename = "ToT"; //will eventually let user supply filename
-            string path = @"SavedGames\ToT.dat";
-
             List<List<string>> allSavedData = new List<List<string>>();
 
-            using (StreamWriter writer = new StreamWriter(path))  
+            using (StreamWriter writer = new StreamWriter(filename))  
             {
                 // start the file off with a "header" that will tell Load that this is a valid file
                 await writer.WriteAsync("ToTSave");
 
                 // collect all data to be saved
-                allSavedData.Add(Serialize()); 
-                allSavedData.Add(Floors[CurrentFloor].Serialize());
-                foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
+                allSavedData.Add(Serialize());
+                //allSavedData.Add(Floors[CurrentFloor].Serialize());
+                allSavedData.Add(currentFloor.Serialize());
+                //foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
+                foreach (Enemy enemy in currentFloor.Enemies)
                 {
                     allSavedData.Add(enemy.Serialize());
                 }
@@ -207,37 +201,67 @@ namespace TowerOfTerror.Model
             } // using
         } // Save
 
-        // will need to start a new game, but update the game state before actually launching it
-        // TODO: exception handling
-        // TODO: get user input going, get rid of test input
+        /// <summary>
+        /// Loads a previous in-progess game by launching ToT and updating the state to match the file's information
+        /// TODO: exception handling
+        /// </summary>
+        /// <param name="dotDat">User-selected ToT.dat file from dialog box</param>
         public async void Load(string dotDat)
         {
             string file;
-            
-            // are the path and file names correct?
+
             try
             {
                 using (StreamReader reader = new StreamReader(dotDat))
                 {
                     file = await reader.ReadToEndAsync();
                 }
-                // is this file a valid saved ToT game?
+
                 string[] gameData = file.Split(',');
 
+                // check for valid save file 
                 if (gameData[0] == "ToTSave")
                 {
-                    // start the game here, i think
-                    Deserialize(gameData);
-                    currentFloor.Deserialize(gameData);
+                    string[] gcData = new string[2];
+                    int gcIndex = Array.IndexOf(gameData, "GameController");
+                    Array.Copy(gameData, (gcIndex + 1), gcData, 0, 2);
+                    //GameController gc = new GameController();
+                    Deserialize(gcData);
+
+                    string[] levelData = new string[2];
+                    int levelIndex = Array.IndexOf(gameData, "Level");
+                    Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
+                    //crashes right here without ever going to Level's Deserialize method
+                    //it's as if currentFloor doesn't exist, but even if I create a new GameController
+                        //(which would have a currentFloor) it doesn't help at all
+                    //I don't know why
+                    currentFloor.Deserialize(levelData);
+
+                    int iteration = 0;
+                    string[] enemyData = new string[8];
                     foreach (Enemy enemy in currentFloor.Enemies)
                     {
-                        enemy.Deserialize(gameData);
+                        int enemyIndex = Array.IndexOf(gameData, "Enemy");
+                        if (iteration == 0)
+                        {
+                            Array.Copy(gameData, (enemyIndex - 1), enemyData, 0, 8);
+                        }
+                        else
+                        {
+                            int newIndex = Array.IndexOf(gameData, "Enemy", (enemyIndex + iteration + (8 * iteration)));
+                        }
+                        ++iteration;
+                        enemy.Deserialize(enemyData);
                     }
-                    adventurer.Deserialize(gameData);
+
+                    string[] characterData = new string[9];
+                    int characterIndex = Array.IndexOf(gameData, "Character");
+                    Array.Copy(gameData, (characterIndex - 1), characterData, 0, 9);
+                    adventurer.Deserialize(characterData);
                 }
                 else
                 {
-                    //is being read line by line after the try block... but is not throwing
+                    //is being read line by line after going through the try block... but is not throwing anything...
                     throw new FileFormatException();
                 }
             }
