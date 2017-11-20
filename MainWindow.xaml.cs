@@ -236,16 +236,16 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             //Update canvas positions
-             foreach (Image img in Arena.Children)
-             {
+            foreach (Image img in Arena.Children)
+            {
                 //get entity ascociated with image and move it
                 Entity entity = entities[img];
                 Canvas.SetLeft(img, entity.Position.X);
                 Canvas.SetTop(img, entity.Position.Y);
-                                
-             }
 
-             
+            }
+
+
         }
 
         // NOTE TO HEATHER EAST:
