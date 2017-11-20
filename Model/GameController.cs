@@ -23,7 +23,7 @@ namespace TowerOfTerror.Model
         public int CurrentFloor { get; set; }
         public List<Level> Floors { get; set; }
         public Difficulty Setting { get; set; }
-        public List<Enemy> Enemies { get; set; }
+        // public List<Enemy> Enemies { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
         public Character adventurer;
@@ -69,7 +69,7 @@ namespace TowerOfTerror.Model
             foreach (Level lev in this.Floors)
             {
                 lev.FillEnemies(lev);
-                lev.PlaceEntities();
+                lev.PlaceEnemies();
             }
             //currentFloor.PlaceEntities();
             //currentFloor.FillEnemies(currentFloor);
@@ -88,7 +88,7 @@ namespace TowerOfTerror.Model
         public void UpdatePositions(Character character, Direction direction)
         {
             character.Move(direction);
-            foreach (Entity enemy in Enemies)
+            foreach (Entity enemy in currentFloor.Enemies)
             {
                 //Need to Fix
                 int i = rand.Next(1, 5);

@@ -13,7 +13,6 @@ namespace TowerOfTerror.Model
     // Contains data for the levels
     class Level : ISerializable
     {
-        public Character dude;
         public Random rand;
         public static int num = 0;
         public int Num { get; set; }
@@ -25,7 +24,6 @@ namespace TowerOfTerror.Model
             this.Num = num;
             num++;
             this.Type = type;
-            //this.dude = new Character();
             this.Enemies = new List<Enemy>();
         }
 
@@ -62,13 +60,9 @@ namespace TowerOfTerror.Model
         }
 
         // Fills in the level with all the enemies and a single character
-        public void PlaceEntities()
+        public void PlaceEnemies()
         {
             rand = new Random();
-            int dudeX = rand.Next(0, (506 - 30));
-            int dudeY = rand.Next(0, (333 - 30));
-            dude.Position = new Point(dudeX, dudeY);
-
             foreach (Enemy foe in Enemies)
             {
                 int foeX = rand.Next();
