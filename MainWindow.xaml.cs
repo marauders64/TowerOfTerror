@@ -99,6 +99,7 @@ namespace TowerOfTerror
                 };
             }
             Arena.Focus();
+            entities.Add(img_Protagonist, ctrl.adventurer);
         }
 
         /// <summary>
@@ -236,16 +237,15 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             //Update canvas positions
-            Canvas.SetLeft(img_Protagonist, player.Position.X);
-            Canvas.SetTop(img_Protagonist, player.Position.Y);
-            /*foreach (Image img in Arena.Children)
+            
+            foreach (Image img in Arena.Children)
             {
                //get entity ascociated with image and move it
                Entity entity = entities[img];
                Canvas.SetLeft(img, entity.Position.X);
                Canvas.SetTop(img, entity.Position.Y);
 
-            }*/
+            }
 
 
         }
