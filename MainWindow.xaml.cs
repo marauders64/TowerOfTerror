@@ -226,7 +226,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
             else if(e.Key == Key.Space)
             {
-                foreach(Enemy enemy in ctrl.Enemies)
+                foreach(Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
                     if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
