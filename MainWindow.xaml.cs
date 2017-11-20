@@ -41,6 +41,7 @@ namespace TowerOfTerror
         // Create new game from there
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("Howdi");
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
             string diff;
@@ -126,6 +127,7 @@ namespace TowerOfTerror
         // Show credits
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("Opening Credits");
             string aboutText = @"Tower Of Terror
 Produced by:
     Heather East
@@ -195,6 +197,7 @@ Difficulty: Set difficulty using the dropdown box provided.
        
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
+            Console.WriteLine("Firing?");
             Character player = ctrl.adventurer;
             
             //Need to get images connected to Entities.
