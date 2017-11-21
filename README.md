@@ -11,9 +11,17 @@ Attack using the Space Bar.
 * Most back-end logic filled in.
 * Serialization tests pass.
 * More unit tests for the model have been added.
+---
+* Game loads with random enemies
+* Attacking functional
+* Save button functional
+* High Scores functional
+* Most Load unit tests pass
 
 # Major Issues
-Right now, none of the entities are appearing. The level hasn't been loaded either.
+* Load still needs to actually launch the game
+* Gameplay buggy
+* Enemies wander off screen
 
 # Recording to the Alpha
 http://youtu.be/otyVemljuIk?hd=1
@@ -22,6 +30,6 @@ http://youtu.be/otyVemljuIk?hd=1
 
 | Developer | Time Used | Time Remaining (req/opt) |
 |-----------|-----------|----------------|
-| Santana | 17 hrs. | 13/33 hrs. |
-| East | 12.75 hrs. | 17.25/37.25 hrs. |
-| Mauk | 7.5 hrs. | 22.5/42.5 hrs. |
+| Santana | 19 hrs. | 11/31 hrs. |
+| East | 24.75 hrs. | 5.25/25.25 hrs. |
+| Mauk | 15.5 hrs. | 14.5/34.5 hrs. |
