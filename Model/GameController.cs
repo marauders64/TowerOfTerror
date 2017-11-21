@@ -235,15 +235,11 @@ namespace TowerOfTerror.Model
                     string[] levelData = new string[2];
                     int levelIndex = Array.IndexOf(gameData, "Level");
                     Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
-                    //crashes right here without ever going to Level's Deserialize method
-                    //it's as if currentFloor doesn't exist, but even if I create a new GameController
-                        //(which would have a currentFloor) it doesn't help at all
-                    //I don't know why
-                    currentFloor.Deserialize(levelData);
+                    Floors[CurrentFloor].Deserialize(levelData);
 
                     int iteration = 0;
                     string[] enemyData = new string[8];
-                    foreach (Enemy enemy in currentFloor.Enemies)
+                    foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                     {
                         int enemyIndex = Array.IndexOf(gameData, "Enemy");
                         if (iteration == 0)
@@ -266,12 +262,12 @@ namespace TowerOfTerror.Model
                 else
                 {
                     //is being read line by line after going through the try block... but is not throwing anything...
-                    throw new FileFormatException();
+                    //throw new FileFormatException();
                 }
             }
             catch
             {
-                throw new FileNotFoundException(); // is not being caught...
+                //throw new FileNotFoundException(); // is not being caught...
             }
 
 

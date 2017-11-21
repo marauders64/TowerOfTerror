@@ -70,7 +70,8 @@ namespace TowerOfTerror.Model
         {
             GameController gc = new GameController();
             gc.BuildTower();
-            // TODO: instantiate Enemies, which is currently being reworked/renamed
+            gc.Floors[0].FillEnemies(gc.Floors[0]);
+            gc.Floors[0].PlaceEnemies();
             string loadedGame; 
             gc.Save(@"ToT.dat");
             using (StreamReader reader = new StreamReader(@"ToT.dat"))
@@ -81,39 +82,73 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(gameData[0] == "ToTSave");
             Assert.IsTrue(gameData[1] == "GameController");
             Assert.IsTrue(gameData[4] == "Level");
-            //Assert.IsTrue(gameData[7] == "Enemy");
-            //Assert.IsTrue(gameData.Length == 35);
+            Assert.IsTrue(gameData[7] == "Enemy");
+            Assert.IsTrue(gameData.Length == 35);
         }
 
-        /// <summary>
-        /// Setup method for Load/Deserialize tests
-        /// need to fix to relative path
-        /// </summary>
-       /* public void Deserialize_Setup()
-        {
-            GameController gc = new GameController();
-            string loadedGame;
-            gc.Save();
-            ///gc.Load();
-        }*/
-
-
-       /* [TestMethod]
+       [TestMethod]
         public void GameController_Load_Success()
         {
             GameController gc = new GameController();
             string loadedGame;
-            gc.Save();
-            gc.Load(@"C:\Users\Heather\Desktop\Fall2017\CpS209\programs\TowerOfTerror\SavedGames\ToT.dat");
+            gc.Load(@"ToTtest.dat");
+            //Assert.IsTrue()
             //will have to assert stuff about deserialize...
         }
 
         [TestMethod]
-        public void GameController_Deserialize_Set()
+        public void GameController_Load_ControllerDeserialized()
         {
-            Deserialize_Setup();
+            GameController gc = new GameController();
+            gc.Load(@"ToTtest.dat");
+            Assert.IsTrue(gc.CurrentFloor == 0);
+            Assert.IsTrue(gc.Setting == Difficulty.Easy);
+        }
 
-        }*/
+
+        [TestMethod]
+        public void GameController_Load_LevelDeserialized()
+        {
+            GameController gc1 = new GameController();
+            gc1.BuildTower();
+            gc1.Load(@"ToTtest.dat");
+            //Assert.IsTrue(gc1.Floors[0].Num == 0); <-- IDs not being reset, need to write reset method...
+            Assert.IsTrue(gc1.Floors[0].Type == LevelType.Basic);
+        }
+
+        [TestMethod]
+        public void GameController_Load_EnemyDeserialized()
+        {
+            GameController gc = new GameController();
+            gc.BuildTower();
+            gc.Floors[0].FillEnemies(gc.Floors[0]);
+            gc.Floors[0].PlaceEnemies();
+            gc.Load(@"ToTtest.dat");
+            //Assert.IsTrue(gc.Floors[0].Enemies[0].Id == 1);
+            //image is null right now
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Position.X == 16);
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Position.Y == 18);
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Power == 5);
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Defense == 5);
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Health == 100);
+            Assert.IsTrue(gc.Floors[0].Enemies[0].Status == Life.Alive);
+        }
+
+        [TestMethod]
+        public void GameController_Load_CharacterDeserialized()
+        {
+            GameController gc = new GameController();
+            gc.Load(@"ToTtest.dat");
+            Assert.IsTrue(gc.adventurer.Name == "McCoy");
+            //image null right now
+            Assert.IsTrue(gc.adventurer.Position.X == 0);
+            Assert.IsTrue(gc.adventurer.Position.Y == 0);
+            Assert.IsTrue(gc.adventurer.Power == 5);
+            Assert.IsTrue(gc.adventurer.Defense == 5);
+            Assert.IsTrue(gc.adventurer.Health == 100);
+            Assert.IsTrue(gc.adventurer.Status == Life.Alive);
+
+        }
     }
 }
 
