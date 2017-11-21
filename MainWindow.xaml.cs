@@ -124,6 +124,7 @@ namespace TowerOfTerror
             {
                 ctrl.Load(dialog.FileName);
             }
+            Arena.Focus();
 
             /*try
             {
@@ -294,6 +295,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             {
                 ctrl.Save(dialog.FileName);
             }
+            Arena.Focus();
         }
     }
 }
