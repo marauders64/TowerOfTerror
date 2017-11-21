@@ -81,6 +81,12 @@ namespace TowerOfTerror.Model
             character.Attack(enemy);
         }
 
+        //Does Enemy attack logic
+        public void EnemyAttack(Enemy enemy)
+        {
+            enemy.Attack(adventurer);
+        }
+
         // Does the logic for when the player moves
         // Moves the enemies in a random direction
         public void UpdatePositions(Character character, Direction direction)
@@ -89,9 +95,8 @@ namespace TowerOfTerror.Model
             foreach (Entity enemy in currentFloor.Enemies)
             {
                 //Need to Fix
-                int i = rand.Next(1, 5);
                 Direction dir;
-                switch(i)
+                switch(rand.Next(1, 5))
                 {
                     case 1:
                         dir = Direction.Up;

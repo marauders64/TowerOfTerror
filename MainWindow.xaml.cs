@@ -86,6 +86,7 @@ namespace TowerOfTerror
             ctrl.adventurer.Name = txtPlayerName.Text;
             ctrl.BuildTower();
             ctrl.Setup();
+            Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
             img_Protagonist.Visibility = Visibility.Visible;
 
@@ -95,9 +96,13 @@ namespace TowerOfTerror
                 Image img_enemy = new Image
                 {
                     Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                    Visibility = Visibility.Visible
+                    Visibility = Visibility.Visible,
+                    Height = 40
                 };
+                Canvas.SetLeft(img_enemy, en.Position.X);
+                Canvas.SetTop(img_enemy, en.Position.Y);
                 Arena.Children.Add(img_enemy);
+                entities.Add(img_enemy, en);
             }
             Arena.Focus();
             entities.Add(img_Protagonist, ctrl.adventurer);
@@ -205,7 +210,6 @@ Difficulty: Set difficulty using the dropdown box provided.
         /// Moving/Attacking stuff
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
-            Console.WriteLine("Firing?");
             Character player = ctrl.adventurer;
             
             //Need to get images connected to Entities.
@@ -213,41 +217,66 @@ Difficulty: Set difficulty using the dropdown box provided.
             if (e.Key == Key.W)
             {
                 ctrl.UpdatePositions(player, Direction.Up);
+                img_Protagonist.RenderTransform = new RotateTransform(0.0);
             }
             else if (e.Key == Key.S)
             {
                 ctrl.UpdatePositions(player, Direction.Down);
+                img_Protagonist.RenderTransform = new RotateTransform(180.0);
             }
             else if (e.Key == Key.A)
             {
                 ctrl.UpdatePositions(player, Direction.Left);
+                img_Protagonist.RenderTransform = new RotateTransform(-90.0);
             }
             else if (e.Key == Key.D)
             {
                 ctrl.UpdatePositions(player, Direction.Right);
+                img_Protagonist.RenderTransform = new RotateTransform(90.0);
             }
             else if(e.Key == Key.Space)
             {
-                foreach(Enemy enemy in ctrl.currentFloor.Enemies)
+                Console.WriteLine("Attacking");
+                foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
-                    if((Math.Abs(enemy.Position.X - player.Position.X) <= 20) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 20)
+                    if((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
                     {
+                        Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
                     }
+                    
                 }
             }
-            //Update canvas positions
-            
-            foreach (Image img in Arena.Children)
-            {
-               //get entity ascociated with image and move it
-               Entity entity = entities[img];
-               Canvas.SetLeft(img, entity.Position.X);
-               Canvas.SetTop(img, entity.Position.Y);
 
+            foreach(Enemy enemy in ctrl.currentFloor.Enemies)
+            {
+                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
+                {
+                    ctrl.EnemyAttack(enemy);
+                }
             }
 
+            //Update canvas positions
+            List<Image> deadentity = new List<Image>();
+            foreach (Image img in Arena.Children)
+            {
+                //get entity ascociated with image and move it
+                Entity entity = entities[img];
+                Canvas.SetLeft(img, entity.Position.X);
+                Canvas.SetTop(img, entity.Position.Y);
+                Console.WriteLine(entity.Position.X + "  " + entity.Position.Y);
+                if (entity.IsDead())
+                {
+                    deadentity.Add(img);
+                    ctrl.currentFloor.Enemies.Remove(entity as Enemy);
+                }
+            }
+            foreach(Image img in deadentity)
+            {
+                Arena.Children.Remove(img);
+            }
+            Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
         }
 

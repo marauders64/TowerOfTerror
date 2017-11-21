@@ -26,12 +26,21 @@
                 <TextBox x:Name="txtPlayerName" Width="67" Text="McCoy"/>
                 <TextBlock x:Name="lblDifficulty" Text="Difficulty:" Background="White"/>
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True" Background="White"/>
+                <TextBlock x:Name="Health_txt" Height="50" TextWrapping="Wrap" Text="100" Width="65" Background="Lime" FontSize="36"/>
             </StackPanel>
             <Canvas x:Name="Arena" Width="506" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp" Focusable="True">
                 <!-- This is where the game is played -->
-                <Image x:Name="img_Protagonist" Height="30" Canvas.Left="169" Canvas.Top="96" Visibility="Hidden">
+                <Image x:Name="img_Protagonist" Height="30" Canvas.Left="250" Canvas.Top="250" RenderTransformOrigin="0.5,0.5" Visibility="Hidden"  >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
                     <Image.Source>
-                        <BitmapImage UriSource="/Graphics/chitiniac_idle-1.png"/>
+                        <BitmapImage UriSource="/Graphics/hero_a.png"/>
                     </Image.Source>
                 </Image>
             </Canvas>
