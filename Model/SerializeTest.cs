@@ -19,9 +19,9 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(test[0] == "Character");
             //Assert.IsTrue(test[1] == "McCoy"); <-- Name comes down from View, which Model knows nothing about
             // test[2] is Image and is null right now
-            Assert.IsTrue(test[3] == "0");
-            Assert.IsTrue(test[4] == "0");
-            Assert.IsTrue(test[5] == "5");
+            Assert.IsTrue(test[3] == "245");
+            Assert.IsTrue(test[4] == "240");
+            Assert.IsTrue(test[5] == "10");
             Assert.IsTrue(test[6] == "5");
             Assert.IsTrue(test[7] == "100");
             Assert.IsTrue(test[8] == "Alive");
@@ -36,8 +36,8 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(test[0] == "Enemy");
             //Assert.IsTrue(test[1] == "1"); <-- i don't know how many Enemies have been made to this point
             //test[2] is a null image at present
-            Assert.IsTrue(test[3] == "0");
-            Assert.IsTrue(test[4] == "0");
+            //Assert.IsTrue(test[3] == "0"); <-- these are now random and cannot be tested
+            //Assert.IsTrue(test[4] == "0");
             Assert.IsTrue(test[5] == "5");
             Assert.IsTrue(test[6] == "5");
             Assert.IsTrue(test[7] == "100");

@@ -244,11 +244,12 @@ namespace TowerOfTerror.Model
                         int enemyIndex = Array.IndexOf(gameData, "Enemy");
                         if (iteration == 0)
                         {
-                            Array.Copy(gameData, (enemyIndex - 1), enemyData, 0, 8);
+                            Array.Copy(gameData, (enemyIndex + 1), enemyData, 0, 8);
                         }
                         else
                         {
                             int newIndex = Array.IndexOf(gameData, "Enemy", (enemyIndex + iteration + (8 * iteration)));
+                            Array.Copy(gameData, (newIndex + 1), enemyData, 0, 8);
                         }
                         ++iteration;
                         enemy.Deserialize(enemyData);
@@ -256,7 +257,7 @@ namespace TowerOfTerror.Model
 
                     string[] characterData = new string[9];
                     int characterIndex = Array.IndexOf(gameData, "Character");
-                    Array.Copy(gameData, (characterIndex - 1), characterData, 0, 9);
+                    Array.Copy(gameData, (characterIndex + 1), characterData, 0, 9);
                     adventurer.Deserialize(characterData);
                 }
                 else
