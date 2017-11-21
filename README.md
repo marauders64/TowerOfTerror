@@ -19,12 +19,15 @@ Attack using the Space Bar.
 * Most Load unit tests pass
 
 # Major Issues
-* Load still needs to actually launch the game
+* Load still needs to update the gamescreen
 * Gameplay buggy
 * Enemies wander off screen
 
 # Recording to the Alpha
 http://youtu.be/otyVemljuIk?hd=1
+
+# Recording of the Beta
+http://tinyurl.com/cps209-ToT-beta
 
 # Expenses
 
