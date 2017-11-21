@@ -62,13 +62,13 @@ namespace TowerOfTerror.Model
         // Fills in the level with all the enemies and a single character
         public void PlaceEnemies()
         {
-            /*rand = new Random();
+            rand = new Random();
             foreach (Enemy foe in Enemies)
             {
-                int foeX = rand.Next();
-                int foeY = rand.Next();
+                int foeX = rand.Next(0, 450);
+                int foeY = rand.Next(0, 150);
                 foe.Position = new Point(foeX, foeY);
-            }*/
+            }
         }
 
         // Is the level completed (all enemies dead/removed from list)?
