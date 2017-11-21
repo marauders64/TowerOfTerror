@@ -20,7 +20,7 @@ namespace TowerOfTerror.Model
             this.Id = id;
             id++;
             this.Image = null; // will eventually be an enemy avatar
-            this.Position = new Point(GameController.rand.Next(0, 450), GameController.rand.Next(0, 150));
+            this.Position = new Point(0, 0);
             this.Power = 5;
             this.Defense = 5;
             this.Health = 100;

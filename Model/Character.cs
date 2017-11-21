@@ -19,7 +19,7 @@ namespace TowerOfTerror.Model
         {
             this.Image = null; // will eventually be our character avatar
             this.Position = new Point(245, 240);
-            this.Power = 10;
+            this.Power = 25;
             this.Defense = 5;
             this.Health = 100;
             this.Status = Life.Alive;

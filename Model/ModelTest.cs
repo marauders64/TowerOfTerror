@@ -21,7 +21,7 @@ namespace TowerOfTerror.Model
             Enemy villain = new Enemy();
             hero.Attack(villain);
             AttackResult result = AttackResult.Hit;
-            Assert.IsTrue(villain.Health == 90);
+            Assert.IsTrue(villain.Health == 50);
         }
         [TestMethod]
         public void GameController_Constructor_DifficultyEasySet()
