@@ -31,7 +31,7 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(gc1.adventurer.Health == 100);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void GameController_Constructor_DifficultyMediumSet()
         {
             GameController gc1 = new GameController();
@@ -45,7 +45,7 @@ namespace TowerOfTerror.Model
             GameController gc1 = new GameController();
             gc1.Setting = Difficulty.Hard;
             Assert.IsTrue(gc1.adventurer.Health == 60);
-        }
+        }*/
 
         
 
