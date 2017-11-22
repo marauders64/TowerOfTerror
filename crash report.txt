@@ -1,0 +1,3 @@
+crash report: 
+after starting a game on one difficulty level and then attempting to choose a different difficulty (and pressing Start)
+when starting a game from Load (instead of Start)

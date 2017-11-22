@@ -69,13 +69,13 @@ namespace TowerOfTerror
                 switch (diff)
                 {
                     case "Easy":
-                        sett = Difficulty.Easy;
+                        sett = Difficulty.Easy; 
                         break;
                     case "Medium":
-                        sett = Difficulty.Medium;
+                        sett = Difficulty.Medium; 
                         break;
                     case "Hard":
-                        sett = Difficulty.Hard;
+                        sett = Difficulty.Hard; 
                         break;
                     default:
                         sett = Difficulty.Easy;
