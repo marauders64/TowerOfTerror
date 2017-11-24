@@ -214,8 +214,8 @@ namespace TowerOfTerror.Model
         {
             string file;
 
-            try
-            {
+        //    try
+        //    {
                 using (StreamReader reader = new StreamReader(dotDat))
                 {
                     file = await reader.ReadToEndAsync();
@@ -232,6 +232,7 @@ namespace TowerOfTerror.Model
                     //GameController gc = new GameController();
                     Deserialize(gcData);
 
+                    BuildTower();
                     string[] levelData = new string[2];
                     int levelIndex = Array.IndexOf(gameData, "Level");
                     Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
@@ -239,6 +240,19 @@ namespace TowerOfTerror.Model
 
                     int iteration = 0;
                     string[] enemyData = new string[8];
+
+                    int count = 0;
+                    foreach (string data in gameData)
+                    {
+                        if (data == "Enemy")
+                        {
+                            count++;
+                        }
+                    }
+                    for (int i = 0; i < count; ++i)
+                    {
+                        Floors[CurrentFloor].Enemies.Add(new Enemy());
+                    }
                     foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                     {
                         int enemyIndex = Array.IndexOf(gameData, "Enemy");
@@ -263,13 +277,13 @@ namespace TowerOfTerror.Model
                 else
                 {
                     //is being read line by line after going through the try block... but is not throwing anything...
-                    //throw new FileFormatException();
+                    throw new FileFormatException();
                 }
-            }
-            catch
-            {
+        //    }
+        //    catch
+        //    {
                 //throw new FileNotFoundException(); // is not being caught...
-            }
+        //    }
 
 
         }
