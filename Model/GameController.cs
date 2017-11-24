@@ -46,11 +46,24 @@ namespace TowerOfTerror.Model
             this.nextFloor = Floors[1];
         }
 
+        // Move to next level
+        public void MoveForward()
+        {
+            throw new NotImplementedException();
+        }
+
+        // Only for entering final level
+        public void MoveForwardToLast()
+        {
+            throw new NotImplementedException();
+        }
+
         // Populate the Level list with three levels
         public void Setup()
         {
             // Adjust character health according to difficulty
-            if (!this.Cheating) {
+            if (!this.Cheating)
+            {
                 switch (this.Setting)
                 {
                     case Difficulty.Easy:
@@ -84,7 +97,10 @@ namespace TowerOfTerror.Model
         //Does Enemy attack logic
         public void EnemyAttack(Enemy enemy)
         {
-            enemy.Attack(adventurer);
+            if (!this.Cheating)
+            {
+                enemy.Attack(adventurer);
+            }
         }
 
         // Does the logic for when the player moves
@@ -118,11 +134,17 @@ namespace TowerOfTerror.Model
             }
         }
 
-        // Returns whether or not the game has ended (player completes final level or dies)
-        public bool IsGameOver()
+        // Returns true if the final level has been beaten
+        public bool IsGameWon()
         {
             int lastFloor = this.Floors.Count - 1;
-            return (this.Floors[lastFloor].LevelComplete() || this.adventurer.Health == 0);
+            return this.Floors[lastFloor].LevelComplete();
+        }
+
+        // Returns true if the character has lost all his health.
+        public bool IsGameOver()
+        {
+            return this.adventurer.Health == 0;
         }
 
         // Records the result of an attack and does the corresponding logic

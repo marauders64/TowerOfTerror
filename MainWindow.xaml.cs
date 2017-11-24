@@ -277,6 +277,8 @@ Difficulty: Set difficulty using the dropdown box provided.
             foreach(Image img in deadentity)
             {
                 Arena.Children.Remove(img);
+
+                // Level transition logic
                 if (ctrl.currentFloor.LevelComplete())
                 {
                     string goodText = @"Level Complete! Proceed to next level";
@@ -284,12 +286,23 @@ Difficulty: Set difficulty using the dropdown box provided.
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(goodText, "Yay", exit, icon);
                 }
+
+                // Death logic
                 if (ctrl.IsGameOver())
                 {
                     string deadText = @"Game over!";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(deadText, "Game Over", exit, icon);
+                }
+
+                // Beat the game logic
+                if (ctrl.IsGameWon())
+                {
+                    string victoryText = @"Congratulations! You beat the game!";
+                    MessageBoxButton exit = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
                 }
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
