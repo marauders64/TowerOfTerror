@@ -273,9 +273,24 @@ Difficulty: Set difficulty using the dropdown box provided.
                     ctrl.currentFloor.Enemies.Remove(entity as Enemy);
                 }
             }
+            
             foreach(Image img in deadentity)
             {
                 Arena.Children.Remove(img);
+                if (ctrl.currentFloor.LevelComplete())
+                {
+                    string goodText = @"Level Complete! Proceed to next level";
+                    MessageBoxButton exit = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBox.Show(goodText, "Yay", exit, icon);
+                }
+                if (ctrl.IsGameOver())
+                {
+                    string deadText = @"Game over!";
+                    MessageBoxButton exit = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBox.Show(deadText, "Game Over", exit, icon);
+                }
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 

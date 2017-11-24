@@ -122,7 +122,7 @@ namespace TowerOfTerror.Model
         public bool IsGameOver()
         {
             int lastFloor = this.Floors.Count - 1;
-            return this.Floors[lastFloor].LevelComplete();
+            return (this.Floors[lastFloor].LevelComplete() || this.adventurer.Health == 0);
         }
 
         // Records the result of an attack and does the corresponding logic
