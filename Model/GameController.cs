@@ -43,7 +43,7 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.currentFloor = Floors[0];
-            this.nextFloor = Floors[1];
+            this.nextFloor = Floors[1]; // <-- suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
         }
 
         // Populate the Level list with three levels
@@ -232,7 +232,7 @@ namespace TowerOfTerror.Model
                     //GameController gc = new GameController();
                     Deserialize(gcData);
 
-                    BuildTower();
+                    //BuildTower();
                     string[] levelData = new string[2];
                     int levelIndex = Array.IndexOf(gameData, "Level");
                     Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);

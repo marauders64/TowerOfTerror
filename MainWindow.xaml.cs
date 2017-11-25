@@ -120,11 +120,42 @@ namespace TowerOfTerror
             dialog.Title = "Please Choose a Game to Load:";
             dialog.ShowDialog();
 
+            ctrl.BuildTower();
+
             if (dialog.FileName != "")
             {
                 ctrl.Load(dialog.FileName);
             }
+            //Arena.UpdateLayout();
+            Arena.Focus();            
+            
+
+            ctrl.adventurer.Name = txtPlayerName.Text;
+            Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+
+            img_Protagonist.Visibility = Visibility.Visible;
+
+            int floor = ctrl.CurrentFloor;
+            int howmany = ctrl.Floors[floor].Enemies.Count;
+            int howmany2 = ctrl.currentFloor.Enemies.Count;
+
+            // Setup images
+            //foreach (Enemy en in ctrl.Floors[ctrl.CurrentFloor].Enemies)
+            foreach (Enemy en in ctrl.currentFloor.Enemies)
+            {
+                Image img_enemy = new Image
+                {
+                    Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
+                    Visibility = Visibility.Visible,
+                    Height = 40
+                };
+                Canvas.SetLeft(img_enemy, en.Position.X);
+                Canvas.SetTop(img_enemy, en.Position.Y);
+                Arena.Children.Add(img_enemy);
+                entities.Add(img_enemy, en);
+            }
             Arena.Focus();
+            entities.Add(img_Protagonist, ctrl.adventurer);
 
             /*try
             {
