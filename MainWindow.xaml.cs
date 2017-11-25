@@ -121,34 +121,34 @@ namespace TowerOfTerror
             dialog.ShowDialog();
 
             ctrl.BuildTower();
+            ctrl.Setup();
 
             if (dialog.FileName != "")
             {
                 ctrl.Load(dialog.FileName);
             }
-            //Arena.UpdateLayout();
-            Arena.Focus();            
-            
 
-            ctrl.adventurer.Name = txtPlayerName.Text;
+            // load images
+            img_Protagonist.Visibility = Visibility.Visible;
+            txtPlayerName.Text = Convert.ToString(ctrl.adventurer.Name);
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
-            img_Protagonist.Visibility = Visibility.Visible;
-
-            int floor = ctrl.CurrentFloor;
-            int howmany = ctrl.Floors[floor].Enemies.Count;
-            int howmany2 = ctrl.currentFloor.Enemies.Count;
-
-            // Setup images
-            //foreach (Enemy en in ctrl.Floors[ctrl.CurrentFloor].Enemies)
             foreach (Enemy en in ctrl.currentFloor.Enemies)
             {
                 Image img_enemy = new Image
                 {
                     Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                    Visibility = Visibility.Visible,
+                    //Visibility = Visibility.Visible,
                     Height = 40
                 };
+                if (en.Status == Life.Alive)
+                {
+                    img_enemy.Visibility = Visibility.Visible;
+                } 
+                else if (en.Status == Life.Dead)
+                {
+                    img_enemy.Visibility = Visibility.Hidden;
+                }
                 Canvas.SetLeft(img_enemy, en.Position.X);
                 Canvas.SetTop(img_enemy, en.Position.Y);
                 Arena.Children.Add(img_enemy);
@@ -301,7 +301,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                 if (entity.IsDead())
                 {
                     deadentity.Add(img);
-                    ctrl.currentFloor.Enemies.Remove(entity as Enemy);
+                    //ctrl.currentFloor.Enemies.Remove(entity as Enemy); heast
+                    img.Visibility = Visibility.Hidden; //heast
                 }
             }
             

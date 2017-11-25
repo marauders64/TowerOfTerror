@@ -43,7 +43,7 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.currentFloor = Floors[0];
-            this.nextFloor = Floors[1]; // <-- suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
+            this.nextFloor = Floors[1]; // <-- I suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
         }
 
         // Move to next level
@@ -236,78 +236,68 @@ namespace TowerOfTerror.Model
         {
             string file;
 
-        //    try
-        //    {
-                using (StreamReader reader = new StreamReader(dotDat))
+            using (StreamReader reader = new StreamReader(dotDat))
+            {
+                file = await reader.ReadToEndAsync();
+            }
+
+            string[] gameData = file.Split(',');
+
+            // check for valid save file 
+            if (gameData[0] == "ToTSave")
+            {
+                string[] gcData = new string[2];
+                int gcIndex = Array.IndexOf(gameData, "GameController");
+                Array.Copy(gameData, (gcIndex + 1), gcData, 0, 2);
+                Deserialize(gcData);
+
+                //BuildTower();
+
+                string[] levelData = new string[2];
+                int levelIndex = Array.IndexOf(gameData, "Level");
+                Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
+                Floors[CurrentFloor].Deserialize(levelData);
+
+                int iteration = 0;
+                string[] enemyData = new string[8];
+
+                /*int count = 0;
+                foreach (string data in gameData)
                 {
-                    file = await reader.ReadToEndAsync();
+                    if (data == "Enemy")
+                    {
+                        count++;
+                    }
+                }
+                for (int i = 0; i < count; ++i)
+                {
+                    Floors[CurrentFloor].Enemies.Add(new Enemy());
+                }*/
+                foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
+                {
+                    int enemyIndex = Array.IndexOf(gameData, "Enemy");
+                    if (iteration == 0)
+                    {
+                        Array.Copy(gameData, (enemyIndex + 1), enemyData, 0, 8);
+                    }
+                    else
+                    {
+                        int newIndex = Array.IndexOf(gameData, "Enemy", (enemyIndex + iteration + (8 * iteration)));
+                        Array.Copy(gameData, (newIndex + 1), enemyData, 0, 8);
+                    }
+                    ++iteration;
+                    enemy.Deserialize(enemyData);
                 }
 
-                string[] gameData = file.Split(',');
-
-                // check for valid save file 
-                if (gameData[0] == "ToTSave")
-                {
-                    string[] gcData = new string[2];
-                    int gcIndex = Array.IndexOf(gameData, "GameController");
-                    Array.Copy(gameData, (gcIndex + 1), gcData, 0, 2);
-                    //GameController gc = new GameController();
-                    Deserialize(gcData);
-
-                    //BuildTower();
-                    string[] levelData = new string[2];
-                    int levelIndex = Array.IndexOf(gameData, "Level");
-                    Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
-                    Floors[CurrentFloor].Deserialize(levelData);
-
-                    int iteration = 0;
-                    string[] enemyData = new string[8];
-
-                    int count = 0;
-                    foreach (string data in gameData)
-                    {
-                        if (data == "Enemy")
-                        {
-                            count++;
-                        }
-                    }
-                    for (int i = 0; i < count; ++i)
-                    {
-                        Floors[CurrentFloor].Enemies.Add(new Enemy());
-                    }
-                    foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
-                    {
-                        int enemyIndex = Array.IndexOf(gameData, "Enemy");
-                        if (iteration == 0)
-                        {
-                            Array.Copy(gameData, (enemyIndex + 1), enemyData, 0, 8);
-                        }
-                        else
-                        {
-                            int newIndex = Array.IndexOf(gameData, "Enemy", (enemyIndex + iteration + (8 * iteration)));
-                            Array.Copy(gameData, (newIndex + 1), enemyData, 0, 8);
-                        }
-                        ++iteration;
-                        enemy.Deserialize(enemyData);
-                    }
-
-                    string[] characterData = new string[9];
-                    int characterIndex = Array.IndexOf(gameData, "Character");
-                    Array.Copy(gameData, (characterIndex + 1), characterData, 0, 9);
-                    adventurer.Deserialize(characterData);
-                }
-                else
-                {
-                    //is being read line by line after going through the try block... but is not throwing anything...
-                    throw new FileFormatException();
-                }
-        //    }
-        //    catch
-        //    {
-                //throw new FileNotFoundException(); // is not being caught...
-        //    }
-
-
+                string[] characterData = new string[9];
+                int characterIndex = Array.IndexOf(gameData, "Character");
+                Array.Copy(gameData, (characterIndex + 1), characterData, 0, 9);
+                adventurer.Deserialize(characterData);
+            }
+            else
+            {
+                throw new FileFormatException();
+            }
         }
     }
 }
