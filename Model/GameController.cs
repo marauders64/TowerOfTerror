@@ -105,32 +105,63 @@ namespace TowerOfTerror.Model
 
         // Does the logic for when the player moves
         // Moves the enemies in a random direction
-        public void UpdatePositions(Character character, Direction direction)
+        public void UpdatePlayerPosition(Character character, Direction direction)
         {
             character.Move(direction);
-            foreach (Entity enemy in currentFloor.Enemies)
+            
+        }
+
+        //Does independant enemy movement
+        public void UpdateEnemyPostition(Enemy enemy)
+        {
+            Direction dir;
+            switch (rand.Next(1, 5))
             {
-                //Need to Fix
-                Direction dir;
-                switch(rand.Next(1, 5))
+                case 1:
+                    dir = Direction.Up;
+                    break;
+                case 2:
+                    dir = Direction.Down;
+                    break;
+                case 3:
+                    dir = Direction.Left;
+                    break;
+                case 4:
+                    dir = Direction.Right;
+                    break;
+                default:
+                    dir = Direction.Up;
+                    break;
+            }
+            enemy.Move(dir);
+        }
+
+        // Does enemy tracking
+        public void EnemyTrack(Enemy enemy, Entity player)
+        {
+            double xdist = enemy.Position.X - player.Position.X;
+            double ydist = enemy.Position.Y - player.Position.Y;
+            if(Math.Abs(xdist) >= Math.Abs(ydist))
+            {
+                if(xdist >= 0)
                 {
-                    case 1:
-                        dir = Direction.Up;
-                        break;
-                    case 2:
-                        dir = Direction.Down;
-                        break;
-                    case 3:
-                        dir = Direction.Left;
-                        break;
-                    case 4:
-                        dir = Direction.Right;
-                        break;
-                    default:
-                        dir = Direction.Up;
-                        break;
+                    enemy.Move(Direction.Left);
                 }
-                enemy.Move(dir);
+                else
+                {
+                    enemy.Move(Direction.Right);
+                }
+            }
+            else
+            {
+                if(ydist >= 0)
+                {
+                    enemy.Move(Direction.Down);
+                }
+                else
+                {
+                    enemy.Move(Direction.Up);
+                }
             }
         }
 

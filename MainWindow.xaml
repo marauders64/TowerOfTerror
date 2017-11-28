@@ -28,7 +28,7 @@
                 <ComboBox x:Name="cmbDifficultyPicker" IsReadOnly="True" Background="White"/>
                 <TextBlock x:Name="Health_txt" Height="50" TextWrapping="Wrap" Text="100" Width="65" Background="Lime" FontSize="36"/>
             </StackPanel>
-            <Canvas x:Name="Arena" Width="506" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp" Focusable="True">
+            <Canvas x:Name="Arena" Width="506" Background="AntiqueWhite" KeyUp="Arena_cvs_KeyUp" Focusable="True" KeyDown="Arena_cvs_KeyDown">
                 <!-- This is where the game is played -->
                 <Image x:Name="img_Protagonist" Height="30" Canvas.Left="245" Canvas.Top="250" RenderTransformOrigin="0.5,0.5" Visibility="Hidden"  >
                     <Image.RenderTransform>
