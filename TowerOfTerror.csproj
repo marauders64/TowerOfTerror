@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\GameController.cs" />
+    <Compile Include="Model\ItemsTest.cs" />
     <Compile Include="Model\ModelTest.cs" />
     <Compile Include="Model\Serializable.cs" />
     <Page Include="MainWindow.xaml">
@@ -133,6 +134,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\hero_a.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\attacker.png" />
+    <Resource Include="Graphics\defender.png" />
+    <Resource Include="Graphics\healer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

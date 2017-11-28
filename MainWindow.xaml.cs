@@ -27,6 +27,9 @@ namespace TowerOfTerror
         GameController ctrl = new GameController();
         List<string> difficulties = new List<string>(3);
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
+        private int attackCount = 0;
+        private int defenseCount = 0;
+        private int healCount = 0;
 
         public MainWindow()
         {
@@ -54,6 +57,9 @@ namespace TowerOfTerror
             {
                 btnSaveGame.IsEnabled = false;
                 btnLoadGame.IsEnabled = false;
+                btnAtk.IsEnabled = false;
+                btnDef.IsEnabled = false;
+                btnHeal.IsEnabled = false;
                 sett = Difficulty.Easy;
             }
             else
@@ -224,7 +230,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             MessageBox.Show(scores, "How to Play", exit, icon);
         }
 
-        // Invisible button that activates cheat mode
+        // Invisible button that toggles cheat mode
         // Also changes the Start Game button to Cheating (Yellow) or Not (Alice Blue)
         private void btnCheatMode_Click(object sender, RoutedEventArgs e)
         {
@@ -304,6 +310,32 @@ Difficulty: Set difficulty using the dropdown box provided.
                     deadentity.Add(img);
                     //ctrl.currentFloor.Enemies.Remove(entity as Enemy); heast
                     img.Visibility = Visibility.Hidden; //heast
+                    if (entity is Enemy)
+                    {
+                        Enemy evil = (Enemy)entity;
+                        if (evil.DropsItem())
+                        {
+                            Item i = new Item();
+                            i.Type = i.WhichItem();
+                            switch (i.Type)
+                            {
+                                case PowerUp.AtkBuff:
+                                    attackCount++;
+                                    lblAtkCount.Text = attackCount.ToString();
+                                    break;
+                                case PowerUp.DefBuff:
+                                    defenseCount++;
+                                    lblDefCount.Text = defenseCount.ToString();
+                                    break;
+                                case PowerUp.Heal:
+                                    healCount++;
+                                    lblHealCount.Text = healCount.ToString();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
                 }
             }
             
@@ -319,14 +351,15 @@ Difficulty: Set difficulty using the dropdown box provided.
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(goodText, "Yay", exit, icon);
                 }
-                // wat
-                // Death logic
+
+                // Death logic: exits the app
                 if (ctrl.IsGameOver())
                 {
                     string deadText = @"Game over!";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(deadText, "Game Over", exit, icon);
+                    Application.Current.Shutdown();
                 }
 
                 // Beat the game logic
@@ -339,7 +372,6 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
-
         }
 
         // NOTE TO HEATHER EAST:
@@ -355,6 +387,61 @@ Difficulty: Set difficulty using the dropdown box provided.
             if (dialog.FileName != "")
             {
                 ctrl.Save(dialog.FileName);
+            }
+            Arena.Focus();
+        }
+
+        private void btnAtk_Click(object sender, RoutedEventArgs e)
+        {
+            if (attackCount > 0)
+            {
+                ctrl.adventurer.Power *= 2;
+                attackCount--;
+                lblAtkCount.Text = attackCount.ToString();
+            }
+            else
+            {
+                string badBuff = @"You don't have any attack powerups!";
+                MessageBoxButton exit = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Exclamation;
+                MessageBox.Show(badBuff, "Oops", exit, icon);
+            }
+            Arena.Focus();
+        }
+
+        private void btnDef_Click(object sender, RoutedEventArgs e)
+        {
+            if (defenseCount > 0)
+            {
+                ctrl.adventurer.Defense *= 2;
+                defenseCount--;
+                lblDefCount.Text = defenseCount.ToString();
+            }
+            else
+            {
+                string badBuff = @"You don't have any defense powerups!";
+                MessageBoxButton exit = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Exclamation;
+                MessageBox.Show(badBuff, "Oops", exit, icon);
+            }
+            Arena.Focus();
+        }
+
+        private void btnHeal_Click(object sender, RoutedEventArgs e)
+        {
+            if (healCount > 0)
+            {
+                ctrl.adventurer.Health += 10;
+                healCount--;
+                Health_txt.Text = ctrl.adventurer.Health.ToString();
+                lblHealCount.Text = healCount.ToString();
+            }
+            else
+            {
+                string badBuff = @"You don't have any health powerups!";
+                MessageBoxButton exit = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Exclamation;
+                MessageBox.Show(badBuff, "Oops", exit, icon);
             }
             Arena.Focus();
         }

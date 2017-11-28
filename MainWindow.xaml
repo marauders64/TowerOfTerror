@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TowerOfTerror"
         mc:Ignorable="d"
-        Title="MainWindow" Height="448.592" Width="646.268" Background="LightGray">
+        Title="MainWindow" Height="461.592" Width="654.268" Background="LightGray">
 
     <StackPanel>
         <Image Height="88">
@@ -46,7 +46,24 @@
             </Canvas>
             <StackPanel Width="68">
                 <!-- This is where the inventory will go once added -->
-                
+                <Button x:Name="btnAtk" Height="80" Click="btnAtk_Click">
+                    <StackPanel>
+                        <Image Source="/Graphics/attacker.png"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="lblAtkCount" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Text="0"/>
+                <Button x:Name="btnDef" Height="80" Click="btnDef_Click">
+                    <StackPanel>
+                        <Image Source="/Graphics/defender.png"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="lblDefCount" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Text="0"/>
+                <Button x:Name="btnHeal" Height="80" Click="btnHeal_Click">
+                    <StackPanel>
+                        <Image Source="/Graphics/healer.png"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock x:Name="lblHealCount" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Text="0"/>
             </StackPanel>
         </StackPanel>
     </StackPanel>
