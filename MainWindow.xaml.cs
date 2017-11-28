@@ -33,6 +33,7 @@ namespace TowerOfTerror
         private int defenseCount = 0;
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
+        DispatcherTimer PlayerTimer = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -121,7 +122,9 @@ namespace TowerOfTerror
             entities.Add(img_Protagonist, ctrl.adventurer);
 
             Timer.Interval = new TimeSpan(0, 0, 1);
+            PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
+            PlayerTimer.Tick += PlayerTimer_Tick;
             Timer.Start();
         }
 
@@ -283,13 +286,18 @@ Difficulty: Set difficulty using the dropdown box provided.
             ImageUpdate();
         }
 
+        public void PlayerTimer_Tick(object sender, EventArgs e)
+        {
+            ctrl.adventurer.Move(ctrl.adventurer.Facing);
+            ImageUpdate();
+        }
+
         /// Moving/Attacking stuff
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
+            PlayerTimer.Stop();
             Character player = ctrl.adventurer;
-            
-            //Need to get images connected to Entities.
-
+            /*
             if (e.Key == Key.W)
             {
                 ctrl.UpdatePlayerPosition(player, Direction.Up);
@@ -309,8 +317,8 @@ Difficulty: Set difficulty using the dropdown box provided.
             {
                 ctrl.UpdatePlayerPosition(player, Direction.Right);
                 img_Protagonist.RenderTransform = new RotateTransform(90.0);
-            }
-            else if(e.Key == Key.Space)
+            }*/
+            if(e.Key == Key.Space)
             {
                 Console.WriteLine("Attacking");
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
@@ -327,6 +335,40 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             ImageUpdate();
 
+        }
+
+        //Player continuous Movement
+        public void Arena_cvs_KeyDown(object sender, KeyEventArgs e)
+        {
+            Character player = ctrl.adventurer;
+
+            if (e.Key == Key.W)
+            {
+                player.Facing = Direction.Up;
+                img_Protagonist.RenderTransform = new RotateTransform(0.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.S)
+            {
+                player.Facing = Direction.Down;
+                img_Protagonist.RenderTransform = new RotateTransform(180.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.A)
+            {
+                player.Facing = Direction.Left;
+                img_Protagonist.RenderTransform = new RotateTransform(-90.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.D)
+            {
+                player.Facing = Direction.Right;
+                img_Protagonist.RenderTransform = new RotateTransform(90.0);
+                PlayerTimer.Start();
+            }
+
+
+            
         }
 
         //After movement Stuff

@@ -13,6 +13,7 @@ namespace TowerOfTerror.Model
         // Add auto-collection for item drops
         public List<Item> inventory;
         public string Name { get; set; }
+        public Direction Facing { get; set; }
 
         // Create a character
         public Character()
@@ -24,6 +25,7 @@ namespace TowerOfTerror.Model
             this.Health = 100;
             this.Status = Life.Alive;
             this.inventory = new List<Item>();
+            this.Facing = Direction.Up;
         }
 
         // Attack the enemy and reduce enemy health
@@ -68,16 +70,16 @@ namespace TowerOfTerror.Model
             switch (dir)
             {
                 case Direction.Up:
-                    this.Position = new Point(Position.X, Position.Y - 10);
+                    this.Position = new Point(Position.X, Position.Y - 2);
                     break;
                 case Direction.Down:
-                    this.Position = new Point(Position.X, Position.Y + 10);
+                    this.Position = new Point(Position.X, Position.Y + 2);
                     break;
                 case Direction.Right:
-                    this.Position = new Point(Position.X + 10, Position.Y);
+                    this.Position = new Point(Position.X + 2, Position.Y);
                     break;
                 case Direction.Left:
-                    this.Position = new Point(Position.X - 10, Position.Y);
+                    this.Position = new Point(Position.X - 2, Position.Y);
                     break;
                 default:
                     break;
