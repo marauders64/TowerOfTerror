@@ -82,6 +82,7 @@ namespace TowerOfTerror
                         break;
                 }
             }
+            // Set up
             ctrl.Setting = sett;
             ctrl.adventurer.Name = txtPlayerName.Text;
             ctrl.BuildTower();
