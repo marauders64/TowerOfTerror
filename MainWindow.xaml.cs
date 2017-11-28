@@ -121,7 +121,7 @@ namespace TowerOfTerror
             Arena.Focus();
             entities.Add(img_Protagonist, ctrl.adventurer);
 
-            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
             PlayerTimer.Tick += PlayerTimer_Tick;
