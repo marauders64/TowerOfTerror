@@ -41,6 +41,8 @@ namespace TowerOfTerror.Model
         {
             if(Health <= 0)
             {
+                Power = 0; // heast
+                Status = Life.Dead; // heast
                 return true;
             }
             else
