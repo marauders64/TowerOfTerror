@@ -46,6 +46,7 @@
             </Canvas>
             <StackPanel Width="68">
                 <!-- This is where the inventory will go once added -->
+                
             </StackPanel>
         </StackPanel>
     </StackPanel>

@@ -10,26 +10,36 @@ namespace TowerOfTerror.Model
     public enum PowerUp { AtkBuff, DefBuff, Heal };
     public class Item : ISerializable
     {
+        private Random rand;
         public static int index = 1;
         public int Index { get; set; }
-        public int Factor { get; set; }
         public PowerUp Type { get; set; }
-
-        // Drop an item of the specified type
-        public Item(PowerUp powerUp)
-        {
-            this.Index = index;
-            index++;
-            this.Type = powerUp;
-        }
 
         // By default, drop a healing item
         public Item()
         {
             this.Index = index;
             index++;
-            this.Type = PowerUp.Heal;
+            rand = new Random();
         }
+
+        // Randomly generate an item type.
+        public PowerUp WhichItem()
+        {
+            int itemCode = rand.Next();
+            switch (itemCode)
+            {
+                case 0:
+                    return PowerUp.Heal;
+                case 1:
+                    return PowerUp.AtkBuff;
+                case 2:
+                    return PowerUp.DefBuff;
+                default:
+                    return PowerUp.Heal;
+            }
+        }
+
 
         /// <summary>
         /// Creates and returns a list of stringified state data for this GameController.

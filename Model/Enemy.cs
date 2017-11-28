@@ -12,6 +12,7 @@ namespace TowerOfTerror.Model
     // Information control for enemies in the game
     class Enemy : Entity
     {
+        Random rand;
         private static int id = 1;
         public int Id { get; set; }
        
@@ -56,6 +57,14 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
 
+        // Pick either 0 or 1 and drop an item if 1
+        public bool DropsItem()
+        {
+            rand = new Random();
+            int drops = rand.Next(0, 2);
+            return drops == 0 ? false : true;
+        }
+
         public override void Move(Direction dir)
         {
             switch (dir)
@@ -84,6 +93,7 @@ namespace TowerOfTerror.Model
         /// <returns>list of Enemy state information to be saved</returns>
         public override List<string> Serialize()
         {
+            // Heather, this gives me a "Collection initialization can be simplified" message
             List<string> data = new List<string>();
             data.Add("Enemy"); // "header" info
             data.Add(Id.ToString());
