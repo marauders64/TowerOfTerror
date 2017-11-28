@@ -74,7 +74,15 @@ namespace TowerOfTerror.Model
         // Is the level completed (all enemies dead/removed from list)?
         public bool LevelComplete()
         {
-            return Enemies.Count == 0;
+            int deadOnes = 0;
+            foreach (Enemy en in this.Enemies)
+            {
+                if (en.Status == Life.Dead)
+                {
+                    deadOnes++;
+                }
+            }
+            return Enemies.Count == deadOnes;
         }
 
         /// <summary>
