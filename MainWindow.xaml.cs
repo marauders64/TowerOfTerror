@@ -319,7 +319,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(goodText, "Yay", exit, icon);
                 }
-
+                // wat
                 // Death logic
                 if (ctrl.IsGameOver())
                 {
