@@ -140,5 +140,8 @@
     <Resource Include="Graphics\defender.png" />
     <Resource Include="Graphics\healer.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sounds\Thunderstorm2.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
