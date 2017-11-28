@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TowerOfTerror.Model;
 
 namespace TowerOfTerror
@@ -27,6 +28,7 @@ namespace TowerOfTerror
         GameController ctrl = new GameController();
         List<string> difficulties = new List<string>(3);
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
+        DispatcherTimer Timer = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -106,6 +108,10 @@ namespace TowerOfTerror
             }
             Arena.Focus();
             entities.Add(img_Protagonist, ctrl.adventurer);
+
+            Timer.Interval = new TimeSpan(0, 0, 1);
+            Timer.Tick += Timer_Tick;
+            Timer.Start();
         }
 
         /// <summary>
@@ -239,6 +245,33 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
         
+
+        //Independent enemy movement
+        public void Timer_Tick(object sender, EventArgs e)
+        {
+            Character player = ctrl.adventurer;
+
+            foreach (Enemy enemy in ctrl.currentFloor.Enemies)
+            {
+                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
+                {
+                    ctrl.EnemyAttack(enemy);
+                }
+
+                else if ((Math.Abs(enemy.Position.X - player.Position.X) <= 150) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 150)
+                {
+                    ctrl.EnemyTrack(enemy, player);
+                }
+
+                else
+                {
+                    ctrl.UpdateEnemyPostition(enemy);
+                }
+            }
+
+            ImageUpdate();
+        }
+
         /// Moving/Attacking stuff
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
@@ -248,22 +281,22 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             if (e.Key == Key.W)
             {
-                ctrl.UpdatePositions(player, Direction.Up);
+                ctrl.UpdatePlayerPosition(player, Direction.Up);
                 img_Protagonist.RenderTransform = new RotateTransform(0.0);
             }
             else if (e.Key == Key.S)
             {
-                ctrl.UpdatePositions(player, Direction.Down);
+                ctrl.UpdatePlayerPosition(player, Direction.Down);
                 img_Protagonist.RenderTransform = new RotateTransform(180.0);
             }
             else if (e.Key == Key.A)
             {
-                ctrl.UpdatePositions(player, Direction.Left);
+                ctrl.UpdatePlayerPosition(player, Direction.Left);
                 img_Protagonist.RenderTransform = new RotateTransform(-90.0);
             }
             else if (e.Key == Key.D)
             {
-                ctrl.UpdatePositions(player, Direction.Right);
+                ctrl.UpdatePlayerPosition(player, Direction.Right);
                 img_Protagonist.RenderTransform = new RotateTransform(90.0);
             }
             else if(e.Key == Key.Space)
@@ -281,14 +314,13 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
 
-            foreach(Enemy enemy in ctrl.currentFloor.Enemies)
-            {
-                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
-                {
-                    ctrl.EnemyAttack(enemy);
-                }
-            }
+            ImageUpdate();
 
+        }
+
+        //After movement Stuff
+        public void ImageUpdate()
+        {
             //Update canvas positions
             List<Image> deadentity = new List<Image>();
             foreach (Image img in Arena.Children)
@@ -305,8 +337,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                     img.Visibility = Visibility.Hidden; //heast
                 }
             }
-            
-            foreach(Image img in deadentity)
+
+            foreach (Image img in deadentity)
             {
                 Arena.Children.Remove(img);
 
@@ -338,7 +370,6 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
-
         }
 
         // NOTE TO HEATHER EAST:
