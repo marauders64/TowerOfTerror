@@ -417,9 +417,18 @@ Difficulty: Set difficulty using the dropdown box provided.
                 // Beat the game logic
                 if (ctrl.IsGameWon())
                 {
-                    string victoryText = @"Congratulations! You beat the game!
-                    Your score is " + ctrl.Score;
-                    HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
+                    string victoryText;
+                    if (!ctrl.Cheating)
+                    {
+                        victoryText = @"Congratulations! You beat the game!
+Your score is " + ctrl.Score;
+                        HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
+                    }
+                    else
+                    {
+                        victoryText = @"You won! Or did you?
+You cheated, so your score is 0.";
+                    }
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
@@ -465,24 +474,27 @@ Difficulty: Set difficulty using the dropdown box provided.
 
         private void UpdateInventory()
         {
-            foreach (Item i in ctrl.adventurer.inventory)
+            if (!ctrl.Cheating)
             {
-                switch (i.Type)
+                foreach (Item i in ctrl.adventurer.inventory)
                 {
-                    case PowerUp.AtkBuff:
-                        attackCount++;
-                        lblAtkCount.Text = attackCount.ToString();
-                        break;
-                    case PowerUp.DefBuff:
-                        defenseCount++;
-                        lblDefCount.Text = defenseCount.ToString();
-                        break;
-                    case PowerUp.Heal:
-                        healCount++;
-                        lblHealCount.Text = healCount.ToString();
-                        break;
-                    default:
-                        break;
+                    switch (i.Type)
+                    {
+                        case PowerUp.AtkBuff:
+                            attackCount++;
+                            lblAtkCount.Text = attackCount.ToString();
+                            break;
+                        case PowerUp.DefBuff:
+                            defenseCount++;
+                            lblDefCount.Text = defenseCount.ToString();
+                            break;
+                        case PowerUp.Heal:
+                            healCount++;
+                            lblHealCount.Text = healCount.ToString();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
