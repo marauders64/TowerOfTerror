@@ -475,6 +475,14 @@ Difficulty: Set difficulty using the dropdown box provided.
                 ctrl.adventurer.Power *= 2;
                 attackCount--;
                 lblAtkCount.Text = attackCount.ToString();
+                foreach (Item i in ctrl.adventurer.inventory)
+                {
+                    if (i.Type == PowerUp.AtkBuff)
+                    {
+                        ctrl.adventurer.inventory.Remove(i);
+                        break;
+                    }
+                }
             }
             else
             {
@@ -493,6 +501,14 @@ Difficulty: Set difficulty using the dropdown box provided.
                 ctrl.adventurer.Defense *= 2;
                 defenseCount--;
                 lblDefCount.Text = defenseCount.ToString();
+                foreach (Item i in ctrl.adventurer.inventory)
+                {
+                    if (i.Type == PowerUp.DefBuff)
+                    {
+                        ctrl.adventurer.inventory.Remove(i);
+                        break;
+                    }
+                }
             }
             else
             {
@@ -512,6 +528,14 @@ Difficulty: Set difficulty using the dropdown box provided.
                 healCount--;
                 Health_txt.Text = ctrl.adventurer.Health.ToString();
                 lblHealCount.Text = healCount.ToString();
+                foreach(Item i in ctrl.adventurer.inventory)
+                {
+                    if (i.Type == PowerUp.Heal)
+                    {
+                        ctrl.adventurer.inventory.Remove(i);
+                        break;
+                    }
+                }
             }
             else
             {
