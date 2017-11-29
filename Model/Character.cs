@@ -130,24 +130,8 @@ namespace TowerOfTerror.Model
             Power = Convert.ToInt32(savedData[4]);
             Defense = Convert.ToInt32(savedData[5]);
             Health = Convert.ToInt32(savedData[6]);
+
             string heroStatus = savedData[7];
-            int itemIndex = Array.IndexOf(savedData, "Items");
-            if (itemIndex < savedData.Length)
-            {
-                for (int i = itemIndex; i < savedData.Length; i += 2)
-                {
-                    inventory.Add(new Item() { Index = Convert.ToInt32(savedData[i]) });
-
-                    string itemType = savedData[i + 2];
-                    switch (itemType)
-                    {
-                        //case "AtkBuff":
-
-                    }
-                    //inventory.Add(new Item() { Index = Convert.ToInt32(savedData[i]) });
-                }
-            }
-
             switch (heroStatus)
             {
                 case "Alive":
@@ -156,11 +140,34 @@ namespace TowerOfTerror.Model
                 case "Dead": // i don't know why anyone would save after dying, though...
                     Status = Life.Dead;
                     break;
-                case "Falling":
+                case "Falling": // not implemented
                     Status = Life.Falling;
                     break;
-            //TODO: items not implemented
             }
+
+            int itemIndex = Array.IndexOf(savedData, "Items");
+            if (itemIndex < savedData.Length)
+            {
+                for (int i = itemIndex; i < savedData.Length; i += 2)
+                {
+                    int index = Convert.ToInt32(savedData[i]);
+                    string itemType = savedData[i + 2];
+                    switch (itemType)
+                    {
+                        case "AtkBuff":
+                            inventory.Add(new Item() { Index = index, Type = PowerUp.AtkBuff });
+                            break;
+                        case "DefBuff":
+                            inventory.Add(new Item() { Index = index, Type = PowerUp.DefBuff });
+                            break;
+                        case "Heal":
+                            inventory.Add(new Item() { Index = index, Type = PowerUp.Heal });
+                            break;
+                    }
+                }
+            }
+
+
         }
     }
 }
