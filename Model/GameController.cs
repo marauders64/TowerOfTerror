@@ -49,7 +49,11 @@ namespace TowerOfTerror.Model
         // Move to next level
         public void MoveForward()
         {
-            throw new NotImplementedException();
+            if (currentFloor.Type == LevelType.Basic)
+            {
+                currentFloor = Floors[CurrentFloor + 1];
+                CurrentFloor += 1;
+            } 
         }
 
         // Only for entering final level
