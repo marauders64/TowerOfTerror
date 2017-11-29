@@ -34,6 +34,7 @@ namespace TowerOfTerror
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
+        public static int score = 0;
 
         public MainWindow()
         {
@@ -122,13 +123,13 @@ namespace TowerOfTerror
                 entities.Add(img_enemy, en);
             }
             Arena.Focus();
-            entities.Add(img_Protagonist, ctrl.adventurer);
+            entities.Add(img_Protagonist, ctrl.adventurer);*/
 
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
             PlayerTimer.Tick += PlayerTimer_Tick;
-            Timer.Start();*/
+            Timer.Start();
         }
 
         /// <summary>
@@ -153,11 +154,11 @@ namespace TowerOfTerror
             Arena.Focus();
 
 
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            /*Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
             PlayerTimer.Tick += PlayerTimer_Tick;
-            Timer.Start();
+            Timer.Start();*/
         }
 
         /// <summary>
@@ -407,21 +408,25 @@ Difficulty: Set difficulty using the dropdown box provided.
             foreach(Image img in deadentity)
             {
                 Arena.Children.Remove(img);
+                score += 50;
 
                 // Beat the game logic
                 if (ctrl.IsGameWon())
                 {
-                    string victoryText = @"Congratulations! You beat the game!";
+                    string victoryText = @"Congratulations! You beat the game!
+                    Your score is " + score;
+                    HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, score));
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
                 }
 
                 // Level transition logic
-                 if (ctrl.currentFloor.LevelComplete())
+                else if (ctrl.currentFloor.LevelComplete())
                 {
-                    Timer.Stop(); //heast: necessary to advance to next level (or level will never stop running)
-                    PlayerTimer.Stop();
+                    //Timer.Stop(); //heast: necessary to advance to next level (or level will never stop running)
+                    //PlayerTimer.Stop();
+                    score += ctrl.adventurer.Health;
                     string goodText = @"Level Complete! Proceed to next level";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
@@ -434,8 +439,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                         SetupImages();                        
                         //ctrl.adventurer.Position = new Point(245, 240);
                         img_Protagonist.Visibility = Visibility.Visible;
-                        Timer.Start();
-                        PlayerTimer.Start();
+                        //Timer.Start();
+                        //PlayerTimer.Start();
                     }
                 }
 
