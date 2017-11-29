@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="461.592" Width="654.268" Background="LightGray">
 
-    <StackPanel>
+    <StackPanel x:Name="panel_Tower" >
         <Image Height="88">
             <Image.Source>
                 <BitmapImage UriSource="/Graphics/title.png"/>
