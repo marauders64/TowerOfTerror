@@ -97,7 +97,7 @@ namespace TowerOfTerror.Model
             List<string> data = new List<string>();
             data.Add("Enemy"); // "header" info
             data.Add(Id.ToString());
-            data.Add(Image);
+            data.Add(Image.ToString());
             data.Add(Position.X.ToString());
             data.Add(Position.Y.ToString());
             data.Add(Power.ToString());
