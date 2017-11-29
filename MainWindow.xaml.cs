@@ -34,10 +34,13 @@ namespace TowerOfTerror
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
+        SoundPlayer sp;
 
         public MainWindow()
         {
             InitializeComponent();
+            sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Thunderstorm2); // Thanks Mr. Meyer
+            sp.PlayLooping();
             difficulties.Add("Easy");
             difficulties.Add("Medium");
             difficulties.Add("Hard");
@@ -51,6 +54,7 @@ namespace TowerOfTerror
         {
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
+
             string diff;
             Difficulty sett;
             btnSaveGame.IsEnabled = true;
