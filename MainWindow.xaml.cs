@@ -324,6 +324,8 @@ Difficulty: Set difficulty using the dropdown box provided.
         {
             ctrl.adventurer.Move(ctrl.adventurer.Facing);
             ImageUpdate();
+            sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Running);
+            sp.Play();
         }
 
         /// Moving/Attacking stuff
@@ -335,6 +337,8 @@ Difficulty: Set difficulty using the dropdown box provided.
             if(e.Key == Key.Space)
             {
                 Console.WriteLine("Attacking");
+                sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Swish);
+                sp.Play();
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
@@ -342,6 +346,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                     {
                         Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
+                        sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Crack);
+                        sp.Play();
                     }
                     
                 }
@@ -380,9 +386,6 @@ Difficulty: Set difficulty using the dropdown box provided.
                 img_Protagonist.RenderTransform = new RotateTransform(90.0);
                 PlayerTimer.Start();
             }
-
-
-            
         }
 
         //After movement Stuff
@@ -458,11 +461,6 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
-        }
-
-        public void PlayStartupSound()
-        {
-            throw new NotImplementedException();
         }
 
         private void UpdateInventory()

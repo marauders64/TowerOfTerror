@@ -143,5 +143,10 @@
   <ItemGroup>
     <Resource Include="Sounds\Thunderstorm2.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Sounds\Crack.wav" />
+    <Resource Include="Sounds\Running.wav" />
+    <Resource Include="Sounds\Swish.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
