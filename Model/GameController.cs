@@ -27,7 +27,7 @@ namespace TowerOfTerror.Model
         public bool Cheating { get; set; }
         public Level currentFloor;
         public Character adventurer;
-
+        public int Score { get; set; }
         public static Random rand = new Random();
         
         public GameController()
