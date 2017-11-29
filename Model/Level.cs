@@ -53,10 +53,23 @@ namespace TowerOfTerror.Model
                         break;
                 }
             }
-            for(int i = 0; i < population; i++)
+            if (Type == LevelType.Basic)
             {
-                Enemies.Add(new Enemy());
+                for (int i = 0; i < population; i++)
+                {
+                    Enemies.Add(new Enemy());
+                }
             }
+            else // heast: "boss"
+            {
+                Enemies.Add(new Enemy() {
+                    Position = new Point(95, 240),
+                    Power = 10,
+                    Defense = 10,
+                    Health = 300
+                });
+            }
+
         }
 
         // Fills in the level with all the enemies and a single character

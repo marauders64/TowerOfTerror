@@ -42,6 +42,7 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
+            this.Floors.Add(new Level(LevelType.Final));
             this.currentFloor = Floors[0];
         }
 
