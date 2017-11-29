@@ -492,6 +492,7 @@ Difficulty: Set difficulty using the dropdown box provided.
         // You can dump your save logic here
         private void btnSaveGame_Click(object sender, RoutedEventArgs e)
         {
+            Timer.Stop();
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Saving Game File:";
@@ -502,6 +503,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 ctrl.Save(dialog.FileName);
             }
             Arena.Focus();
+            Timer.Start();
         }
 
         private void btnAtk_Click(object sender, RoutedEventArgs e)
