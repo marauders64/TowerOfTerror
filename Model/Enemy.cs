@@ -94,7 +94,6 @@ namespace TowerOfTerror.Model
         /// <returns>list of Enemy state information to be saved</returns>
         public override List<string> Serialize()
         {
-            // Heather, this gives me a "Collection initialization can be simplified" message
             List<string> data = new List<string>();
             data.Add("Enemy"); // "header" info
             data.Add(Id.ToString());

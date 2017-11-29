@@ -142,7 +142,7 @@ namespace TowerOfTerror.Model
                 case "Falling":
                     Status = Life.Falling;
                     break;
-            //items not implemented
+            //TODO: items not implemented
             }
         }
     }
