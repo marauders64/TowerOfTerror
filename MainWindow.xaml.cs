@@ -34,7 +34,6 @@ namespace TowerOfTerror
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
-        public static int score = 0;
 
         public MainWindow()
         {
@@ -101,6 +100,7 @@ namespace TowerOfTerror
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
             img_Protagonist.Visibility = Visibility.Visible;
+            ctrl.Score = 0;
 
 
             SetupImages(); // works!
@@ -405,14 +405,14 @@ Difficulty: Set difficulty using the dropdown box provided.
             foreach(Image img in deadentity)
             {
                 Arena.Children.Remove(img);
-                score += 50;
+                ctrl.Score += 50;
 
                 // Beat the game logic
                 if (ctrl.IsGameWon())
                 {
                     string victoryText = @"Congratulations! You beat the game!
-                    Your score is " + score;
-                    HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, score));
+                    Your score is " + ctrl.Score;
+                    HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
@@ -423,7 +423,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 {
                     //Timer.Stop(); //heast: necessary to advance to next level (or level will never stop running)
                     //PlayerTimer.Stop();
-                    score += ctrl.adventurer.Health;
+                    ctrl.Score += ctrl.adventurer.Health;
                     string goodText = @"Level Complete! Proceed to next level";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
