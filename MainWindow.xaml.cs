@@ -388,32 +388,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                     deadentity.Add(img);
                     //ctrl.currentFloor.Enemies.Remove(entity as Enemy); heast
                     img.Visibility = Visibility.Hidden; //heast
-                    if (entity is Enemy)
-                    {
-                        Enemy evil = (Enemy)entity;
-                        if (evil.DropsItem())
-                        {
-                            Item i = new Item();
-                            i.Type = i.WhichItem();
-                            switch (i.Type)
-                            {
-                                case PowerUp.AtkBuff:
-                                    attackCount++;
-                                    lblAtkCount.Text = attackCount.ToString();
-                                    break;
-                                case PowerUp.DefBuff:
-                                    defenseCount++;
-                                    lblDefCount.Text = defenseCount.ToString();
-                                    break;
-                                case PowerUp.Heal:
-                                    healCount++;
-                                    lblHealCount.Text = healCount.ToString();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                    }
+                    UpdateInventory();
                 }
             }
             
@@ -450,6 +425,30 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+        }
+
+        private void UpdateInventory()
+        {
+            foreach (Item i in ctrl.adventurer.inventory)
+            {
+                switch (i.Type)
+                {
+                    case PowerUp.AtkBuff:
+                        attackCount++;
+                        lblAtkCount.Text = attackCount.ToString();
+                        break;
+                    case PowerUp.DefBuff:
+                        defenseCount++;
+                        lblDefCount.Text = defenseCount.ToString();
+                        break;
+                    case PowerUp.Heal:
+                        healCount++;
+                        lblHealCount.Text = healCount.ToString();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         // NOTE TO HEATHER EAST:

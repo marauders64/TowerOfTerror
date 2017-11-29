@@ -15,7 +15,6 @@ namespace TowerOfTerror.Model
         public int Index { get; set; }
         public PowerUp Type { get; set; }
 
-        // By default, drop a healing item
         public Item()
         {
             this.Index = index;

@@ -43,7 +43,7 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.currentFloor = Floors[0];
-            this.nextFloor = Floors[1]; // <-- I suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
+            // this.nextFloor = Floors[1]; // <-- I suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
         }
 
         // Move to next level
@@ -92,6 +92,20 @@ namespace TowerOfTerror.Model
         public void PlayerAttack(Entity character, Entity enemy)
         {
             character.Attack(enemy);
+            if (enemy.Health == 0)
+            {
+                enemy.Status = Life.Dead;
+                if (enemy is Enemy)
+                {
+                    Enemy en = (Enemy)enemy;
+                    if (en.DropsItem())
+                    {
+                        Item it = new Item();
+                        it.Type = it.WhichItem();
+                        adventurer.inventory.Add(it);
+                    }
+                }
+            }
         }
 
         //Does Enemy attack logic
@@ -100,6 +114,10 @@ namespace TowerOfTerror.Model
             if (!this.Cheating)
             {
                 enemy.Attack(adventurer);
+                if (adventurer.Health == 0)
+                {
+                    adventurer.Status = Life.Dead;
+                }
             }
         }
 
