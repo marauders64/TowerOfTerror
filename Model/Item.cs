@@ -19,24 +19,25 @@ namespace TowerOfTerror.Model
         {
             this.Index = index;
             index++;
-            rand = new Random();
         }
 
         // Randomly generate an item type.
         public PowerUp WhichItem()
         {
-            int itemCode = rand.Next();
+            rand = new Random();
+            int itemCode = rand.Next(0, 3);
             switch (itemCode)
             {
                 case 0:
-                    return PowerUp.Heal;
-                case 1:
                     return PowerUp.AtkBuff;
-                case 2:
+                case 1:
                     return PowerUp.DefBuff;
+                case 2:
+                    return PowerUp.Heal;
                 default:
                     return PowerUp.Heal;
             }
+            //return PowerUp.DefBuff;
         }
 
         // Does not inherit Serializable because this class is merely an object factory

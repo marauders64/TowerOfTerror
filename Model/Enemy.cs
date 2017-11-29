@@ -63,6 +63,7 @@ namespace TowerOfTerror.Model
             rand = new Random();
             int drops = rand.Next(0, 2);
             return drops == 0 ? false : true;
+            //return true; // <-- used for Item debugging purposes
         }
 
         public override void Move(Direction dir)
