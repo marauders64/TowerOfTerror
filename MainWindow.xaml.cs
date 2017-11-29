@@ -101,6 +101,38 @@ namespace TowerOfTerror
 
             img_Protagonist.Visibility = Visibility.Visible;
 
+
+            SetupImages(); // works!
+            entities.Add(img_Protagonist, ctrl.adventurer);
+            // Setup images
+            /*foreach (Entity en in ctrl.currentFloor.Enemies)
+            {
+                Image img_enemy = new Image
+                {
+                    Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
+                    Visibility = Visibility.Visible,
+                    Height = 40
+                };
+                Canvas.SetLeft(img_enemy, en.Position.X);
+                Canvas.SetTop(img_enemy, en.Position.Y);
+                Arena.Children.Add(img_enemy);
+                entities.Add(img_enemy, en);
+            }
+            Arena.Focus();
+            entities.Add(img_Protagonist, ctrl.adventurer);
+
+            Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            Timer.Tick += Timer_Tick;
+            PlayerTimer.Tick += PlayerTimer_Tick;
+            Timer.Start();*/
+        }
+
+        /// <summary>
+        /// Logic for populating game screen. Extracted for reuse by heast
+        /// </summary>
+        private void SetupImages()
+        {
             // Setup images
             foreach (Entity en in ctrl.currentFloor.Enemies)
             {
@@ -116,7 +148,7 @@ namespace TowerOfTerror
                 entities.Add(img_enemy, en);
             }
             Arena.Focus();
-            entities.Add(img_Protagonist, ctrl.adventurer);
+
 
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -393,13 +425,35 @@ Difficulty: Set difficulty using the dropdown box provided.
             {
                 Arena.Children.Remove(img);
 
-                // Level transition logic
-                if (ctrl.currentFloor.LevelComplete())
+                // Beat the game logic
+                if (ctrl.IsGameWon())
                 {
+                    string victoryText = @"Congratulations! You beat the game!";
+                    MessageBoxButton exit = MessageBoxButton.OK;
+                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
+                }
+
+                // Level transition logic
+                 if (ctrl.currentFloor.LevelComplete())
+                {
+                    Timer.Stop(); //heast: necessary to advance to next level (or level will never stop running)
+                    PlayerTimer.Stop();
                     string goodText = @"Level Complete! Proceed to next level";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
-                    MessageBox.Show(goodText, "Yay", exit, icon);
+                    MessageBoxResult OK = MessageBox.Show(goodText, "Yay", exit, icon);
+
+                    //heast
+                    if (MessageBoxResult.OK == OK && !ctrl.IsGameWon())
+                    {
+                        ctrl.MoveForward();
+                        SetupImages();                        
+                        //ctrl.adventurer.Position = new Point(245, 240);
+                        img_Protagonist.Visibility = Visibility.Visible;
+                        Timer.Start();
+                        PlayerTimer.Start();
+                    }
                 }
 
                 // Death logic: exits the app
@@ -412,14 +466,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                     Application.Current.Shutdown();
                 }
 
-                // Beat the game logic
-                if (ctrl.IsGameWon())
-                {
-                    string victoryText = @"Congratulations! You beat the game!";
-                    MessageBoxButton exit = MessageBoxButton.OK;
-                    MessageBoxImage icon = MessageBoxImage.Information;
-                    MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
-                }
+
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
         }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TowerOfTerror.Model
 {
@@ -49,7 +50,12 @@ namespace TowerOfTerror.Model
         // Move to next level
         public void MoveForward()
         {
-            throw new NotImplementedException();
+            if (currentFloor.Type == LevelType.Basic)
+            {
+                currentFloor = Floors[CurrentFloor + 1];
+                CurrentFloor += 1;
+                adventurer.Position = new Point(245, 240); 
+            } 
         }
 
         // Only for entering final level
