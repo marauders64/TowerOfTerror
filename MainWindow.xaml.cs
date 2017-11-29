@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TowerOfTerror.Model;
 
 namespace TowerOfTerror
@@ -31,6 +32,8 @@ namespace TowerOfTerror
         private int attackCount = 0;
         private int defenseCount = 0;
         private int healCount = 0;
+        DispatcherTimer Timer = new DispatcherTimer();
+        DispatcherTimer PlayerTimer = new DispatcherTimer();
 
         public MainWindow()
         {
@@ -46,7 +49,7 @@ namespace TowerOfTerror
         }
 
         // Take info from Name and Difficulty fields and send them to GameController
-        // Create new game from there
+        // Create new game
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Howdi");
@@ -117,6 +120,12 @@ namespace TowerOfTerror
             }
             Arena.Focus();
             entities.Add(img_Protagonist, ctrl.adventurer);
+
+            Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+            Timer.Tick += Timer_Tick;
+            PlayerTimer.Tick += PlayerTimer_Tick;
+            Timer.Start();
         }
 
         /// <summary>
@@ -250,34 +259,66 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
         
+
+        //Independent enemy movement
+        public void Timer_Tick(object sender, EventArgs e)
+        {
+            Character player = ctrl.adventurer;
+
+            foreach (Enemy enemy in ctrl.currentFloor.Enemies)
+            {
+                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
+                {
+                    ctrl.EnemyAttack(enemy);
+                }
+
+                else if ((Math.Abs(enemy.Position.X - player.Position.X) <= 150) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 150)
+                {
+                    ctrl.EnemyTrack(enemy, player);
+                }
+
+                else
+                {
+                    ctrl.UpdateEnemyPostition(enemy);
+                }
+            }
+
+            ImageUpdate();
+        }
+
+        public void PlayerTimer_Tick(object sender, EventArgs e)
+        {
+            ctrl.adventurer.Move(ctrl.adventurer.Facing);
+            ImageUpdate();
+        }
+
         /// Moving/Attacking stuff
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
+            PlayerTimer.Stop();
             Character player = ctrl.adventurer;
-            
-            //Need to get images connected to Entities.
-
+            /*
             if (e.Key == Key.W)
             {
-                ctrl.UpdatePositions(player, Direction.Up);
+                ctrl.UpdatePlayerPosition(player, Direction.Up);
                 img_Protagonist.RenderTransform = new RotateTransform(0.0);
             }
             else if (e.Key == Key.S)
             {
-                ctrl.UpdatePositions(player, Direction.Down);
+                ctrl.UpdatePlayerPosition(player, Direction.Down);
                 img_Protagonist.RenderTransform = new RotateTransform(180.0);
             }
             else if (e.Key == Key.A)
             {
-                ctrl.UpdatePositions(player, Direction.Left);
+                ctrl.UpdatePlayerPosition(player, Direction.Left);
                 img_Protagonist.RenderTransform = new RotateTransform(-90.0);
             }
             else if (e.Key == Key.D)
             {
-                ctrl.UpdatePositions(player, Direction.Right);
+                ctrl.UpdatePlayerPosition(player, Direction.Right);
                 img_Protagonist.RenderTransform = new RotateTransform(90.0);
-            }
-            else if(e.Key == Key.Space)
+            }*/
+            if(e.Key == Key.Space)
             {
                 Console.WriteLine("Attacking");
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
@@ -292,14 +333,47 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
             }
 
-            foreach(Enemy enemy in ctrl.currentFloor.Enemies)
+            ImageUpdate();
+
+        }
+
+        //Player continuous Movement
+        public void Arena_cvs_KeyDown(object sender, KeyEventArgs e)
+        {
+            Character player = ctrl.adventurer;
+
+            if (e.Key == Key.W)
             {
-                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
-                {
-                    ctrl.EnemyAttack(enemy);
-                }
+                player.Facing = Direction.Up;
+                img_Protagonist.RenderTransform = new RotateTransform(0.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.S)
+            {
+                player.Facing = Direction.Down;
+                img_Protagonist.RenderTransform = new RotateTransform(180.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.A)
+            {
+                player.Facing = Direction.Left;
+                img_Protagonist.RenderTransform = new RotateTransform(-90.0);
+                PlayerTimer.Start();
+            }
+            else if (e.Key == Key.D)
+            {
+                player.Facing = Direction.Right;
+                img_Protagonist.RenderTransform = new RotateTransform(90.0);
+                PlayerTimer.Start();
             }
 
+
+            
+        }
+
+        //After movement Stuff
+        public void ImageUpdate()
+        {
             //Update canvas positions
             List<Image> deadentity = new List<Image>();
             foreach (Image img in Arena.Children)
