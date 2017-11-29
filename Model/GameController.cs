@@ -26,7 +26,6 @@ namespace TowerOfTerror.Model
         public Difficulty Setting { get; set; }
         public bool Cheating { get; set; }
         public Level currentFloor;
-        public Level nextFloor;
         public Character adventurer;
 
         public static Random rand = new Random();
@@ -55,7 +54,7 @@ namespace TowerOfTerror.Model
                 currentFloor = Floors[CurrentFloor + 1];
                 CurrentFloor += 1;
                 adventurer.Position = new Point(245, 240); 
-            } 
+            }
         }
 
         // Only for entering final level

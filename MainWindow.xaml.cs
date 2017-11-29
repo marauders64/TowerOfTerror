@@ -49,7 +49,6 @@ namespace TowerOfTerror
         // Create new game
         private void btnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Howdi");
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
             string diff;
@@ -57,6 +56,7 @@ namespace TowerOfTerror
             btnSaveGame.IsEnabled = true;
             btnCheatMode.IsEnabled = false;
 
+            // Disable some features if cheating
             if (ctrl.Cheating)
             {
                 btnSaveGame.IsEnabled = false;
@@ -435,7 +435,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 }
 
                 // Level transition logic
-                 if (ctrl.currentFloor.LevelComplete())
+                if (ctrl.currentFloor.LevelComplete())
                 {
                     Timer.Stop(); //heast: necessary to advance to next level (or level will never stop running)
                     PlayerTimer.Stop();
@@ -448,8 +448,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                     if (MessageBoxResult.OK == OK && !ctrl.IsGameWon())
                     {
                         ctrl.MoveForward();
-                        SetupImages();                        
-                        //ctrl.adventurer.Position = new Point(245, 240);
+                        SetupImages();
+                        ctrl.adventurer.Position = new Point(245, 240);
                         img_Protagonist.Visibility = Visibility.Visible;
                         Timer.Start();
                         PlayerTimer.Start();
@@ -469,6 +469,11 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             }
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+        }
+
+        public void PlayStartupSound()
+        {
+            throw new NotImplementedException();
         }
 
         private void UpdateInventory()
@@ -590,7 +595,5 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
             Arena.Focus();
         }
-
-        
     }
 }
