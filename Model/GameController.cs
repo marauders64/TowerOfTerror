@@ -218,6 +218,7 @@ namespace TowerOfTerror.Model
             data.Add("GameController");
             data.Add(CurrentFloor.ToString());
             data.Add(Setting.ToString());
+            data.Add(Score.ToString());
 
             return data;
         }
@@ -229,8 +230,9 @@ namespace TowerOfTerror.Model
         /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public void Deserialize(string[] savedData)
         {
-            CurrentFloor = Convert.ToInt32(savedData[0]);  // <-- VERY FRAGILE, need to confirm exactly how leveling is going to be handled
+            CurrentFloor = Convert.ToInt32(savedData[0]);  
             string difficulty = savedData[1];
+            Score = Convert.ToInt32(savedData[2]);
             switch (difficulty)
             {
                 case "Easy":

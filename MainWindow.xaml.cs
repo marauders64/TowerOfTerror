@@ -432,6 +432,7 @@ You cheated, so your score is 0.";
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
+                    Application.Current.Shutdown(); // <-- need to get it synced with MessageBox acknowledgement button
                 }
 
                 // Level transition logic

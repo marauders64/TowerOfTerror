@@ -66,7 +66,7 @@ namespace TowerOfTerror.Model
                     Position = new Point(95, 240),
                     Power = 10,
                     Defense = 10,
-                    Health = 300
+                    Health = 200
                 });
             }
 

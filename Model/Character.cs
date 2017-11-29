@@ -131,6 +131,23 @@ namespace TowerOfTerror.Model
             Defense = Convert.ToInt32(savedData[5]);
             Health = Convert.ToInt32(savedData[6]);
             string heroStatus = savedData[7];
+            int itemIndex = Array.IndexOf(savedData, "Items");
+            if (itemIndex < savedData.Length)
+            {
+                for (int i = itemIndex; i < savedData.Length; i += 2)
+                {
+                    inventory.Add(new Item() { Index = Convert.ToInt32(savedData[i]) });
+
+                    string itemType = savedData[i + 2];
+                    switch (itemType)
+                    {
+                        //case "AtkBuff":
+
+                    }
+                    //inventory.Add(new Item() { Index = Convert.ToInt32(savedData[i]) });
+                }
+            }
+
             switch (heroStatus)
             {
                 case "Alive":
