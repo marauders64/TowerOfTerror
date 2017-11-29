@@ -26,7 +26,7 @@ namespace TowerOfTerror.Model
         {
             rand = new Random();
             int itemCode = rand.Next(0, 3);
-            switch (itemCode)
+            switch (itemCode) 
             {
                 case 0:
                     return PowerUp.AtkBuff;
@@ -37,7 +37,6 @@ namespace TowerOfTerror.Model
                 default:
                     return PowerUp.Heal;
             }
-            //return PowerUp.DefBuff;
         }
 
         // Does not inherit Serializable because this class is merely an object factory
