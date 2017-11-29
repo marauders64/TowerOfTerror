@@ -63,6 +63,7 @@ namespace TowerOfTerror.Model
             rand = new Random();
             int drops = rand.Next(0, 2);
             return drops == 0 ? false : true;
+            //return true; // <-- used for Item debugging purposes
         }
 
         public override void Move(Direction dir)
@@ -97,7 +98,7 @@ namespace TowerOfTerror.Model
             List<string> data = new List<string>();
             data.Add("Enemy"); // "header" info
             data.Add(Id.ToString());
-            data.Add(Image);
+            data.Add(Image.ToString());
             data.Add(Position.X.ToString());
             data.Add(Position.Y.ToString());
             data.Add(Power.ToString());
