@@ -38,9 +38,6 @@ namespace TowerOfTerror
         public MainWindow()
         {
             InitializeComponent();
-            //SoundPlayer sp = new SoundPlayer("Sounds/Thunderstorm2.wav");
-            //sp.Load();
-            //sp.Play();
             difficulties.Add("Easy");
             difficulties.Add("Medium");
             difficulties.Add("Hard");
@@ -408,9 +405,9 @@ Difficulty: Set difficulty using the dropdown box provided.
                 // Death logic: exits the app
                 if (ctrl.IsGameOver())
                 {
-                    string deadText = @"Game over!";
+                    string deadText = @"You Died!";
                     MessageBoxButton exit = MessageBoxButton.OK;
-                    MessageBoxImage icon = MessageBoxImage.Information;
+                    MessageBoxImage icon = MessageBoxImage.Stop;
                     MessageBox.Show(deadText, "Game Over", exit, icon);
                     Application.Current.Shutdown();
                 }
@@ -528,7 +525,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 healCount--;
                 Health_txt.Text = ctrl.adventurer.Health.ToString();
                 lblHealCount.Text = healCount.ToString();
-                foreach(Item i in ctrl.adventurer.inventory)
+                foreach (Item i in ctrl.adventurer.inventory)
                 {
                     if (i.Type == PowerUp.Heal)
                     {
@@ -546,5 +543,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
             Arena.Focus();
         }
+
+        
     }
 }
