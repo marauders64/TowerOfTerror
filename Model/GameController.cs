@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace TowerOfTerror.Model
 {
@@ -53,6 +54,7 @@ namespace TowerOfTerror.Model
             {
                 currentFloor = Floors[CurrentFloor + 1];
                 CurrentFloor += 1;
+                adventurer.Position = new Point(245, 240); 
             } 
         }
 

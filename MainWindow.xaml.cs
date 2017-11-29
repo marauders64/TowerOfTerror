@@ -452,7 +452,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                     {
                         ctrl.MoveForward();
                         SetupImages();                        
-                        ctrl.adventurer.Position = new Point(245, 240);
+                        //ctrl.adventurer.Position = new Point(245, 240);
                         img_Protagonist.Visibility = Visibility.Visible;
                         Timer.Start();
                         PlayerTimer.Start();
