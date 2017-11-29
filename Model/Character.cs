@@ -94,7 +94,7 @@ namespace TowerOfTerror.Model
             List<string> data = new List<string>();
             data.Add("Character"); // "header" info
             data.Add(Name);
-            data.Add(Image); // should already be a string: image name or a reference to its location
+            data.Add(Image); 
             data.Add(Position.X.ToString());
             data.Add(Position.Y.ToString());
             data.Add(Power.ToString());
@@ -103,11 +103,12 @@ namespace TowerOfTerror.Model
             data.Add(Status.ToString());
             if (inventory != null)
             {
-                data.Add("items"); // "sub-header" that may go away; for now will eventually let Deserialize know that a list needs to be reconstructed
+                data.Add("items"); 
 
                 foreach (Item item in inventory)
                 {
-                    data.Add(item.ToString());
+                    data.Add(item.Index.ToString());
+                    data.Add(item.Type.ToString());
                 }
             }
 
