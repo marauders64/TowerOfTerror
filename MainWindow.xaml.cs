@@ -297,27 +297,7 @@ Difficulty: Set difficulty using the dropdown box provided.
         {
             PlayerTimer.Stop();
             Character player = ctrl.adventurer;
-            /*
-            if (e.Key == Key.W)
-            {
-                ctrl.UpdatePlayerPosition(player, Direction.Up);
-                img_Protagonist.RenderTransform = new RotateTransform(0.0);
-            }
-            else if (e.Key == Key.S)
-            {
-                ctrl.UpdatePlayerPosition(player, Direction.Down);
-                img_Protagonist.RenderTransform = new RotateTransform(180.0);
-            }
-            else if (e.Key == Key.A)
-            {
-                ctrl.UpdatePlayerPosition(player, Direction.Left);
-                img_Protagonist.RenderTransform = new RotateTransform(-90.0);
-            }
-            else if (e.Key == Key.D)
-            {
-                ctrl.UpdatePlayerPosition(player, Direction.Right);
-                img_Protagonist.RenderTransform = new RotateTransform(90.0);
-            }*/
+            
             if(e.Key == Key.Space)
             {
                 Console.WriteLine("Attacking");
