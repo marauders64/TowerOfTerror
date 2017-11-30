@@ -110,22 +110,7 @@ namespace TowerOfTerror
 
             SetupImages(); // works!
             entities.Add(img_Protagonist, ctrl.adventurer);
-            // Setup images
-            /*foreach (Entity en in ctrl.currentFloor.Enemies)
-            {
-                Image img_enemy = new Image
-                {
-                    Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                    Visibility = Visibility.Visible,
-                    Height = 40
-                };
-                Canvas.SetLeft(img_enemy, en.Position.X);
-                Canvas.SetTop(img_enemy, en.Position.Y);
-                Arena.Children.Add(img_enemy);
-                entities.Add(img_enemy, en);
-            }
-            Arena.Focus();
-            entities.Add(img_Protagonist, ctrl.adventurer);*/
+
 
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -212,6 +197,12 @@ namespace TowerOfTerror
                     }
                     Arena.Focus();
                     entities.Add(img_Protagonist, ctrl.adventurer);
+
+                    // duplicate code from Start... :(
+                    Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+                    PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
+                    Timer.Tick += Timer_Tick;
+                    PlayerTimer.Tick += PlayerTimer_Tick;
                     Timer.Start();
                 }
 
