@@ -146,7 +146,8 @@ namespace TowerOfTerror
                 {
                     Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
                     Visibility = Visibility.Visible,
-                    Height = 40
+                    Height = 40,
+                    RenderTransformOrigin = new Point(0.5, 0.5)
                 };
                 Canvas.SetLeft(img_enemy, en.Position.X);
                 Canvas.SetTop(img_enemy, en.Position.Y);
@@ -212,7 +213,6 @@ namespace TowerOfTerror
                     Arena.Focus();
                     entities.Add(img_Protagonist, ctrl.adventurer);
                     Timer.Start();
-                    PlayerTimer.Start();
                 }
 
 
