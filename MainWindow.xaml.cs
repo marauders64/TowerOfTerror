@@ -34,6 +34,8 @@ namespace TowerOfTerror
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
+        private int animatednum = 1;
+        private BitmapSource charimg = new BitmapImage(new Uri("hero_animate.png", UriKind.Relative));
 
         public MainWindow()
         {
@@ -99,6 +101,19 @@ namespace TowerOfTerror
             ctrl.Setup();
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
+           /* BitmapImage image = new BitmapImage(new Uri("Graphics/hero_animate.png", UriKind.Relative));
+            CroppedBitmap croppedimg = new CroppedBitmap(image, new Int32Rect(0, 0, 32, 32));
+
+            Image img_Protagonist = new Image()
+            {
+                Source = croppedimg,
+                Height = 30,
+                RenderTransformOrigin = new Point(0.5, 0.5),
+                
+            };
+            Canvas.SetLeft(img_Protagonist, 250);
+            Canvas.SetRight(img_Protagonist, 250);
+            Arena.Children.Add(img_Protagonist);*/
             img_Protagonist.Visibility = Visibility.Visible;
             ctrl.Score = 0;
 
@@ -319,6 +334,16 @@ Difficulty: Set difficulty using the dropdown box provided.
         public void PlayerTimer_Tick(object sender, EventArgs e)
         {
             ctrl.adventurer.Move(ctrl.adventurer.Facing);
+            int pointnum = img_protag.SourceRect.Width * animatednum;
+            while(animatednum > 4)
+            {
+                animatednum -= 4;
+            }
+
+            img_Protagonist.Source = new CroppedBitmap(charimg, new Int32Rect(pointnum, 0, 32, 32));
+            //img_protag.SourceRect = new Int32Rect(pointnum, 0, 32, 32);
+            ++animatednum;
+            
             ImageUpdate();
         }
 
