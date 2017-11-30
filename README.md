@@ -29,5 +29,5 @@ http://tinyurl.com/cps209-ToT-beta
 | Developer | Time Used | Time Remaining (req/opt) |
 |-----------|-----------|----------------|
 | Santana | 19 hrs. | 11/31 hrs. |
-| East | 24.75 hrs. | 5.25/25.25 hrs. |
+| East | 35.5 hrs. | 0/14.5 hrs. |
 | Mauk | 15.5 hrs. | 14.5/34.5 hrs. |
