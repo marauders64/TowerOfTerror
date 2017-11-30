@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace TowerOfTerror.Model
 {
@@ -336,6 +337,7 @@ namespace TowerOfTerror.Model
             }
             else
             {
+                // apparently async methods don't do try/catch exception handling, but too late to research now...
                 throw new FileFormatException();
             }
         }
