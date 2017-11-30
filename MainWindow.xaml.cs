@@ -36,6 +36,7 @@ namespace TowerOfTerror
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
         private int animatednum = 1;
+        private int animnum = 1;
 
         public MainWindow()
         {
@@ -399,7 +400,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 Entity entity = entities[img];
                 Canvas.SetLeft(img, entity.Position.X);
                 Canvas.SetTop(img, entity.Position.Y);
-                switch(entity.Facing)
+                switch (entity.Facing)
                 {
                     case Direction.Up:
                         img.RenderTransform = new RotateTransform(180.0);
@@ -417,7 +418,17 @@ Difficulty: Set difficulty using the dropdown box provided.
                         img.RenderTransform = new RotateTransform(0.0);
                         break;
                 }
-
+                if (entity is Enemy)
+                {
+                    
+                    while (animnum > 4)
+                    {
+                        animnum -= 4;
+                    }
+                    int pointnum = animnum * 64;
+                    img.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/chitiniac-move.png")), new Int32Rect(pointnum, 0, 64, 64));
+                    animnum += 1;
+                }
                 if (entity.IsDead())
                 {
                     deadentity.Add(img);
