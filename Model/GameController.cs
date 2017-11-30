@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace TowerOfTerror.Model
 {
@@ -309,9 +310,9 @@ namespace TowerOfTerror.Model
             // check for valid save file 
             if (gameData[0] == "ToTSave")
             {
-                string[] gcData = new string[2];
+                string[] gcData = new string[3];
                 int gcIndex = Array.IndexOf(gameData, "GameController");
-                Array.Copy(gameData, (gcIndex + 1), gcData, 0, 2);
+                Array.Copy(gameData, (gcIndex + 1), gcData, 0, 3);
                 Deserialize(gcData);
 
                 string[] levelData = new string[2];
@@ -337,14 +338,15 @@ namespace TowerOfTerror.Model
                     ++iteration;
                     enemy.Deserialize(enemyData);
                 }
-
-                string[] characterData = new string[9];
+                
                 int characterIndex = Array.IndexOf(gameData, "Character");
-                Array.Copy(gameData, (characterIndex + 1), characterData, 0, 9);
+                string[] characterData = new string[gameData.Length - characterIndex - 1];
+                Array.Copy(gameData, (characterIndex + 1), characterData, 0, gameData.Length - characterIndex - 1);
                 adventurer.Deserialize(characterData);
             }
             else
             {
+                // apparently async methods don't do try/catch exception handling, but too late to research now...
                 throw new FileFormatException();
             }
         }

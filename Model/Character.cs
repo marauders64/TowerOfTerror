@@ -104,7 +104,7 @@ namespace TowerOfTerror.Model
             data.Add(Status.ToString());
             if (inventory != null)
             {
-                data.Add("items"); 
+                data.Add("Items"); 
 
                 foreach (Item item in inventory)
                 {
@@ -147,10 +147,10 @@ namespace TowerOfTerror.Model
             int itemIndex = Array.IndexOf(savedData, "Items");
             if (itemIndex < savedData.Length)
             {
-                for (int i = itemIndex; i < savedData.Length; i += 2)
+                for (int i = itemIndex + 1; i < savedData.Length; i += 2)
                 {
                     int index = Convert.ToInt32(savedData[i]);
-                    string itemType = savedData[i + 2];
+                    string itemType = savedData[i + 1];
                     switch (itemType)
                     {
                         case "AtkBuff":

@@ -178,53 +178,54 @@ namespace TowerOfTerror
             ctrl.BuildTower();
             ctrl.Setup();
 
-            if (dialog.FileName != "")
+            try
             {
-                ctrl.Load(dialog.FileName);
-            }
+                if (dialog.FileName != "")
+                {
+                    ctrl.Load(dialog.FileName);
 
-            // load images
-            img_Protagonist.Visibility = Visibility.Visible;
-            txtPlayerName.Text = Convert.ToString(ctrl.adventurer.Name);
-            Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+                    // load images
+                    img_Protagonist.Visibility = Visibility.Visible;
+                    txtPlayerName.Text = Convert.ToString(ctrl.adventurer.Name);
+                    Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
-            foreach (Enemy en in ctrl.currentFloor.Enemies)
-            {
-                Image img_enemy = new Image
-                {
-                    Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                    //Visibility = Visibility.Visible,
-                    Height = 40,
-                    RenderTransformOrigin = new Point(0.5, 0.5),
-                };
-                if (en.Status == Life.Alive)
-                {
-                    img_enemy.Visibility = Visibility.Visible;
-                } 
-                else if (en.Status == Life.Dead)
-                {
-                    img_enemy.Visibility = Visibility.Hidden;
+                    foreach (Enemy en in ctrl.currentFloor.Enemies)
+                    {
+                        Image img_enemy = new Image
+                        {
+                            Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
+                            Height = 40
+                        };
+                        if (en.Status == Life.Alive)
+                        {
+                            img_enemy.Visibility = Visibility.Visible;
+                        }
+                        else if (en.Status == Life.Dead)
+                        {
+                            img_enemy.Visibility = Visibility.Hidden;
+                        }
+                        Canvas.SetLeft(img_enemy, en.Position.X);
+                        Canvas.SetTop(img_enemy, en.Position.Y);
+                        Arena.Children.Add(img_enemy);
+                        entities.Add(img_enemy, en);
+                    }
+                    Arena.Focus();
+                    entities.Add(img_Protagonist, ctrl.adventurer);
+                    Timer.Start();
+                    PlayerTimer.Start();
                 }
-                Canvas.SetLeft(img_enemy, en.Position.X);
-                Canvas.SetTop(img_enemy, en.Position.Y);
-                Arena.Children.Add(img_enemy);
-                entities.Add(img_enemy, en);
-            }
-            Arena.Focus();
-            entities.Add(img_Protagonist, ctrl.adventurer);
 
-            /*try
-            {
-                ctrl.Load(@"C:\Users\Heather\Desktop\Fall2017\CpS209\programs\TowerOfTerror\SavedGames\ToT.dat");
+
             }
-            // needs tested!!
-            catch (FileNotFoundException)
+            catch (FileFormatException ex)
             {
-                string errorMsg = "The system cannot find the file you have requested. Please try again.";
-                MessageBoxButton ok = MessageBoxButton.OK;
-                MessageBoxImage img = MessageBoxImage.Error;
-                MessageBox.Show(errorMsg, "Error", ok, img);
-            }*/
+                string cantDoThat = @"We're sorry, but the file you selected is not a valid save file, or it has been corrupted. Please choose another file.";
+                MessageBoxButton exit = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(cantDoThat, "Problem Loading Game", exit, icon);
+            }
+
+
         }
 
         // Show credits
