@@ -42,8 +42,8 @@ namespace TowerOfTerror.Model
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
+            this.Floors.Add(new Level(LevelType.Final));
             this.currentFloor = Floors[0];
-            // this.nextFloor = Floors[1]; // <-- I suggest this be taken off; once we get leveling working, this will cause an IndexOutOfBounds exception on the final level
         }
 
         // Move to next level
@@ -218,6 +218,7 @@ namespace TowerOfTerror.Model
             data.Add("GameController");
             data.Add(CurrentFloor.ToString());
             data.Add(Setting.ToString());
+            data.Add(Score.ToString());
 
             return data;
         }
@@ -229,8 +230,9 @@ namespace TowerOfTerror.Model
         /// <param name="savedData">Array of string data extracted by Load() from file</param>
         public void Deserialize(string[] savedData)
         {
-            CurrentFloor = Convert.ToInt32(savedData[0]);  // <-- VERY FRAGILE, need to confirm exactly how leveling is going to be handled
+            CurrentFloor = Convert.ToInt32(savedData[0]);  
             string difficulty = savedData[1];
+            Score = Convert.ToInt32(savedData[2]);
             switch (difficulty)
             {
                 case "Easy":
@@ -262,8 +264,6 @@ namespace TowerOfTerror.Model
                 // collect all data to be saved
                 allSavedData.Add(Serialize());
                 allSavedData.Add(Floors[CurrentFloor].Serialize());
-                //allSavedData.Add(currentFloor.Serialize());
-                //foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 {
                     allSavedData.Add(enemy.Serialize());
@@ -305,8 +305,6 @@ namespace TowerOfTerror.Model
                 Array.Copy(gameData, (gcIndex + 1), gcData, 0, 2);
                 Deserialize(gcData);
 
-                //BuildTower();
-
                 string[] levelData = new string[2];
                 int levelIndex = Array.IndexOf(gameData, "Level");
                 Array.Copy(gameData, (levelIndex + 1), levelData, 0, 2);
@@ -315,18 +313,6 @@ namespace TowerOfTerror.Model
                 int iteration = 0;
                 string[] enemyData = new string[8];
 
-                /*int count = 0;
-                foreach (string data in gameData)
-                {
-                    if (data == "Enemy")
-                    {
-                        count++;
-                    }
-                }
-                for (int i = 0; i < count; ++i)
-                {
-                    Floors[CurrentFloor].Enemies.Add(new Enemy());
-                }*/
                 foreach (Enemy enemy in Floors[CurrentFloor].Enemies)
                 {
                     int enemyIndex = Array.IndexOf(gameData, "Enemy");

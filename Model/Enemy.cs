@@ -94,11 +94,10 @@ namespace TowerOfTerror.Model
         /// <returns>list of Enemy state information to be saved</returns>
         public override List<string> Serialize()
         {
-            // Heather, this gives me a "Collection initialization can be simplified" message
             List<string> data = new List<string>();
             data.Add("Enemy"); // "header" info
             data.Add(Id.ToString());
-            data.Add(Image.ToString());
+            data.Add(Image);
             data.Add(Position.X.ToString());
             data.Add(Position.Y.ToString());
             data.Add(Power.ToString());

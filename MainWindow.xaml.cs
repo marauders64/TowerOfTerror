@@ -34,12 +34,15 @@ namespace TowerOfTerror
         private int healCount = 0;
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
+        SoundPlayer sp;
         private int animatednum = 1;
         private BitmapSource charimg = new BitmapImage(new Uri("hero_animate.png", UriKind.Relative));
 
         public MainWindow()
         {
             InitializeComponent();
+            sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Thunderstorm2); // Thanks Mr. Meyer
+            sp.PlayLooping();
             difficulties.Add("Easy");
             difficulties.Add("Medium");
             difficulties.Add("Hard");
@@ -53,6 +56,7 @@ namespace TowerOfTerror
         {
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
+
             string diff;
             Difficulty sett;
             btnSaveGame.IsEnabled = true;
@@ -101,19 +105,6 @@ namespace TowerOfTerror
             ctrl.Setup();
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
-           /* BitmapImage image = new BitmapImage(new Uri("Graphics/hero_animate.png", UriKind.Relative));
-            CroppedBitmap croppedimg = new CroppedBitmap(image, new Int32Rect(0, 0, 32, 32));
-
-            Image img_Protagonist = new Image()
-            {
-                Source = croppedimg,
-                Height = 30,
-                RenderTransformOrigin = new Point(0.5, 0.5),
-                
-            };
-            Canvas.SetLeft(img_Protagonist, 250);
-            Canvas.SetRight(img_Protagonist, 250);
-            Arena.Children.Add(img_Protagonist);*/
             img_Protagonist.Visibility = Visibility.Visible;
             ctrl.Score = 0;
 
@@ -345,6 +336,8 @@ Difficulty: Set difficulty using the dropdown box provided.
             ++animatednum;
             
             ImageUpdate();
+            sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Running);
+            sp.Play();
         }
 
         /// Moving/Attacking stuff
@@ -356,6 +349,8 @@ Difficulty: Set difficulty using the dropdown box provided.
             if(e.Key == Key.Space)
             {
                 Console.WriteLine("Attacking");
+                sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Swish);
+                sp.Play();
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
@@ -363,6 +358,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                     {
                         Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
+                        sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Crack);
+                        sp.Play();
                     }
                     
                 }
@@ -401,9 +398,6 @@ Difficulty: Set difficulty using the dropdown box provided.
                 img_Protagonist.RenderTransform = new RotateTransform(90.0);
                 PlayerTimer.Start();
             }
-
-
-            
         }
 
         //After movement Stuff
@@ -435,12 +429,22 @@ Difficulty: Set difficulty using the dropdown box provided.
                 // Beat the game logic
                 if (ctrl.IsGameWon())
                 {
-                    string victoryText = @"Congratulations! You beat the game!
-                    Your score is " + ctrl.Score;
-                    HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
+                    string victoryText;
+                    if (!ctrl.Cheating)
+                    {
+                        victoryText = @"Congratulations! You beat the game!
+Your score is " + ctrl.Score;
+                        HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
+                    }
+                    else
+                    {
+                        victoryText = @"You won! Or did you?
+You cheated, so your score is 0.";
+                    }
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
                     MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
+                    Application.Current.Shutdown(); // <-- need to get it synced with MessageBox acknowledgement button
                 }
 
                 // Level transition logic
@@ -481,31 +485,29 @@ Difficulty: Set difficulty using the dropdown box provided.
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
         }
 
-        public void PlayStartupSound()
-        {
-            throw new NotImplementedException();
-        }
-
         private void UpdateInventory()
         {
-            foreach (Item i in ctrl.adventurer.inventory)
+            if (!ctrl.Cheating)
             {
-                switch (i.Type)
+                foreach (Item i in ctrl.adventurer.inventory)
                 {
-                    case PowerUp.AtkBuff:
-                        attackCount++;
-                        lblAtkCount.Text = attackCount.ToString();
-                        break;
-                    case PowerUp.DefBuff:
-                        defenseCount++;
-                        lblDefCount.Text = defenseCount.ToString();
-                        break;
-                    case PowerUp.Heal:
-                        healCount++;
-                        lblHealCount.Text = healCount.ToString();
-                        break;
-                    default:
-                        break;
+                    switch (i.Type)
+                    {
+                        case PowerUp.AtkBuff:
+                            attackCount++;
+                            lblAtkCount.Text = attackCount.ToString();
+                            break;
+                        case PowerUp.DefBuff:
+                            defenseCount++;
+                            lblDefCount.Text = defenseCount.ToString();
+                            break;
+                        case PowerUp.Heal:
+                            healCount++;
+                            lblHealCount.Text = healCount.ToString();
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -515,6 +517,7 @@ Difficulty: Set difficulty using the dropdown box provided.
         // You can dump your save logic here
         private void btnSaveGame_Click(object sender, RoutedEventArgs e)
         {
+            Timer.Stop();
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Saving Game File:";
@@ -525,6 +528,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 ctrl.Save(dialog.FileName);
             }
             Arena.Focus();
+            Timer.Start();
         }
 
         private void btnAtk_Click(object sender, RoutedEventArgs e)
