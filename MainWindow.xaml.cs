@@ -36,7 +36,6 @@ namespace TowerOfTerror
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
         private int animatednum = 1;
-        private BitmapSource charimg = new BitmapImage(new Uri("hero_animate.png", UriKind.Relative));
 
         public MainWindow()
         {
@@ -195,7 +194,8 @@ namespace TowerOfTerror
                 {
                     Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
                     //Visibility = Visibility.Visible,
-                    Height = 40
+                    Height = 40,
+                    RenderTransformOrigin = new Point(0.5, 0.5),
                 };
                 if (en.Status == Life.Alive)
                 {
@@ -331,8 +331,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 animatednum -= 4;
             }
 
-            img_Protagonist.Source = new CroppedBitmap(charimg, new Int32Rect(pointnum, 0, 32, 32));
-            //img_protag.SourceRect = new Int32Rect(pointnum, 0, 32, 32);
+            img_Protagonist.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/hero_animate.png")), new Int32Rect(pointnum, 0, 32, 32));
             ++animatednum;
             
             ImageUpdate();
@@ -374,28 +373,25 @@ Difficulty: Set difficulty using the dropdown box provided.
         {
             Character player = ctrl.adventurer;
 
+
             if (e.Key == Key.W)
             {
                 player.Facing = Direction.Up;
-                img_Protagonist.RenderTransform = new RotateTransform(0.0);
                 PlayerTimer.Start();
             }
             else if (e.Key == Key.S)
             {
                 player.Facing = Direction.Down;
-                img_Protagonist.RenderTransform = new RotateTransform(180.0);
                 PlayerTimer.Start();
             }
             else if (e.Key == Key.A)
             {
                 player.Facing = Direction.Left;
-                img_Protagonist.RenderTransform = new RotateTransform(-90.0);
                 PlayerTimer.Start();
             }
             else if (e.Key == Key.D)
             {
                 player.Facing = Direction.Right;
-                img_Protagonist.RenderTransform = new RotateTransform(90.0);
                 PlayerTimer.Start();
             }
         }
@@ -411,7 +407,25 @@ Difficulty: Set difficulty using the dropdown box provided.
                 Entity entity = entities[img];
                 Canvas.SetLeft(img, entity.Position.X);
                 Canvas.SetTop(img, entity.Position.Y);
-                Console.WriteLine(entity.Position.X + "  " + entity.Position.Y);
+                switch(entity.Facing)
+                {
+                    case Direction.Up:
+                        img.RenderTransform = new RotateTransform(180.0);
+                        break;
+                    case Direction.Down:
+                        img.RenderTransform = new RotateTransform(0.0);
+                        break;
+                    case Direction.Left:
+                        img.RenderTransform = new RotateTransform(-90.0);
+                        break;
+                    case Direction.Right:
+                        img.RenderTransform = new RotateTransform(90.0);
+                        break;
+                    default:
+                        img.RenderTransform = new RotateTransform(0.0);
+                        break;
+                }
+
                 if (entity.IsDead())
                 {
                     deadentity.Add(img);

@@ -149,5 +149,8 @@
     <Resource Include="Sounds\Running.wav" />
     <Resource Include="Sounds\Swish.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\hero_animate.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

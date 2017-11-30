@@ -15,7 +15,7 @@ namespace TowerOfTerror.Model
         Random rand;
         private static int id = 1;
         public int Id { get; set; }
-       
+
         public Enemy()
         {
             this.Id = id;

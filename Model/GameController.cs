@@ -142,18 +142,23 @@ namespace TowerOfTerror.Model
             {
                 case 1:
                     dir = Direction.Up;
+                    enemy.Facing = Direction.Up;
                     break;
                 case 2:
                     dir = Direction.Down;
+                    enemy.Facing = Direction.Down;
                     break;
                 case 3:
                     dir = Direction.Left;
+                    enemy.Facing = Direction.Left;
                     break;
                 case 4:
                     dir = Direction.Right;
+                    enemy.Facing = Direction.Right;
                     break;
                 default:
                     dir = Direction.Up;
+                    enemy.Facing = Direction.Up;
                     break;
             }
             enemy.Move(dir);
@@ -169,10 +174,12 @@ namespace TowerOfTerror.Model
                 if(xdist >= 0)
                 {
                     enemy.Move(Direction.Left);
+                    enemy.Facing = Direction.Left;
                 }
                 else
                 {
                     enemy.Move(Direction.Right);
+                    enemy.Facing = Direction.Right;
                 }
             }
             else
@@ -180,10 +187,12 @@ namespace TowerOfTerror.Model
                 if(ydist >= 0)
                 {
                     enemy.Move(Direction.Down);
+                    enemy.Facing = Direction.Down;
                 }
                 else
                 {
                     enemy.Move(Direction.Up);
+                    enemy.Facing = Direction.Up;
                 }
             }
         }

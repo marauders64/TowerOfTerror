@@ -22,6 +22,7 @@ namespace TowerOfTerror.Model
         public int Defense { get; set; }
         public int Health { get; set; }
         public Life Status { get; set; }
+        public Direction Facing { get; set; }
 
         // Whoever you are, do an attack
         public abstract void Attack(Entity hitenemy);

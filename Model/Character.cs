@@ -13,7 +13,6 @@ namespace TowerOfTerror.Model
         // Add auto-collection for item drops
         public List<Item> inventory;
         public string Name { get; set; }
-        public Direction Facing { get; set; }
 
         // Create a character
         public Character()
