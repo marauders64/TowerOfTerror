@@ -23,8 +23,8 @@ http://youtu.be/otyVemljuIk?hd=1
 http://tinyurl.com/cps209-ToT-beta
 
 # Recording of the Release Candidate
-https://tinyurl.com/TowerPart1 (shows new game and win scenario)
-https://tinyurl.com/TowerPart2 (shows loaded game and lose scenario)
+* https://tinyurl.com/TowerPart1 (shows new game and win scenario)
+* https://tinyurl.com/TowerPart2 (shows loaded game and lose scenario)
 
 # Expenses
 
