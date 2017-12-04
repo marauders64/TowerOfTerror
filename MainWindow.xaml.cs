@@ -35,8 +35,8 @@ namespace TowerOfTerror
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
-        private int animatednum = 1;
-        private int animnum = 1;
+        private int playeranimatednum = 1;
+        private int monsteranimnum = 1;
 
         public MainWindow()
         {
@@ -318,14 +318,14 @@ Difficulty: Set difficulty using the dropdown box provided.
         public void PlayerTimer_Tick(object sender, EventArgs e)
         {
             ctrl.adventurer.Move(ctrl.adventurer.Facing);
-            int pointnum = img_protag.SourceRect.Width * animatednum;
-            while(animatednum > 4)
+            int pointnum = img_protag.SourceRect.Width * playeranimatednum;
+            while(playeranimatednum > 4)
             {
-                animatednum -= 4;
+                playeranimatednum -= 4;
             }
 
             img_Protagonist.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/hero_animate.png")), new Int32Rect(pointnum, 0, 32, 32));
-            ++animatednum;
+            ++playeranimatednum;
             
             ImageUpdate();
             sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Running);
@@ -403,10 +403,24 @@ Difficulty: Set difficulty using the dropdown box provided.
                 switch (entity.Facing)
                 {
                     case Direction.Up:
-                        img.RenderTransform = new RotateTransform(180.0);
+                        if (entity is Character)
+                        {
+                            img.RenderTransform = new RotateTransform(0.0);
+                        }
+                        else
+                        {
+                            img.RenderTransform = new RotateTransform(180.0);
+                        }
                         break;
                     case Direction.Down:
-                        img.RenderTransform = new RotateTransform(0.0);
+                        if (entity is Character)
+                        {
+                            img.RenderTransform = new RotateTransform(180.0);
+                        }
+                        else
+                        {
+                            img.RenderTransform = new RotateTransform(0.0);
+                        }
                         break;
                     case Direction.Left:
                         img.RenderTransform = new RotateTransform(-90.0);
@@ -421,13 +435,13 @@ Difficulty: Set difficulty using the dropdown box provided.
                 if (entity is Enemy)
                 {
                     
-                    while (animnum > 4)
+                    while (monsteranimnum > 7)
                     {
-                        animnum -= 4;
+                        monsteranimnum -= 7;
                     }
-                    int pointnum = animnum * 64;
+                    int pointnum = monsteranimnum * 64;
                     img.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/chitiniac-move.png")), new Int32Rect(pointnum, 0, 64, 64));
-                    animnum += 1;
+                    ++monsteranimnum;
                 }
                 if (entity.IsDead())
                 {
