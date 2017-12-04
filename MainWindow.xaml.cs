@@ -368,7 +368,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                 switch (attacker.Facing)
                 {
                     case Direction.Down:
-                        if ((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                        if ((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 25)
                         {
                             return true;
                         }
@@ -377,7 +377,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                             return false;
                         }
                     case Direction.Up:
-                        if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                        if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 25)
                         {
                             return true;
                         }
@@ -392,7 +392,7 @@ Difficulty: Set difficulty using the dropdown box provided.
             switch(attacker.Facing)
             {
                 case Direction.Up:
-                    if((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                    if((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 25)
                     {
                         return true;
                     }
@@ -401,7 +401,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                         return false;
                     }
                 case Direction.Down:
-                    if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                    if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 25)
                     {
                         return true;
                     }
@@ -410,7 +410,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                         return false;
                     }
                 case Direction.Left:
-                    if ((attacker.Position.X > victim.Position.X) && (attacker.Position.X - victim.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 45)
+                    if ((attacker.Position.X > victim.Position.X) && (attacker.Position.X - victim.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 25)
                     {
                         return true;
                     }
@@ -419,7 +419,7 @@ Difficulty: Set difficulty using the dropdown box provided.
                         return false;
                     }
                 case Direction.Right:
-                    if ((attacker.Position.X < victim.Position.X) && (victim.Position.X - attacker.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 45)
+                    if ((attacker.Position.X < victim.Position.X) && (victim.Position.X - attacker.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 25)
                     {
                         return true;
                     }
