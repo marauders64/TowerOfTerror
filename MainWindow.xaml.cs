@@ -296,7 +296,7 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             foreach (Enemy enemy in ctrl.currentFloor.Enemies)
             {
-                if ((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
+                if (AttackHits(enemy, player))
                 {
                     ctrl.EnemyAttack(enemy);
                 }
@@ -346,19 +346,90 @@ Difficulty: Set difficulty using the dropdown box provided.
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
                     //needs work
-                    if((Math.Abs(enemy.Position.X - player.Position.X) <= 45) && (Math.Abs(enemy.Position.Y - player.Position.Y)) <= 45)
+                    if(AttackHits(player, enemy))
                     {
                         Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
                         sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Crack);
                         sp.Play();
                     }
-                    
                 }
             }
 
             ImageUpdate();
 
+        }
+
+        //Attacking hits logic
+        private bool AttackHits(Entity attacker, Entity victim)
+        {
+            if (attacker is Character)
+            {
+                switch (attacker.Facing)
+                {
+                    case Direction.Down:
+                        if ((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Direction.Up:
+                        if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    default:
+                        break;
+                }
+            }
+            switch(attacker.Facing)
+            {
+                case Direction.Up:
+                    if((attacker.Position.Y < victim.Position.Y) && (victim.Position.Y - attacker.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Direction.Down:
+                    if ((attacker.Position.Y > victim.Position.Y) && (attacker.Position.Y - victim.Position.Y < 45) && (Math.Abs(attacker.Position.X - victim.Position.X)) <= 45)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Direction.Left:
+                    if ((attacker.Position.X > victim.Position.X) && (attacker.Position.X - victim.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 45)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Direction.Right:
+                    if ((attacker.Position.X < victim.Position.X) && (victim.Position.X - attacker.Position.X < 45) && (Math.Abs(attacker.Position.Y - victim.Position.Y)) <= 45)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                default:
+                    return false;
+            }
         }
 
         //Player continuous Movement
