@@ -1,1 +1,1 @@
-ToTSave,GameController,0,Easy,Level,0,Basic,Enemy,1,,164,75,5,5,100,Alive,Enemy,2,,9,48,5,5,100,Alive,Character,McCoy,,245,240,25,5,100,Alive,items
+ToTSave,GameController,0,Easy,0,Level,0,Basic,Enemy,1,,164,75,5,5,100,Alive,Enemy,2,,9,48,5,5,100,Alive,Character,me,,245,240,25,5,100,Alive,Items,1,Heal,2,Heal,3,DefBuff

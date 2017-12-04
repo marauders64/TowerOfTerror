@@ -614,9 +614,12 @@ You cheated, so your score is 0.";
             }
         }
 
-        // NOTE TO HEATHER EAST:
-        // This button will be disabled when the window starts up, but it will re-enable when "Start"
-        // You can dump your save logic here
+        /// <summary>
+        /// Takes a snapshot of point-in-time game state information and stores it
+        /// By heast
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSaveGame_Click(object sender, RoutedEventArgs e)
         {
             Timer.Stop();

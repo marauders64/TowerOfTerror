@@ -11,6 +11,10 @@ namespace TowerOfTerror.Model
     [TestClass]
     public class SerializeTest
     {
+        //------------------------------------------------
+        //--------------- SAVE / SERIALIZE ---------------
+        //------------------------------------------------
+
         [TestMethod]
         public void Character_Serialize_Converted()
         {
@@ -18,14 +22,13 @@ namespace TowerOfTerror.Model
             List<string> test = c.Serialize();
             Assert.IsTrue(test[0] == "Character");
             //Assert.IsTrue(test[1] == "McCoy"); <-- Name comes down from View, which Model knows nothing about
-            // test[2] is Image and is null right now
+            // test[2] is Image and turned out to be exclusively a View-level thing
             Assert.IsTrue(test[3] == "245");
             Assert.IsTrue(test[4] == "240");
-            Assert.IsTrue(test[5] == "10");
+            Assert.IsTrue(test[5] == "25");
             Assert.IsTrue(test[6] == "5");
             Assert.IsTrue(test[7] == "100");
             Assert.IsTrue(test[8] == "Alive");
-            //Assert.IsTrue(test.Length == however long it ends up) <-- do this later unless you want to keep changing it
         }
 
         [TestMethod]
@@ -36,8 +39,8 @@ namespace TowerOfTerror.Model
             Assert.IsTrue(test[0] == "Enemy");
             //Assert.IsTrue(test[1] == "1"); <-- i don't know how many Enemies have been made to this point
             //test[2] is a null image at present
-            //Assert.IsTrue(test[3] == "0"); <-- these are now random and cannot be tested
-            //Assert.IsTrue(test[4] == "0");
+            Assert.IsTrue(test[3] == "0"); // SHOULD work, randomization doesn't happen till the enemies are placed
+            Assert.IsTrue(test[4] == "0");
             Assert.IsTrue(test[5] == "5");
             Assert.IsTrue(test[6] == "5");
             Assert.IsTrue(test[7] == "100");
@@ -81,38 +84,33 @@ namespace TowerOfTerror.Model
             string[] gameData = loadedGame.Split(',');
             Assert.IsTrue(gameData[0] == "ToTSave");
             Assert.IsTrue(gameData[1] == "GameController");
-            Assert.IsTrue(gameData[4] == "Level");
-            Assert.IsTrue(gameData[7] == "Enemy");
-            Assert.IsTrue(gameData.Length == 35);
+            Assert.IsTrue(gameData[5] == "Level");
+            Assert.IsTrue(gameData[8] == "Enemy");
+            Assert.IsTrue(gameData[17] == "Enemy");
+            Assert.IsTrue(gameData[26] == "Character");
         }
 
-       [TestMethod]
-        public void GameController_Load_Success()
-        {
-            GameController gc = new GameController();
-            string loadedGame;
-            gc.Load(@"ToTtest.dat");
-            //Assert.IsTrue()
-            //will have to assert stuff about deserialize...
-        }
+        //------------------------------------
+        //--------------- LOAD ---------------
+        //------------------------------------
 
         [TestMethod]
         public void GameController_Load_ControllerDeserialized()
         {
             GameController gc = new GameController();
-            gc.Load(@"ToTtest.dat");
+            gc.Load(@"newTestSave.dat");
             Assert.IsTrue(gc.CurrentFloor == 0);
             Assert.IsTrue(gc.Setting == Difficulty.Easy);
         }
 
-
+        
         [TestMethod]
         public void GameController_Load_LevelDeserialized()
         {
             GameController gc1 = new GameController();
             gc1.BuildTower();
-            gc1.Load(@"ToTtest.dat");
-            //Assert.IsTrue(gc1.Floors[0].Num == 0); <-- IDs not being reset, need to write reset method...
+            gc1.Load(@"newTestSave.dat");
+            Assert.IsTrue(gc1.Floors[0].Num == 0); //<-- IDs not being reset, need to write reset method...
             Assert.IsTrue(gc1.Floors[0].Type == LevelType.Basic);
         }
 
@@ -123,7 +121,7 @@ namespace TowerOfTerror.Model
             gc.BuildTower();
             gc.Floors[0].FillEnemies(gc.Floors[0]);
             gc.Floors[0].PlaceEnemies();
-            gc.Load(@"ToTtest.dat");
+            gc.Load(@"newTestSave.dat");
             //Assert.IsTrue(gc.Floors[0].Enemies[0].Id == 1);
             //image is null right now
             Assert.IsTrue(gc.Floors[0].Enemies[0].Position.X == 16);
@@ -138,7 +136,7 @@ namespace TowerOfTerror.Model
         public void GameController_Load_CharacterDeserialized()
         {
             GameController gc = new GameController();
-            gc.Load(@"ToTtest.dat");
+            gc.Load(@"newTestSave.dat");
             Assert.IsTrue(gc.adventurer.Name == "McCoy");
             //image null right now
             Assert.IsTrue(gc.adventurer.Position.X == 0);
