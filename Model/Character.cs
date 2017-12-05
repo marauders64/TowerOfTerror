@@ -5,13 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * Character.cs contains information for the player-controlled character
+ * Character-specific save/load logic is also contained in this file
+ */
+
 namespace TowerOfTerror.Model
 {
     class Character : Entity
     {
-        // Stores all items the character can have
-        // Add auto-collection for item drops
+        // Stores all items the character can have (items are autocollected)
         public List<Item> inventory;
+
+        // Stores/retrieves the character's name as entered into a text box
+        // Used for high scores
         public string Name { get; set; }
 
         // Create a character
@@ -28,46 +35,19 @@ namespace TowerOfTerror.Model
         }
 
         // Attack the enemy and reduce enemy health
+        // This method is only invoked if the character is close enough to do damage
         public override void Attack(Entity hitenemy)
         {
             hitenemy.Health -= (this.Power / hitenemy.Defense) * 10;
         }
 
-        // Returns true if Life is dead
+        // Returns true if health is depleted
         public override bool IsDead()
         {
-            if (Health <= 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Health <= 0;
         }
-
-        // Returns true if Life is falling
-        public override bool IsFalling()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Returns type character
-        public override Type GetKind()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Let the character use an item of their choice
-        public void UseItem(int ind)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Moves the Character in the direction it is facing.
-        /// </summary>
-        /// <param name="dir"></param>
+        
+        // Updates the Character's position
         public override void Move(Direction dir)
         {
             switch (dir)

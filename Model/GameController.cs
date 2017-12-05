@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
+/*
+ * GameController.cs manages Game Logic such as determining an attack
+ * Detecting endgame
+ * Adding items to inventory upon an enemy death
+ * Also contains an AttackResult enum, a Difficulty enum, and a Direction enum
+ * Also contains the Load/Save methods where all Serialization and Deserialization meet
+ */
+
 namespace TowerOfTerror.Model
 {
     // Indicates whether the entity was hit, missed, killed, or dropped
-    public enum AttackResult { Hit, Miss, Kill, Drop }
+    public enum AttackResult { Hit, Miss, Kill }
 
     // Sets the difficulty of the level
     public enum Difficulty { Easy, Medium, Hard }
@@ -22,15 +30,24 @@ namespace TowerOfTerror.Model
     // Manages game logic
     class GameController : ISerializable
     {
+        // Retrieves floor number for the current floor
         public int CurrentFloor { get; set; }
+        // Contains a list of all floors in the game
         public List<Level> Floors { get; set; }
+        // Manages the difficulty setting picked in the combo box
         public Difficulty Setting { get; set; }
+        // Detects cheat mode
         public bool Cheating { get; set; }
+        // A level object storing information of the current floor
         public Level currentFloor;
+        // Instance of the character that is passed to every game
         public Character adventurer;
-        public int Score { get; set; } // Keeps track of the current score.
+        // Store a game's score
+        public int Score { get; set; }
+        // Random seed for determining item drop
         public static Random rand = new Random();
         
+        // Instantiate a gamecontroller
         public GameController()
         {
             this.Floors = new List<Level>();
@@ -38,6 +55,8 @@ namespace TowerOfTerror.Model
             this.adventurer = new Character();
         }
 
+        // Adds levels to the list of levels
+        // Sets currentFloor to the first level to start
         public void BuildTower()
         {
             Level.ResetNum(); // keeps level 0 at level 0
@@ -49,6 +68,7 @@ namespace TowerOfTerror.Model
         }
 
         // Move to next level
+        // If on last level (final), don't move forward
         public void MoveForward()
         {
             if (currentFloor.Type == LevelType.Basic)
@@ -59,13 +79,8 @@ namespace TowerOfTerror.Model
             }
         }
 
-        // Only for entering final level
-        public void MoveForwardToLast()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Populate the Level list with three levels
+        // Populate each level in this.Floors with enemies
+        // Also set the adventurer's health depending on difficulty
         public void Setup()
         {
             // Adjust character health according to difficulty
@@ -96,6 +111,8 @@ namespace TowerOfTerror.Model
         }
 
         // Does the logic for when the player attacks
+        // Detects enemy end of life
+        // Also, if the enemy drops an item, adds a new Item object to the inventory
         public void PlayerAttack(Entity character, Entity enemy)
         {
             character.Attack(enemy);
@@ -115,7 +132,8 @@ namespace TowerOfTerror.Model
             }
         }
 
-        //Does Enemy attack logic
+        // Does Enemy attack logic
+        // Detects endLife for the Character
         public void EnemyAttack(Enemy enemy)
         {
             if (!this.Cheating)
@@ -136,7 +154,6 @@ namespace TowerOfTerror.Model
         public void UpdatePlayerPosition(Character character, Direction direction)
         {
             character.Move(direction);
-            
         }
 
         /// <summary>
@@ -220,12 +237,6 @@ namespace TowerOfTerror.Model
         public bool IsGameOver()
         {
             return this.adventurer.Health == 0;
-        }
-
-        // Records the result of an attack and does the corresponding logic
-        public AttackResult AttackResult()
-        {
-            return Model.AttackResult.Hit;
         }
 
         /// <summary>

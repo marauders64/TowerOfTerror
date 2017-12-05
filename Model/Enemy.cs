@@ -6,16 +6,25 @@ using System.Threading.Tasks;
 using System.Windows;
 using TowerOfTerror.Model;
 
+/*
+ * Enemy.cs stores information for an enemy
+ * Each enemy also randomly drops an item
+ */
+
 namespace TowerOfTerror.Model
 {
 
     // Information control for enemies in the game
     class Enemy : Entity
     {
+        // Random seed used to determine item drops
         Random rand;
+        // Each enemy is tagged with an auto-incrementing number
         private static int id = 1;
+        // Retrieve an enemy's id
         public int Id { get; set; }
 
+        // Create an enemy
         public Enemy()
         {
             this.Id = id;
@@ -28,16 +37,14 @@ namespace TowerOfTerror.Model
             this.Status = Life.Alive;
         }
 
+        // Attack the player and decrement their health accordingly
+        // Only called if the enemy is close enough to the player
         public override void Attack(Entity hitenemy)
         {
             hitenemy.Health -= (this.Power / hitenemy.Defense) * 10;
         }
 
-        public override Type GetKind()
-        {
-            throw new NotImplementedException();
-        }
-
+        // Detect end of life condition
         public override bool IsDead()
         {
             if(Health <= 0)
@@ -51,19 +58,13 @@ namespace TowerOfTerror.Model
                 return false;
             }
         }
-
-        public override bool IsFalling()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         // Pick either 0 or 1 and drop an item if 1
         public bool DropsItem()
         {
             rand = new Random();
             int drops = rand.Next(0, 2);
             return drops == 0 ? false : true;
-            //return true; // <-- used for Item debugging purposes
         }
 
         /// <summary>
