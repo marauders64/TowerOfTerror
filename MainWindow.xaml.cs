@@ -1,4 +1,9 @@
-﻿using Microsoft.Win32;
+﻿/*
+ * MainWindow.xaml.cs contains the GUI logic for playing the game
+ * It contains a single "MainWindow" class where everything occurs
+ */
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
