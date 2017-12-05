@@ -35,8 +35,8 @@ namespace TowerOfTerror
         DispatcherTimer Timer = new DispatcherTimer();
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
-        private int playeranimatednum = 1;
-        private int monsteranimnum = 1;
+        private int playeranimatednum = 1; //Keeps track of the player's animation.
+        private int monsteranimnum = 1; //Keeps 
 
         public MainWindow()
         {
@@ -181,7 +181,8 @@ namespace TowerOfTerror
                         Image img_enemy = new Image
                         {
                             Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                            Height = 40
+                            Height = 40,
+                            RenderTransformOrigin = new Point(0.5, 0.5)
                         };
                         if (en.Status == Life.Alive)
                         {
@@ -289,7 +290,13 @@ Difficulty: Set difficulty using the dropdown box provided.
         }
         
 
-        //Independent enemy movement
+        /// <summary>
+        /// Holds the logic for enemy tracking and moving. Ticks every half second
+        /// and all enemies will either attack (if in range), track the player,
+        /// or randomnly move.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Timer_Tick(object sender, EventArgs e)
         {
             Character player = ctrl.adventurer;
@@ -315,6 +322,13 @@ Difficulty: Set difficulty using the dropdown box provided.
             ImageUpdate();
         }
 
+        /// <summary>
+        /// Holds the logic for player movement and animations. Ticks every tenth of 
+        /// a second and will move the player in the direction they are facing as 
+        /// well as update the animation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void PlayerTimer_Tick(object sender, EventArgs e)
         {
             ctrl.adventurer.Move(ctrl.adventurer.Facing);
@@ -332,7 +346,12 @@ Difficulty: Set difficulty using the dropdown box provided.
             sp.Play();
         }
 
-        /// Moving/Attacking stuff
+        /// <summary>
+        /// Contains logic for player attacking and stops the player timer when a 
+        /// key is released, which will end player animation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
             PlayerTimer.Stop();
@@ -345,10 +364,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                 sp.Play();
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
-                    //needs work
                     if(AttackHits(player, enemy))
                     {
-                        Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
                         sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Crack);
                         sp.Play();
@@ -360,7 +377,12 @@ Difficulty: Set difficulty using the dropdown box provided.
 
         }
 
-        //Attacking hits logic
+        /// <summary>
+        /// Determines whether an attacker will hit the victim or not.
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="victim"></param>
+        /// <returns>true if attack hits else false</returns>
         private bool AttackHits(Entity attacker, Entity victim)
         {
             if (attacker is Character)
@@ -432,7 +454,12 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
 
-        //Player continuous Movement
+        /// <summary>
+        /// When any of the wasd keys are pressed the characters direction that 
+        /// it is facing will change accordingly and the Playertimer will start.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Arena_cvs_KeyDown(object sender, KeyEventArgs e)
         {
             Character player = ctrl.adventurer;
@@ -460,7 +487,11 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
 
-        //After movement Stuff
+        /// <summary>
+        /// Updates the list of dead enemies and also updates the images on
+        /// the canvas to represent the objects they belong to. Also determines
+        /// whether the level has ended or the game has ended.
+        /// </summary>
         public void ImageUpdate()
         {
             //Update canvas positions
