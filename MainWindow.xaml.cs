@@ -219,7 +219,6 @@ namespace TowerOfTerror
                     Timer.Start();
                 }
 
-
             }
             catch (FileFormatException ex)
             {

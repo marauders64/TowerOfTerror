@@ -347,8 +347,7 @@ namespace TowerOfTerror.Model
             }
             else
             {
-                // apparently async methods don't do try/catch exception handling, but too late to research now...
-                throw new FileFormatException();
+                // launch new game instead... Still can't get the event handler to catch exceptions...
             }
         }
     }
