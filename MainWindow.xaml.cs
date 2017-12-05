@@ -31,10 +31,13 @@ namespace TowerOfTerror
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Instance of GameController for View communication with the model
         GameController ctrl = new GameController();
+        // String version of the difficulties, used for cmbDifficultyPicker
         List<string> difficulties = new List<string>(3);
         //Keeps a record between images and their objects.
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
+        // These three count how many buffs of each powerup type is in the inventory
         private int attackCount = 0;
         private int defenseCount = 0;
         private int healCount = 0;
@@ -42,10 +45,13 @@ namespace TowerOfTerror
         DispatcherTimer Timer = new DispatcherTimer(); 
         //Keeps track of player movement and animations.
         DispatcherTimer PlayerTimer = new DispatcherTimer();
+        // Plays sounds
         SoundPlayer sp;
         private int playeranimatednum = 1; //Keeps track of the player's animation.
         private int monsteranimnum = 1; //Keeps track of monster animations.
 
+        // Play thunderstorm sound
+        // Also prepare the cmbDifficultyPicker and the Leaderboard
         public MainWindow()
         {
             InitializeComponent();
@@ -84,6 +90,7 @@ namespace TowerOfTerror
             }
             else
             {
+                // Use the value, or default to null (sets game to Easy)
                 if (cmbDifficultyPicker.SelectedValue != null)
                 {
                     diff = cmbDifficultyPicker.SelectedValue.ToString();
@@ -108,19 +115,24 @@ namespace TowerOfTerror
                         break;
                 }
             }
-            // Set up
+
+            // Set up game
             ctrl.Setting = sett;
             ctrl.adventurer.Name = txtPlayerName.Text;
             ctrl.BuildTower();
             ctrl.Setup();
+
+            // Visually represent the character's health
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
 
+            // New protagonist with new score
             img_Protagonist.Visibility = Visibility.Visible;
             ctrl.Score = 0;
-            
+            // Map every entity to its position
             SetupImages(); // works!
             entities.Add(img_Protagonist, ctrl.adventurer);
             
+            // Animate enemies
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
@@ -230,7 +242,6 @@ namespace TowerOfTerror
         // Show credits
         private void btnAbout_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Opening Credits");
             string aboutText = @"Tower Of Terror
 Produced by:
     Heather East
@@ -249,9 +260,8 @@ Inspired by: The Legend of Zelda: A Link Between Worlds";
             string helpText = @"Controls:
 Move: WASD or Arrow Keys
 Attack: Space Bar
-Use Item: Click on it in the sidebar (100 level)
-Save Game: Click on the button in the top right (100 level)
-* Game will autosave at end of each level.
+Use Item: Click on it in the right sidebar
+Save Game: Click on the button in the left sidebar
 Difficulty: Set difficulty using the dropdown box provided.
 * Easy difficulty gives you full health. Subsequent levels reduce health by 20% each.";
             MessageBoxButton exit = MessageBoxButton.OK;
@@ -551,6 +561,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                     img.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/chitiniac-move.png")), new Int32Rect(pointnum, 0, 64, 64));
                     ++monsteranimnum;
                 }
+
+                // Make enemies disappear if dead and update inventory GUI to reflect changes in ctrl
                 if (entity.IsDead())
                 {
                     deadentity.Add(img);
@@ -569,20 +581,23 @@ Difficulty: Set difficulty using the dropdown box provided.
                 if (ctrl.IsGameWon())
                 {
                     string victoryText;
+                    string titleText;
                     if (!ctrl.Cheating)
                     {
                         victoryText = @"Congratulations! You beat the game!
 Your score is " + ctrl.Score;
+                        titleText = "Congrats Dude!";
                         HighScores.Leaderboard.AddHighScore(new HighScore(txtPlayerName.Text, ctrl.Score));
                     }
                     else
                     {
                         victoryText = @"You won! Or did you?
 You cheated, so your score is 0.";
+                        titleText = "Suspicion";
                     }
                     MessageBoxButton exit = MessageBoxButton.OK;
                     MessageBoxImage icon = MessageBoxImage.Information;
-                    MessageBox.Show(victoryText, "Congrats Dude", exit, icon);
+                    MessageBox.Show(victoryText, titleText, exit, icon);
                     Application.Current.Shutdown(); // <-- need to get it synced with MessageBox acknowledgement button
                 }
 
@@ -624,6 +639,8 @@ You cheated, so your score is 0.";
             Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
         }
 
+        // Update the GUI to reflect actual inventory status
+        // Skip if cheating
         private void UpdateInventory()
         {
             if (!ctrl.Cheating)
@@ -674,6 +691,7 @@ You cheated, so your score is 0.";
             Timer.Start();
         }
 
+        // Use an attack powerup
         private void btnAtk_Click(object sender, RoutedEventArgs e)
         {
             if (attackCount > 0)
@@ -700,6 +718,7 @@ You cheated, so your score is 0.";
             Arena.Focus();
         }
 
+        // Use a defense powerup
         private void btnDef_Click(object sender, RoutedEventArgs e)
         {
             if (defenseCount > 0)
@@ -726,6 +745,7 @@ You cheated, so your score is 0.";
             Arena.Focus();
         }
 
+        // Use a healing item
         private void btnHeal_Click(object sender, RoutedEventArgs e)
         {
             if (healCount > 0)
