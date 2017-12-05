@@ -5,16 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+/*
+ * Item.cs stores the Item class
+ * Includes a PowerUp enum for each kind of powerup
+ */
+
 namespace TowerOfTerror.Model
 {
+    // Contains different kinds of powerups
     public enum PowerUp { AtkBuff, DefBuff, Heal };
+
+    // Powerup information
     public class Item 
     {
+        // Random seed used for determining item type
         private Random rand;
+        // Auto-incremented ID for items
         public static int index = 1;
+        // Access the ID
         public int Index { get; set; }
+        // Retrieve/store the type of powerup dropped
         public PowerUp Type { get; set; }
 
+        // Instantiate an item
         public Item()
         {
             this.Index = index;

@@ -5,6 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * Level.cs contains the Level class and 
+ * Also contains a LevelType enum
+ * Detecting endgame
+ * Managing item drops
+ * asdf
+ */
+
 namespace TowerOfTerror.Model
 {
     // Indicates the type of level
@@ -13,12 +21,18 @@ namespace TowerOfTerror.Model
     // Contains data for the levels
     class Level : ISerializable
     {
+        // Random seed for enemy generation
         public Random rand = new Random();
+        // Auto-incremented ID
         public static int num = 0;
+        // Retrieve/store the ID
         public int Num { get; set; }
+        // Store the type of Level
         public LevelType Type { get; set; }
+        // List of enemies to be contained in each level
         public List<Enemy> Enemies { get; set; }
 
+        // Instantiate a level
         public Level(LevelType type)
         {
             this.Num = num;
@@ -36,6 +50,7 @@ namespace TowerOfTerror.Model
         }
 
         // Determines the amount of enemies to fill each level
+        // Only one enemy will appear in the boss level
         public void FillEnemies(Level lv)
         {
             int population;
@@ -61,6 +76,7 @@ namespace TowerOfTerror.Model
                         break;
                 }
             }
+            // Populate the enemy list per level
             if (Type == LevelType.Basic)
             {
                 for (int i = 0; i < population; i++)
@@ -68,7 +84,7 @@ namespace TowerOfTerror.Model
                     Enemies.Add(new Enemy());
                 }
             }
-            else // heast: "boss"
+            else // heast: "special case for boss"
             {
                 Enemies.Add(new Enemy() {
                     Position = new Point(95, 240),
