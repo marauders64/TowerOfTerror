@@ -323,6 +323,22 @@ Difficulty: Set difficulty using the dropdown box provided.
                 {
                     ctrl.UpdateEnemyPostition(enemy);
                 }
+                if(enemy.Position.X > 466)
+                {
+                    enemy.Position = new Point(466.0, enemy.Position.Y);
+                }
+                if (enemy.Position.X < 0)
+                {
+                    enemy.Position = new Point(0.0, enemy.Position.Y);
+                }
+                if (enemy.Position.Y > 293)
+                {
+                    enemy.Position = new Point(enemy.Position.X, 293.0);
+                }
+                if (enemy.Position.Y < 0)
+                {
+                    enemy.Position = new Point(enemy.Position.X, 0.0);
+                }
             }
 
             ImageUpdate();
@@ -337,7 +353,8 @@ Difficulty: Set difficulty using the dropdown box provided.
         /// <param name="e"></param>
         public void PlayerTimer_Tick(object sender, EventArgs e)
         {
-            ctrl.adventurer.Move(ctrl.adventurer.Facing);
+            Character player = ctrl.adventurer;
+            player.Move(player.Facing);
             int pointnum = img_protag.SourceRect.Width * playeranimatednum;
             while(playeranimatednum > 4)
             {
@@ -346,7 +363,23 @@ Difficulty: Set difficulty using the dropdown box provided.
 
             img_Protagonist.Source = new CroppedBitmap(new BitmapImage(new Uri("pack://application:,,,/Graphics/hero_animate.png")), new Int32Rect(pointnum, 0, 32, 32));
             ++playeranimatednum;
-            
+
+            if (player.Position.X > 476)
+            {
+                player.Position = new Point(476.0, player.Position.Y);
+            }
+            if (player.Position.X < 0)
+            {
+                player.Position = new Point(0.0, player.Position.Y);
+            }
+            if (player.Position.Y > 303)
+            {
+                player.Position = new Point(player.Position.X, 303.0);
+            }
+            if (player.Position.Y < 0)
+            {
+                player.Position = new Point(player.Position.X, 0.0);
+            }
             ImageUpdate();
             sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Running);
             sp.Play();
