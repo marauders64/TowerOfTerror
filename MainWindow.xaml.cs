@@ -1,9 +1,4 @@
-﻿/*
- * MainWindow.xaml.cs contains the GUI logic for playing the game
- * It contains a single "MainWindow" class where everything occurs
- */
-
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,6 +18,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TowerOfTerror.Model;
+
+/*
+ * MainWindow.xaml.cs contains the GUI logic for playing the game
+ * It contains a single "MainWindow" class where everything occurs
+ */
 
 namespace TowerOfTerror
 {

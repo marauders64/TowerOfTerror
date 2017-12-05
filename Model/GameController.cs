@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 
 /*
- * GameController.cs manages Game Logic such as determining an attack
+ * GameController.cs contains the GameController class
  * Detecting endgame
  * Adding items to inventory upon an enemy death
  * Also contains an AttackResult enum, a Difficulty enum, and a Direction enum

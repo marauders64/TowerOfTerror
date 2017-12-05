@@ -7,8 +7,8 @@ using System.Windows;
 using TowerOfTerror.Model;
 
 /*
- * Enemy.cs stores information for an enemy
- * Each enemy also randomly drops an item
+ * Enemy.cs contains the Enemy class
+ * Also contains enemy-specific load/save information
  */
 
 namespace TowerOfTerror.Model

@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * Character.cs contains information for the player-controlled character
+ * Character.cs contains the character class
  * Character-specific save/load logic is also contained in this file
  */
 
 namespace TowerOfTerror.Model
 {
+    // Contains information for the player-controlled character
     class Character : Entity
     {
         // Stores all items the character can have (items are autocollected)
