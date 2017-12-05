@@ -623,6 +623,7 @@ You cheated, so your score is 0.";
         private void btnSaveGame_Click(object sender, RoutedEventArgs e)
         {
             Timer.Stop();
+            PlayerTimer.Stop();
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Saving Game File:";
