@@ -124,9 +124,7 @@ namespace TowerOfTerror.Model
                 case "Dead": // i don't know why anyone would save after dying, though...
                     Status = Life.Dead;
                     break;
-                case "Falling": // not implemented
-                    Status = Life.Falling;
-                    break;
+                
             }
 
             int itemIndex = Array.IndexOf(savedData, "Items");
