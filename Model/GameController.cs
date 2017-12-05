@@ -40,6 +40,7 @@ namespace TowerOfTerror.Model
 
         public void BuildTower()
         {
+            Level.ResetNum(); // keeps level 0 at level 0
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));
             this.Floors.Add(new Level(LevelType.Basic));

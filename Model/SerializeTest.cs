@@ -50,6 +50,7 @@ namespace TowerOfTerror.Model
         [TestMethod]
         public void Level_Serialize_Converted()
         {
+            Level.ResetNum();
             Level l = new Level(LevelType.Basic);
             List<string> test = l.Serialize();
             Assert.IsTrue(test[0] == "Level");
@@ -110,7 +111,7 @@ namespace TowerOfTerror.Model
             GameController gc1 = new GameController();
             gc1.BuildTower();
             gc1.Load(@"newTestSave.dat");
-            //Assert.IsTrue(gc1.Floors[0].Num == 0); //<-- IDs not being reset, need to write reset method...
+            Assert.IsTrue(gc1.Floors[0].Num == 0); 
             Assert.IsTrue(gc1.Floors[0].Type == LevelType.Basic);
         }
 
