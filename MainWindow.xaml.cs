@@ -398,7 +398,6 @@ Difficulty: Set difficulty using the dropdown box provided.
             
             if(e.Key == Key.Space)
             {
-                Console.WriteLine("Attacking");
                 sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Swish);
                 sp.Play();
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
