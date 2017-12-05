@@ -36,6 +36,8 @@ namespace TowerOfTerror.Model
         {
             GameController gc1 = new GameController();
             gc1.Setting = Difficulty.Medium;
+            gc1.BuildTower();
+            gc1.Setup();
             Assert.IsTrue(gc1.adventurer.Health == 80);
         }
 
@@ -44,6 +46,8 @@ namespace TowerOfTerror.Model
         {
             GameController gc1 = new GameController();
             gc1.Setting = Difficulty.Hard;
+            gc1.BuildTower();
+            gc1.Setup();
             Assert.IsTrue(gc1.adventurer.Health == 60);
         }
 

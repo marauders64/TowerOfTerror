@@ -27,6 +27,14 @@ namespace TowerOfTerror.Model
             this.Enemies = new List<Enemy>();
         }
 
+        /// <summary>
+        /// Keeps level numbers correct when creating mutiple game instances
+        /// </summary>
+        public static void ResetNum()
+        {
+            num = 0;
+        }
+
         // Determines the amount of enemies to fill each level
         public void FillEnemies(Level lv)
         {
