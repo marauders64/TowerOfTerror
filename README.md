@@ -35,3 +35,4 @@ http://tinyurl.com/cps209-ToT-beta
 | Santana | 27* hrs. | 3/23 hrs. |
 | East | 35.5 hrs. | 0/9.5 hrs. |
 | Mauk | 29.5 hrs. | 0.5/20.5 hrs. |
+*Not up to date
