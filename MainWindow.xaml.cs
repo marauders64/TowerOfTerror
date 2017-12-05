@@ -62,6 +62,8 @@ namespace TowerOfTerror
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
 
+            btnStartGame.IsEnabled = false;
+            btnLoadGame.IsEnabled = false;
             string diff;
             Difficulty sett;
             btnSaveGame.IsEnabled = true;
@@ -71,7 +73,7 @@ namespace TowerOfTerror
             if (ctrl.Cheating)
             {
                 btnSaveGame.IsEnabled = false;
-                btnLoadGame.IsEnabled = false;
+                //btnLoadGame.IsEnabled = false;
                 btnAtk.IsEnabled = false;
                 btnDef.IsEnabled = false;
                 btnHeal.IsEnabled = false;
@@ -162,6 +164,10 @@ namespace TowerOfTerror
         /// <param name="e"></param>
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
         {
+            btnStartGame.IsEnabled = false;
+            btnLoadGame.IsEnabled = false;
+            btnSaveGame.IsEnabled = true;
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Please Choose a Game to Load:";
