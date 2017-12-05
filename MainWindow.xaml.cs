@@ -33,15 +33,18 @@ namespace TowerOfTerror
     {
         GameController ctrl = new GameController();
         List<string> difficulties = new List<string>(3);
+        //Keeps a record between images and their objects.
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
         private int attackCount = 0;
         private int defenseCount = 0;
         private int healCount = 0;
-        DispatcherTimer Timer = new DispatcherTimer();
+        //Keeps track of enemy movement, attacks, and animations.
+        DispatcherTimer Timer = new DispatcherTimer(); 
+        //Keeps track of player movement and animations.
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
         private int playeranimatednum = 1; //Keeps track of the player's animation.
-        private int monsteranimnum = 1; //Keeps 
+        private int monsteranimnum = 1; //Keeps track of monster animations.
 
         public MainWindow()
         {
@@ -112,12 +115,10 @@ namespace TowerOfTerror
 
             img_Protagonist.Visibility = Visibility.Visible;
             ctrl.Score = 0;
-
-
+            
             SetupImages(); // works!
             entities.Add(img_Protagonist, ctrl.adventurer);
-
-
+            
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
@@ -146,13 +147,7 @@ namespace TowerOfTerror
                 entities.Add(img_enemy, en);
             }
             Arena.Focus();
-
-
-            /*Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            Timer.Tick += Timer_Tick;
-            PlayerTimer.Tick += PlayerTimer_Tick;
-            Timer.Start();*/
+            
         }
 
         /// <summary>
