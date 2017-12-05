@@ -12,9 +12,11 @@ Attack using the Space Bar.
 * Gameplay fairly smooth
 * Endgame functional with some issues
 * Save/Load functional with some issues
+* Unit testing
+* Most common bugs fixed
 
 # Major Issues
-* Asynchronous exception handling not implemented
+* Load Items issues
 
 # Recording to the Alpha
 http://youtu.be/otyVemljuIk?hd=1
