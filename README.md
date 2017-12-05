@@ -31,6 +31,7 @@ http://tinyurl.com/cps209-ToT-beta
 
 # Recording of the Final Release
 * http://youtu.be/xXYKXqIzsE0?hd=1 (shows endgame)
+* Excuse my roommate watching football in the background
 
 # Expenses
 
