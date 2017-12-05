@@ -1,4 +1,7 @@
-﻿using System;
+﻿//This file contains the HighScores and HighScore classes.
+//These classes are used to manage high scores.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +10,11 @@ using System.IO;
 
 namespace TowerOfTerror.Model
 {
+    /// <summary>
+    /// A class for tracking and adding high scores.
+    /// </summary>
     class HighScores
     {
-        //public Dictionary<string, int> HighScoreDict { get; }
-        //public List<int> ScoreList { get; set; }
         public List<HighScore> Scores { get; set; }
 
         private static HighScores leaderboard = new HighScores();
@@ -79,6 +83,9 @@ namespace TowerOfTerror.Model
 
     }
 
+    /// <summary>
+    /// A class for keeping a high scorer's name and score.
+    /// </summary>
     class HighScore : IComparable<HighScore>
     {
         public string Name { get; set; }
