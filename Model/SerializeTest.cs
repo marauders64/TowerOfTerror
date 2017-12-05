@@ -37,7 +37,7 @@ namespace TowerOfTerror.Model
             Enemy e = new Enemy();
             List<string> test = e.Serialize();
             Assert.IsTrue(test[0] == "Enemy");
-            //Assert.IsTrue(test[1] == "1"); <-- i don't know how many Enemies have been made to this point
+            //Assert.IsTrue(test[1] == "1"); 
             //test[2] is a null image at present
             Assert.IsTrue(test[3] == "0"); 
             Assert.IsTrue(test[4] == "0");
@@ -93,6 +93,7 @@ namespace TowerOfTerror.Model
 
         //--------------------------------------------------
         //--------------- LOAD / DESERIALIZE ---------------
+        //----- Load calls Deserialize on each object ------
         //--------------------------------------------------
 
         [TestMethod]

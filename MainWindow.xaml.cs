@@ -181,6 +181,7 @@ namespace TowerOfTerror
                     img_Protagonist.Visibility = Visibility.Visible;
                     txtPlayerName.Text = Convert.ToString(ctrl.adventurer.Name);
                     Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+                    cmbDifficultyPicker.Text = Convert.ToString(ctrl.Setting);
 
                     foreach (Enemy en in ctrl.currentFloor.Enemies)
                     {
