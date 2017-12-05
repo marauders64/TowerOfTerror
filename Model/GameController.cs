@@ -28,7 +28,7 @@ namespace TowerOfTerror.Model
         public bool Cheating { get; set; }
         public Level currentFloor;
         public Character adventurer;
-        public int Score { get; set; }
+        public int Score { get; set; } // Keeps track of the current score.
         public static Random rand = new Random();
         
         public GameController()
@@ -128,15 +128,21 @@ namespace TowerOfTerror.Model
             }
         }
 
-        // Does the logic for when the player moves
-        // Moves the enemies in a random direction
+        /// <summary>
+        /// Moves the character in the direction.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="direction"></param>
         public void UpdatePlayerPosition(Character character, Direction direction)
         {
             character.Move(direction);
             
         }
 
-        //Does independant enemy movement
+        /// <summary>
+        /// Randomly moves the enemy.
+        /// </summary>
+        /// <param name="enemy"></param>
         public void UpdateEnemyPostition(Enemy enemy)
         {
             Direction dir;
@@ -166,7 +172,11 @@ namespace TowerOfTerror.Model
             enemy.Move(dir);
         }
 
-        // Does enemy tracking
+        /// <summary>
+        /// Does the logic for how an enemy tracks a character.
+        /// </summary>
+        /// <param name="enemy"></param>
+        /// <param name="player"></param>
         public void EnemyTrack(Enemy enemy, Entity player)
         {
             double xdist = enemy.Position.X - player.Position.X;

@@ -66,6 +66,10 @@ namespace TowerOfTerror.Model
             //return true; // <-- used for Item debugging purposes
         }
 
+        /// <summary>
+        /// Moves the Enemy in the direction it is facing.
+        /// </summary>
+        /// <param name="dir"></param>
         public override void Move(Direction dir)
         {
             switch (dir)

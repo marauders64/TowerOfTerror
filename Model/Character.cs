@@ -64,6 +64,10 @@ namespace TowerOfTerror.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Moves the Character in the direction it is facing.
+        /// </summary>
+        /// <param name="dir"></param>
         public override void Move(Direction dir)
         {
             switch (dir)

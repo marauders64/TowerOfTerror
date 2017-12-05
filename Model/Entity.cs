@@ -36,6 +36,7 @@ namespace TowerOfTerror.Model
         // Returns a string matching the kind of entity it is
         public abstract Type GetKind();
 
+        // Moves in the direction it is facing 
         public abstract void Move(Direction direction);
 
         public abstract List<string> Serialize();
