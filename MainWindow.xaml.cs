@@ -33,15 +33,18 @@ namespace TowerOfTerror
     {
         GameController ctrl = new GameController();
         List<string> difficulties = new List<string>(3);
+        //Keeps a record between images and their objects.
         Dictionary<Image, Entity> entities = new Dictionary<Image, Entity>();
         private int attackCount = 0;
         private int defenseCount = 0;
         private int healCount = 0;
-        DispatcherTimer Timer = new DispatcherTimer();
+        //Keeps track of enemy movement, attacks, and animations.
+        DispatcherTimer Timer = new DispatcherTimer(); 
+        //Keeps track of player movement and animations.
         DispatcherTimer PlayerTimer = new DispatcherTimer();
         SoundPlayer sp;
-        private int playeranimatednum = 1;
-        private int monsteranimnum = 1;
+        private int playeranimatednum = 1; //Keeps track of the player's animation.
+        private int monsteranimnum = 1; //Keeps track of monster animations.
 
         public MainWindow()
         {
@@ -62,6 +65,8 @@ namespace TowerOfTerror
             // Determine difficulty setting based on Combo Box
             // Enabling Cheat mode defaults the difficulty to easy
 
+            btnStartGame.IsEnabled = false;
+            btnLoadGame.IsEnabled = false;
             string diff;
             Difficulty sett;
             btnSaveGame.IsEnabled = true;
@@ -71,7 +76,7 @@ namespace TowerOfTerror
             if (ctrl.Cheating)
             {
                 btnSaveGame.IsEnabled = false;
-                btnLoadGame.IsEnabled = false;
+                //btnLoadGame.IsEnabled = false;
                 btnAtk.IsEnabled = false;
                 btnDef.IsEnabled = false;
                 btnHeal.IsEnabled = false;
@@ -112,12 +117,10 @@ namespace TowerOfTerror
 
             img_Protagonist.Visibility = Visibility.Visible;
             ctrl.Score = 0;
-
-
+            
             SetupImages(); // works!
             entities.Add(img_Protagonist, ctrl.adventurer);
-
-
+            
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
             PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             Timer.Tick += Timer_Tick;
@@ -146,13 +149,7 @@ namespace TowerOfTerror
                 entities.Add(img_enemy, en);
             }
             Arena.Focus();
-
-
-            /*Timer.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            PlayerTimer.Interval = new TimeSpan(0, 0, 0, 0, 10);
-            Timer.Tick += Timer_Tick;
-            PlayerTimer.Tick += PlayerTimer_Tick;
-            Timer.Start();*/
+            
         }
 
         /// <summary>
@@ -162,6 +159,10 @@ namespace TowerOfTerror
         /// <param name="e"></param>
         private void btnLoadGame_Click(object sender, RoutedEventArgs e)
         {
+            btnStartGame.IsEnabled = false;
+            btnLoadGame.IsEnabled = false;
+            btnSaveGame.IsEnabled = true;
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Please Choose a Game to Load:";
@@ -180,13 +181,15 @@ namespace TowerOfTerror
                     img_Protagonist.Visibility = Visibility.Visible;
                     txtPlayerName.Text = Convert.ToString(ctrl.adventurer.Name);
                     Health_txt.Text = Convert.ToString(ctrl.adventurer.Health);
+                    cmbDifficultyPicker.Text = Convert.ToString(ctrl.Setting);
 
                     foreach (Enemy en in ctrl.currentFloor.Enemies)
                     {
                         Image img_enemy = new Image
                         {
                             Source = new BitmapImage(new Uri("Graphics/chitiniac_idle-1.png", UriKind.Relative)),
-                            Height = 40
+                            Height = 40,
+                            RenderTransformOrigin = new Point(0.5, 0.5)
                         };
                         if (en.Status == Life.Alive)
                         {
@@ -211,7 +214,6 @@ namespace TowerOfTerror
                     PlayerTimer.Tick += PlayerTimer_Tick;
                     Timer.Start();
                 }
-
 
             }
             catch (FileFormatException ex)
@@ -294,7 +296,13 @@ Difficulty: Set difficulty using the dropdown box provided.
         }
         
 
-        //Independent enemy movement
+        /// <summary>
+        /// Holds the logic for enemy tracking and moving. Ticks every half second
+        /// and all enemies will either attack (if in range), track the player,
+        /// or randomnly move.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Timer_Tick(object sender, EventArgs e)
         {
             Character player = ctrl.adventurer;
@@ -320,6 +328,13 @@ Difficulty: Set difficulty using the dropdown box provided.
             ImageUpdate();
         }
 
+        /// <summary>
+        /// Holds the logic for player movement and animations. Ticks every tenth of 
+        /// a second and will move the player in the direction they are facing as 
+        /// well as update the animation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void PlayerTimer_Tick(object sender, EventArgs e)
         {
             ctrl.adventurer.Move(ctrl.adventurer.Facing);
@@ -337,7 +352,12 @@ Difficulty: Set difficulty using the dropdown box provided.
             sp.Play();
         }
 
-        /// Moving/Attacking stuff
+        /// <summary>
+        /// Contains logic for player attacking and stops the player timer when a 
+        /// key is released, which will end player animation.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Arena_cvs_KeyUp(object sender, KeyEventArgs e)
         {
             PlayerTimer.Stop();
@@ -350,10 +370,8 @@ Difficulty: Set difficulty using the dropdown box provided.
                 sp.Play();
                 foreach (Enemy enemy in ctrl.currentFloor.Enemies)
                 {   
-                    //needs work
                     if(AttackHits(player, enemy))
                     {
-                        Console.WriteLine("hitting");
                         ctrl.PlayerAttack(player, enemy);
                         sp = new SoundPlayer(TowerOfTerror.Properties.Resources.Crack);
                         sp.Play();
@@ -365,7 +383,12 @@ Difficulty: Set difficulty using the dropdown box provided.
 
         }
 
-        //Attacking hits logic
+        /// <summary>
+        /// Determines whether an attacker will hit the victim or not.
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="victim"></param>
+        /// <returns>true if attack hits else false</returns>
         private bool AttackHits(Entity attacker, Entity victim)
         {
             if (attacker is Character)
@@ -437,7 +460,12 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
 
-        //Player continuous Movement
+        /// <summary>
+        /// When any of the wasd keys are pressed the characters direction that 
+        /// it is facing will change accordingly and the Playertimer will start.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Arena_cvs_KeyDown(object sender, KeyEventArgs e)
         {
             Character player = ctrl.adventurer;
@@ -465,7 +493,11 @@ Difficulty: Set difficulty using the dropdown box provided.
             }
         }
 
-        //After movement Stuff
+        /// <summary>
+        /// Updates the list of dead enemies and also updates the images on
+        /// the canvas to represent the objects they belong to. Also determines
+        /// whether the level has ended or the game has ended.
+        /// </summary>
         public void ImageUpdate()
         {
             //Update canvas positions
@@ -628,6 +660,7 @@ You cheated, so your score is 0.";
         private void btnSaveGame_Click(object sender, RoutedEventArgs e)
         {
             Timer.Stop();
+            PlayerTimer.Stop();
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Data files|*.dat";
             dialog.Title = "Saving Game File:";

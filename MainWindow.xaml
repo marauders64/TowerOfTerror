@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TowerOfTerror"
         mc:Ignorable="d"
-        Title="MainWindow" Height="461.592" Width="654.268" Background="LightGray">
+        Title="Tower of Terror" Height="461.592" Width="654.268" Background="LightGray">
 
     <StackPanel x:Name="panel_Tower" >
         <Image Height="88">

@@ -146,13 +146,20 @@ namespace TowerOfTerror.Model
             }
         }
 
-        // Does the logic for when the player moves
+        /// <summary>
+        /// Moves the character in the direction.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="direction"></param>
         public void UpdatePlayerPosition(Character character, Direction direction)
         {
             character.Move(direction);
         }
 
-        //Does independent enemy movement
+        /// <summary>
+        /// Randomly moves the enemy.
+        /// </summary>
+        /// <param name="enemy"></param>
         public void UpdateEnemyPostition(Enemy enemy)
         {
             Direction dir;
@@ -182,7 +189,11 @@ namespace TowerOfTerror.Model
             enemy.Move(dir);
         }
 
-        // Does enemy tracking
+        /// <summary>
+        /// Does the logic for how an enemy tracks a character.
+        /// </summary>
+        /// <param name="enemy"></param>
+        /// <param name="player"></param>
         public void EnemyTrack(Enemy enemy, Entity player)
         {
             double xdist = enemy.Position.X - player.Position.X;
@@ -357,8 +368,7 @@ namespace TowerOfTerror.Model
             }
             else
             {
-                // apparently async methods don't do try/catch exception handling, but too late to research now...
-                throw new FileFormatException();
+                // launch new game instead... Still can't get the event handler to catch exceptions...
             }
         }
     }

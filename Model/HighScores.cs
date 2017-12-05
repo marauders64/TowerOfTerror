@@ -1,4 +1,7 @@
-﻿using System;
+﻿//This file contains the HighScores and HighScore classes.
+//These classes are used to manage high scores.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +10,11 @@ using System.IO;
 
 namespace TowerOfTerror.Model
 {
+    /// <summary>
+    /// A class for tracking and adding high scores.
+    /// </summary>
     class HighScores
     {
-        //public Dictionary<string, int> HighScoreDict { get; }
-        //public List<int> ScoreList { get; set; }
         public List<HighScore> Scores { get; set; }
 
         private static HighScores leaderboard = new HighScores();
@@ -39,6 +43,10 @@ namespace TowerOfTerror.Model
             
         }
 
+        /// <summary>
+        /// Saves all of the high scores to a txt file
+        /// for safekeeping.
+        /// </summary>
         public void SaveHighScores()
         {
             using (StreamWriter writer = new StreamWriter("HighScores.txt"))
@@ -70,6 +78,8 @@ namespace TowerOfTerror.Model
                         entry = reader.ReadLine();
                     }
                 }
+                Scores.Sort();
+                Scores.Reverse();
             }
             else
             {
@@ -79,6 +89,9 @@ namespace TowerOfTerror.Model
 
     }
 
+    /// <summary>
+    /// A class for keeping a high scorer's name and score.
+    /// </summary>
     class HighScore : IComparable<HighScore>
     {
         public string Name { get; set; }
@@ -90,17 +103,21 @@ namespace TowerOfTerror.Model
             Score = score;
         }
 
+        /// <summary>
+        /// Returns a string of the Name and score of a high score.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             string entry = Name + ": " + Score;
             return entry;
         }
-
-        public override int GetHashCode()
-        {
-            return Score;
-        }
-
+        
+        /// <summary>
+        /// Compares scores to each other.
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public int CompareTo(HighScore score)
         {
             if (score == null)
