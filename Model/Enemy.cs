@@ -135,9 +135,7 @@ namespace TowerOfTerror.Model
                 case "Dead":
                     Status = Life.Dead;
                     break;
-                case "Falling":
-                    Status = Life.Falling;
-                    break;
+                
             }
         }
     }
